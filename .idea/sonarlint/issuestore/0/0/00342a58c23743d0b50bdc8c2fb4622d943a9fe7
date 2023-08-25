@@ -1,0 +1,108 @@
+
+h	java:S112•"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8æÅµ†¢1
+Q
+java:S3740H"/Provide the parametrized type for this generic.(Ü¿ÜØûÿÿÿÿ8çÅµ†¢1
+n
+java:S1301 "KReplace this "switch" statement by "if" statements to increase readability.(³ÒÂŒÿÿÿÿÿ8éÅµ†¢1
+n
+java:S1301Ö"KReplace this "switch" statement by "if" statements to increase readability.(×ö³–úÿÿÿÿ8éÅµ†¢1
+r
+java:S2095´"TUse try-with-resources or close this "MediaMetadataRetriever" in a "finally" clause.(øæ‚Õ8íÇµ†¢1
+c
+java:S2637Œ"EThis method's return value is marked "@NonNull" but null is returned.(¥¹ï8íÇµ†¢1
+U
+java:S2589Ô"7Remove this expression which always evaluates to "true"(¤¹Òï8íÇµ†¢1
+n
+java:S1659G"QDeclare "tvMultiSelectMessage" and all following declarations on a separate line.(ş“‚Œ8øÇµ†¢1
+†
+java:S1450Z"dRemove the "multiSelectBarBgColor" field and declare it as a local variable in the relevant methods.(Ã†¹²ÿÿÿÿÿ8úÇµ†¢1
+‰
+java:S1450\"gRemove the "multiSelectDoneTextColor" field and declare it as a local variable in the relevant methods.( ªïŒøÿÿÿÿ8úÇµ†¢1
+€
+java:S1450["cRemove the "multiSelectTextColor" field and declare it as a local variable in the relevant methods.(äãª8ûÇµ†¢1
+}
+java:S1450U"`Remove the "providerAuthority" field and declare it as a local variable in the relevant methods.(õ¸¢ø8ûÇµ†¢1
+t
+java:S1450K"RRemove the "tag" field and declare it as a local variable in the relevant methods.(Ùà¨›ıÿÿÿÿ8üÇµ†¢1
+‘
+java:S6201h"tReplace this instanceof check and cast with 'instanceof OnSingleVideoSelectedListener onsinglevideoselectedlistener'(ŠÚÓÍ8‰Èµ†¢1
+}
+java:S6201k"`Replace this instanceof check and cast with 'instanceof VideoLoaderDelegate videoloaderdelegate'(äá‰é8‰Èµ†¢1
+R
+java:S1874z"5Remove this use of "getParcelable"; it is deprecated.(¢ıºË8‹Èµ†¢1
+’
+java:S6201ƒ"tReplace this instanceof check and cast with 'instanceof OnSingleVideoSelectedListener onsinglevideoselectedlistener'(ØœË8Èµ†¢1
+g
+java:S4201ƒ"IRemove this unnecessary null check; "instanceof" returns false for nulls.(ØœË8Èµ†¢1
+ƒ
+java:S6201†"`Replace this instanceof check and cast with 'instanceof VideoLoaderDelegate videoloaderdelegate'(ƒöÿôøÿÿÿÿ8Èµ†¢1
+l
+java:S4201†"IRemove this unnecessary null check; "instanceof" returns false for nulls.(ƒöÿôøÿÿÿÿ8Èµ†¢1
+a
+java:S1874">Remove this use of "setBottomSheetCallback"; it is deprecated.(ã„°ÿÿÿÿÿ8“Èµ†¢1
+D	java:S131 ""Add a default case to this switch.(³ÒÂŒÿÿÿÿÿ8”Èµ†¢1
+F
+java:S1185µ"(Remove this method to simply inherit it.(±±Áé8•Èµ†¢1
+Y	java:S125·"<This block of commented-out lines of code should be removed.(À¼„8•Èµ†¢1
+h
+java:S1874½"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(†¼â8•Èµ†¢1
+W
+java:S1874¾"9Remove this use of "onActivityCreated"; it is deprecated.(€…É’8–Èµ†¢1
+a
+java:S1874À">Remove this use of "getParcelableArrayList"; it is deprecated.(é·††ÿÿÿÿÿ8–Èµ†¢1
+m
+java:S1874Ô"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(Ó»×¶şÿÿÿÿ8˜Èµ†¢1
+`
+java:S1874Õ"BRemove this use of "onRequestPermissionsResult"; it is deprecated.(Öƒà8™Èµ†¢1
+i	java:S128×"LEnd this switch case with an unconditional break, return or throw statement.(¢Ä¦ß8™Èµ†¢1
+^	java:S125Ü"<This block of commented-out lines of code should be removed.(ÏùÖåıÿÿÿÿ8šÈµ†¢1
+`
+java:S1874á"BRemove this use of "onRequestPermissionsResult"; it is deprecated.(Öƒà8šÈµ†¢1
+m
+java:S1874æ"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÉÎÍïıÿÿÿÿ8šÈµ†¢1
+u
+java:S3776æ"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(ÉÎÍïıÿÿÿÿ8›Èµ†¢1
+q
+java:S1602"SRemove useless curly braces around statement and then remove useless return keyword(÷¼¼Ä8Èµ†¢1
+[
+java:S1874š"8Remove this use of "onActivityResult"; it is deprecated.(ß¬©úÿÿÿÿ8Èµ†¢1
+i
+java:S1874 "FRemove this use of "ACTION_MEDIA_SCANNER_SCAN_FILE"; it is deprecated.(ëÒ¿šıÿÿÿÿ8¢Èµ†¢1
+\
+java:S1874¼">Remove this use of "startActivityForResult"; it is deprecated.(‚È¨‚8©Èµ†¢1
+^
+java:S6201Á"@Replace this instanceof check and cast with 'instanceof Uri uri'(˜ÒÎ‡8©Èµ†¢1
+g
+java:S4201Á"IRemove this unnecessary null check; "instanceof" returns false for nulls.(˜ÒÎ‡8©Èµ†¢1
+P
+java:S1874Ò"-Remove this use of "DEBUG"; it is deprecated.(Ñ¶„±ûÿÿÿÿ8«Èµ†¢1
+`
+java:S1874Ş"=Remove this use of "queryIntentActivities"; it is deprecated.(Ï×º±ûÿÿÿÿ8¬Èµ†¢1
+\
+java:S1874ã">Remove this use of "startActivityForResult"; it is deprecated.(æ™Ù8­Èµ†¢1
+
+java:S1130è"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ŒÑ°ßıÿÿÿÿ8­Èµ†¢1
+c
+java:S3252ˆ"@Use static access with "android.provider.BaseColumns" for "_ID".(öÎ¾Ãüÿÿÿÿ8²Èµ†¢1
+q
+java:S3252‰"SUse static access with "android.provider.MediaStore$MediaColumns" for "DATE_ADDED".(Å¶ëÌ8²Èµ†¢1
+p
+java:S3776‘"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(‡åû8µìÅ†¢1
+c
+java:S3252–"@Use static access with "android.provider.BaseColumns" for "_ID".(şŸ€ûÿÿÿÿ8¶‰Ø†¢1
+P
+java:S1874Û"-Remove this use of "DEBUG"; it is deprecated.(Ñ¶„±ûÿÿÿÿ8¼Èµ†¢1
+G
+java:S1068G"*Remove this unused "tvDone" private field.(ş“‚Œ8ÁÈµ†¢1
+U
+java:S1068G"8Remove this unused "tvMultiSelectMessage" private field.(ş“‚Œ8ÁÈµ†¢1
+I
+java:S1068K"'Remove this unused "tag" private field.(Ùà¨›ıÿÿÿÿ8ÁÈµ†¢1
+R
+java:S1068U"5Remove this unused "providerAuthority" private field.(õ¸¢ø8ÂÈµ†¢1
+[
+java:S1068Z"9Remove this unused "multiSelectBarBgColor" private field.(Ã†¹²ÿÿÿÿÿ8ÂÈµ†¢1
+U
+java:S1068["8Remove this unused "multiSelectTextColor" private field.(äãª8ÂÈµ†¢1
+^
+java:S1068\"<Remove this unused "multiSelectDoneTextColor" private field.( ªïŒøÿÿÿÿ8ÂÈµ†¢1

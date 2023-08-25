@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_dialog"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingTop="@dimen/vertical_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:paddingBottom="@dimen/vertical_margin">
+
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_marginHorizontal="5dp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_close_dialog"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtTitle"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Thêm Địa Điểm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/color_title"
+            android:textSize="@dimen/font20_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <View
+            android:id="@+id/lineOne"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+            android:layout_width="0dp"
+            android:layout_height="0.9dp"
+            app:layout_constraintStart_toStartOf="@+id/txtTitle"
+            app:layout_constraintEnd_toEndOf="@id/txtTitle"
+            android:layout_marginVertical="10dp"
+            android:background="@color/color_datroi" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/lineOne"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp"
+                android:weightSum="3">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:paddingVertical="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_dia_diem"
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/font16_sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtTenDiaDiem"
+                    style="@style/EditextCustom"
+                    android:inputType="text"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@color/color_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Địa chỉ:"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/font16_sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtDiaChi"
+                    style="@style/EditextCustom"
+                    android:inputType="textMultiLine"
+                    android:lines="2"
+                    android:minLines="2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@color/color_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp"
+                android:weightSum="3">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Người liên hệ:"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/font16_sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtLienHe"
+                    style="@style/EditextCustom"
+                    android:inputType="text"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp"
+                android:weightSum="3">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Điện thoại:"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_title"
+                    android:textSize="@dimen/font16_sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    style="@style/EditextCustom"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+            </LinearLayout>
+
+            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/md_blue_200"
+                app:layout_cornerRadius="25dp"
+                app:layout_duration="500"
+                app:layout_scale="0.85">
+                <TextView
+                    android:text="Thêm"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font16_sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

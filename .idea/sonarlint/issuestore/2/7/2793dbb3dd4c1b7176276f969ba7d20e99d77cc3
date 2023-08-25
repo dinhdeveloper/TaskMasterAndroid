@@ -1,0 +1,47 @@
+
+L
+java:S3740è"/Provide the parametrized type for this generic.(úÊ+8èÇ”àŸ1
+a
+java:S6208æ"CMerge the previous cases into this one using comma-separated label.(…Ô«Ê8èÇ”àŸ1
+M
+java:S1066Ÿ"/Merge this if statement with the enclosing one.(ÈãèÃ8èÇ”àŸ1
+y
+java:S1450~"\Remove the "mParentHeight" field and declare it as a local variable in the relevant methods.(°±ì‹8”É”àŸ1
+Z
+java:S1874¼"<Remove this use of "setFitsSystemWindows"; it is deprecated.(œèÛ¾8³É”àŸ1
+T
+java:S1874Û"7Remove this use of "getActionMasked"; it is deprecated.(Ğ«Ğ18³É”àŸ1
+D	java:S131ä""Add a default case to this switch.(ë´åİşÿÿÿÿ8³É”àŸ1
+T
+java:S1874"7Remove this use of "getActionMasked"; it is deprecated.(Ğ«Ğ18³É”àŸ1
+m
+java:S1874¨"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ò®Æ÷üÿÿÿÿ8³É”àŸ1
+h
+java:S1874°"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(·¦ú8³É”àŸ1
+Y
+java:S1874¹";Remove this use of "canScrollVertically"; it is deprecated.(Ç€8³É”àŸ1
+m
+java:S1874Ö"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ó˜›´ùÿÿÿÿ8³É”àŸ1
+Y	java:S125"<This block of commented-out lines of code should be removed.(éİ¥—8³É”àŸ1
+K
+java:S1905¡"(Remove this unnecessary cast to "float".(öÕí˜øÿÿÿÿ8ÃÉ”àŸ1
+f
+java:S6201¨"HReplace this instanceof check and cast with 'instanceof ViewGroup group'(°¬¸8ÃÉ”àŸ1
+`
+java:S1874¶"=Remove this use of "VelocityTrackerCompat"; it is deprecated.(–òƒ€ûÿÿÿÿ8ÃÉ”àŸ1
+W
+java:S1874¶"4Remove this use of "getYVelocity"; it is deprecated.(–òƒ€ûÿÿÿÿ8ÃÉ”àŸ1
+^
+java:S1874Å";Remove this use of "canScrollVertically"; it is deprecated.(‘ãå¤øÿÿÿÿ8ÃÉ”àŸ1
+?
+java:S1110—"!Remove these useless parentheses.(é¤“8ÃÉ”àŸ1
+[
+java:S1874Í"8Remove this use of "ParcelableCompat"; it is deprecated.(¥œ”üÿÿÿÿ8ÃÉ”àŸ1
+U
+java:S1874Í"2Remove this use of "newCreator"; it is deprecated.(¥œ”üÿÿÿÿ8ÃÉ”àŸ1
+b
+java:S3358ò"DExtract this nested ternary operation into an independent statement.(öÅ¨8ÃÉ”àŸ1
+b
+java:S3358ö"DExtract this nested ternary operation into an independent statement.(öÅ¨8ÃÉ”àŸ1
+N
+java:S1068~"1Remove this unused "mParentHeight" private field.(°±ì‹8ÃÉ”àŸ1

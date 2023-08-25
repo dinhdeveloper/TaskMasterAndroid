@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rounded_dialog"
+    android:paddingLeft="@dimen/horizontal_margin"
+    android:paddingTop="@dimen/vertical_margin"
+    android:paddingRight="@dimen/horizontal_margin"
+    android:paddingBottom="@dimen/vertical_margin">
+
+
+    <ImageView
+        android:id="@+id/imgClose"
+        android:layout_marginHorizontal="5dp"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_close_dialog"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtTitle"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Thêm Ảnh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/color_title"
+        android:textSize="@dimen/font20_sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"/>
+
+    <View
+        android:id="@+id/lineOne"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        android:layout_width="0dp"
+        android:layout_height="0.9dp"
+        app:layout_constraintStart_toStartOf="@+id/txtTitle"
+        app:layout_constraintEnd_toEndOf="@id/txtTitle"
+        android:layout_marginVertical="10dp"
+        android:background="@color/color_datroi" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/lineOne"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="1. Ảnh"
+            android:textColor="@color/color_title"
+            android:textSize="@dimen/font16_sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="120dp">
+            <com.dinhtc.taskmaster.common.view.UploadDocumentImage
+                android:id="@+id/imgFront"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple_bg_upload_image"
+                app:actionResId="@string/hint_image"
+                app:iconResId="@drawable/photo_camera_svgrepo_com" />
+
+            <ImageView
+                android:id="@+id/imgView"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:id="@+id/viewBackground"
+                android:visibility="gone"
+                android:background="@color/transparent_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/imgCloseImg"
+                android:visibility="gone"
+                android:layout_marginHorizontal="5dp"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_close_dialog_while"
+                tools:ignore="MissingConstraints" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="2. Video"
+            android:textColor="@color/color_title"
+            android:textSize="@dimen/font16_sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginBottom="30dp"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="120dp">
+            <com.dinhtc.taskmaster.common.view.UploadDocumentImage
+                android:id="@+id/imgVideo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple_bg_upload_image"
+                app:actionResId="@string/hint_video"
+                app:iconResId="@drawable/icon_video" />
+
+            <ImageView
+                android:id="@+id/imgViewVideo"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:id="@+id/viewBackgroundVideo"
+                android:visibility="gone"
+                android:background="@color/transparent_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+            <ImageView
+                android:id="@+id/imgCloseVideo"
+                android:visibility="gone"
+                android:layout_marginHorizontal="5dp"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_close_dialog_while"
+                tools:ignore="MissingConstraints" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="13dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/md_blue_200"
+            app:layout_cornerRadius="25dp"
+            app:layout_duration="500"
+            app:layout_scale="0.85">
+            <TextView
+                android:id="@+id/tvSm"
+                android:text="Lưu"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/font16_sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

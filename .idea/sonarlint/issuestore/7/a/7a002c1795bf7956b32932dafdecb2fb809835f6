@@ -1,0 +1,10 @@
+
+Tkotlin:S1172ê"4Remove this unused function parameter "edtPassword".(Ÿ•Üµ8ÂìË›¢1
+Tkotlin:S1172¨"4Use "_" instead of this unused lambda parameter "v".(­ëÆã8ÃìË›¢1
+>kotlin:S1128"Remove this unused import.(µ®›¬şÿÿÿÿ8ƒßÌ›¢1
+>kotlin:S1128"Remove this unused import.(’—ÄÑùÿÿÿÿ8ÈìË›¢1
+Bkotlin:S125w"Remove this commented out code.(ˆŒèªøÿÿÿÿ8ÊìË›¢1
+vkotlin:S3776O"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(µƒû‰ûÿÿÿÿ8ÌìË›¢1
+rkotlin:S117©"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(óÈëª8ÍìË›¢1
+Nkotlin:S1066ª".Merge this "if" statement with the nested one.(Õ÷Ø8ÏìË›¢1
+akotlin:S6510Í"AMove "return" statements from all branches before "if" statement.(‘óÎ8ÏìË›¢1

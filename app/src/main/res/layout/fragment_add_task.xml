@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_home"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:id="@+id/tvTTDH"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_title"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="GIAO VIỆC"
+                    android:textAllCaps="true"
+                    android:textColor="#00428E"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTTDH">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/layoutViewOne"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bg_one"
+                        android:elevation="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal"
+                            android:paddingVertical="10dp"
+                            android:weightSum="3">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center_vertical"
+                                android:text="@string/loai_viec"
+                                android:textColor="@color/color_title"
+                                android:textSize="@dimen/font16_sp"
+                                android:textStyle="bold" />
+
+                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                                android:id="@+id/edtSelectTask"
+                                style="@style/TextViewAddressValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="end"
+                                android:hint="Chọn công việc"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font16_sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal"
+                            android:paddingVertical="10dp"
+                            android:weightSum="3">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center_vertical"
+                                android:text="Nhân Viên 1:"
+                                android:textColor="@color/color_title"
+                                android:textSize="@dimen/font16_sp"
+                                android:textStyle="bold" />
+
+                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                                android:id="@+id/edtSelectNV1"
+                                style="@style/TextViewAddressValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="end"
+                                android:hint="Chọn nhân viên 1"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font16_sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal"
+                            android:paddingVertical="10dp"
+                            android:weightSum="3">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center_vertical"
+                                android:text="Nhân Viên 2:"
+                                android:textColor="@color/color_title"
+                                android:textSize="@dimen/font16_sp"
+                                android:textStyle="bold" />
+
+                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                                android:id="@+id/edtSelectNV2"
+                                style="@style/TextViewAddressValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="end"
+                                android:hint="Chọn nhân viên 2"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font16_sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="5dp"
+                            android:orientation="horizontal"
+                            android:paddingVertical="10dp"
+                            android:weightSum="3">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center_vertical"
+                                android:text="Ưu tiên: "
+                                android:textColor="@color/color_title"
+                                android:textSize="@dimen/font16_sp"
+                                android:textStyle="bold" />
+
+                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                                android:id="@+id/edtSelectUuTien"
+                                style="@style/TextViewAddressValue"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="end"
+                                android:hint="Chọn độ ưu tiên"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font16_sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutViewTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_one"
+                        android:elevation="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="40dp"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layoutViewOne">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvDiaDiem"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/dia_diem_2"
+                                android:textColor="@color/color_title"
+                                android:textSize="@dimen/font16_sp"
+                                android:textStyle="bold" />
+
+                            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticImageView
+                                android:id="@+id/btnAddDiaDiem"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:padding="5dp"
+                                android:src="@drawable/ic_add"
+                                app:imageView_scale="0.7"/>
+                        </LinearLayout>
+
+                        <com.dinhtc.taskmaster.common.widgets.tagview.TagEditText
+                            android:id="@+id/edtDiaDiem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bg_edittext"
+                            android:gravity="top|start"
+                            android:hint="Bấm @ để điền địa điểm"
+                            android:inputType="text|textMultiLine|textEmailAddress"
+                            android:lines="4"
+                            android:minLines="4"
+                            android:padding="5dp"
+                            android:scrollbarSize="2dp"
+                            android:scrollbars="vertical" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="@string/ghi_chu"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font16_sp"
+                            android:textStyle="bold" />
+
+                        <com.dinhtc.taskmaster.common.widgets.tagview.TagEditText
+                            android:id="@+id/edtGhiChu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/bg_edittext"
+                            android:gravity="top|start"
+                            android:hint="@string/hint_text"
+                            android:inputType="textMultiLine"
+                            android:lines="4"
+                            android:minLines="4"
+                            android:padding="5dp"
+                            android:scrollbarSize="2dp"
+                            android:scrollbars="vertical" />
+                    </LinearLayout>
+
+                    <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="13dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/md_blue_200"
+                        app:layout_cornerRadius="25dp"
+                        app:layout_duration="500"
+                        app:layout_scale="0.85">
+                            <TextView
+                                android:text="Giao việc"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/font16_sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+                </LinearLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

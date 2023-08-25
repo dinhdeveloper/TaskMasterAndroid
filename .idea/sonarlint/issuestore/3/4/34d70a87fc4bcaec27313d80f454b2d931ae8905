@@ -1,0 +1,9 @@
+
+z	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(ú÷óÀÿÿÿÿÿ8Œ×‰Þ›1
+\
+java:S1118":Add a private constructor to hide the implicit public one.(’ø·Šþÿÿÿÿ8áØ‰Þ›1
+o
+java:S3776	"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(«´Í‡8ïØ‰Þ›1
+C	java:S131T""Add a default case to this switch.( ‘ýÙÿÿÿÿÿ8óØ‰Þ›1
+â
+java:S6541	"ÄA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 72 to 64, Complexity from 27 to 14, Nesting Level from 4 to 2, Number of Variables from 8 to 6.(«´Í‡8õØ‰Þ›1

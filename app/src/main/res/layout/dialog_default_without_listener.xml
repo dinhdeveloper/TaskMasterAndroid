@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_radius_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtContent"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        tools:text="result_description" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_line" />
+
+
+    <TextView
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="OK"
+        android:textAllCaps="false"
+        android:textColor="@color/color_datroi"
+        android:textSize="@dimen/font16_sp"
+        />
+
+</LinearLayout>

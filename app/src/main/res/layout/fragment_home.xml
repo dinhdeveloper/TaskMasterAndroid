@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_home">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            android:layout_height="0dp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:text="Trần Cảnh Dinh"
+                android:layout_marginHorizontal="20dp"
+                android:drawablePadding="2dp"
+                android:drawableEnd="@drawable/down_right_svgrepo_com"
+                android:textStyle="bold"
+                android:textSize="@dimen/font20_sp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticImageView
+                android:id="@+id/notify_icon"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/icons_notification_2"
+                android:layout_width="40dp"
+                android:padding="5dp"
+                android:layout_height="40dp"
+                app:imageView_scale="0.5"/>
+
+            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticImageView
+                android:id="@+id/search_icon"
+                android:layout_marginEnd="15dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/notify_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/filter_sort"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:imageView_scale="0.6"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/guideline"
+            android:layout_height="0dp"
+            android:padding="3dp"
+            android:text="@string/danh_sach_cv"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font18_sp"
+            tools:text="Danh sách công việc: [Số lượng]" />
+
+        <!-- Table View-->
+
+        <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView
+            android:id="@+id/recyclerViewMovieList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:animationDuration="600"
+            app:layoutAnimation="@anim/layout_animation_from_bottom_scale"
+            app:layoutManagerOrientation="vertical"
+            app:layoutManagerReverse="false"
+            app:layoutManagerType="linear"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCount"/>
+
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:layout_marginBottom="15dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvCount">-->
+
+<!--            <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView-->
+<!--                android:id="@+id/recyclerViewMovieList"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:animationDuration="600"-->
+<!--                app:layoutAnimation="@anim/layout_animation_from_bottom_scale"-->
+<!--                app:layoutManagerOrientation="vertical"-->
+<!--                app:layoutManagerReverse="false"-->
+<!--                app:layoutManagerType="linear" />-->
+<!--        </HorizontalScrollView>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

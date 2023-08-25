@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">TaskMaster</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
+
+    <string name="msg_subscribed">Subscribed</string>
+    <string name="msg_subscribe_failed">Failed to subscribe</string>
+    <string name="msg_token_fmt" translatable="false">FCM Token: %s</string>
+
+    <string name="text_warning">Warning</string>
+    <string name="text_success">Success</string>
+    <string name="text_error">Error</string>
+    <string name="text_info">Info</string>
+    <string name="text_no_internet">No internet connection</string>
+    <string name="text_mock_description">Lorem Ipsum is simply dummy text of the printing</string>
+
+
+    <string name="upload_document">TẢI ẢNH</string>
+    <string name="string_demo">Trong mã màu hex, mỗi chữ số hoặc ký tự thể hiện một giá trị trong hệ thập lục phân</string>
+    <string name="string_demo_2">860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM</string>
+    <string name="money_demo">100.000.000 VNĐ</string>
+    <string name="hint_text">Nhập ghi chú, nhấn @ để kèm địa điểm</string>
+
+    <string name="imagepicker_multiselect_done">Hoàn tất</string>
+    <string name="imagepicker_multiselect_not_enough_singular">Bạn phải chọn ít nhất 1 hình ảnh</string>
+    <string name="imagepicker_multiselect_not_enough_plural">Bạn phải chọn %d hình ảnh</string>
+    <string name="imagepicker_multiselect_enough_singular">Bạn đã chọn 1 hình ảnh</string>
+    <string name="imagepicker_multiselect_enough_plural">Bạn đã chọn %d hình ảnh</string>
+    <string name="imagepicker_multiselect_overselect">Bạn không thể chọn hơn %d hình ảnh</string>
+    <string name="imagepicker_gallery_intent_title">Chọn nhiều hình ảnh</string>
+    <string name="imagepicker_no_image_text_view">Không có hình ảnh</string>
+    <string name="take_image">Chụp ảnh</string>
+
+
+    <string name="tao_cong_viec">Tạo công việc</string>
+    <string name="chi_tiet_cong_viec">Chi tiết công việc</string>
+    <string name="don_gom">Đơn gom:</string>
+    <string name="dia_diem">Địa điểm:</string>
+    <string name="dia_chi">Địa chỉ:</string>
+    <string name="thanh_tien">Thành tiền:</string>
+    <string name="nv_ung">NV ứng:</string>
+    <string name="uu_tien">Độ ưu tiên:</string>
+    <string name="hang_hoa">Hàng hóa:</string>
+    <string name="khoi_luong">Khối lượng (Kg):</string>
+    <string name="khoi_luong_2">Khối lượng báo KH (Kg):</string>
+    <string name="don_gia">Đơn giá:</string>
+    <string name="kg_bao_khach">Kg báo khách:</string>
+    <string name="chuyen_viec_toi">Chuyển việc tới:</string>
+
+    <string name="loai_viec">Loại việc:</string>
+    <string name="dia_diem_2">Địa điểm</string>
+    <string name="add_dia_diem">Tên địa điểm:</string>
+    <string name="ghi_chu">Ghi chú</string>
+    <string name="ghi_chu_2">Ghi chú:</string>
+    <string name="tim_kiem">Tìm kiếm:</string>
+    <string name="danh_sach_cv">Danh sách công việc: [Số lượng]</string>
+
+    <string name="cong_viec">Công việc:</string>
+    <string name="tinh_trang">Tình trạng:</string>
+
+
+    <string name="da_lam_gon">Đã làm gọn</string>
+    <string name="da_can">Đã cân</string>
+    <string name="bao_tai">3. Báo tài</string>
+    <string name="nhap_kho">4. Nhập kho</string>
+    <string name="da_ban">5. Đã bán</string>
+
+    <string name="truoc_lam_gon">1. Trước làm gọn</string>
+    <string name="mat_can">2. Mặt cân</string>
+    <string name="sau_lam_gon">3. Sau làm gọn</string>
+
+    <string name="hint_image">CHỤP/TẢI ẢNH</string>
+    <string name="hint_video">CHỤP/TẢI VIDEO</string>
+    <string name="notice_center_id_card">CHỤP/TẢI \n ẢNH MẶT GIỮA</string>
+    <string name="notice_back_id_card">CHỤP/TẢI \n ẢNH MẶT SAU</string>
+    <string name="upload_front_id_card_notice">Lưu ý: Đặt ảnh ngay ngắn khi chụp, tránh cung cấp hình ảnh bị chói lóa, mất góc.</string>
+</resources>

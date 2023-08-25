@@ -1,0 +1,7 @@
+
+—
+java:S1186-"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡Ý
+—
+java:S11869"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Œð£Â
+[
+java:S11553">Use isEmpty() to check whether the collection is empty or not.(éÚ¾™8–Ç’¶¡1

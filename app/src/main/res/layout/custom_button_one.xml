@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/btnSubmit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_no_strock"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:padding="10dp"
+            android:text="Lưu"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font16_sp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

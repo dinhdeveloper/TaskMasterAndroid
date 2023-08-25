@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notifyListFragment"
+            app:destination="@id/notifyListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_detailFragment_to_mediaDetailFragment"
+            app:destination="@id/mediaDetailFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_materialDetailFragment"
+            app:destination="@id/materialDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.AddTaskFragment"
+        android:label="AddTaskFragment"
+        tools:layout="@layout/fragment_add_task">
+        <action
+            android:id="@+id/action_addTaskFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notifyListFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.NotifyListFragment"
+        android:label="NotifyListFragment"
+        tools:layout="@layout/fragment_noti_list">
+        <action
+            android:id="@+id/action_notifyListFragment_to_notifyDetailFragment"
+            app:destination="@id/notifyDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notifyDetailFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.NotifyDetailFragment"
+        android:label="NotifyDetailFragment"
+        tools:layout="@layout/fragment_noti_detail"/>
+    <fragment
+        android:id="@+id/materialDetailFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.MaterialDetailFragment"
+        android:label="MaterialDetailFragment"
+        tools:layout="@layout/fragment_material_detail"/>
+
+        <fragment
+        android:id="@+id/mediaDetailFragment"
+        android:name="com.dinhtc.taskmaster.view.fragment.MediaDetailFragment"
+        android:label="MediaDetailFragment"
+        tools:layout="@layout/fragment_media_detail"/>
+
+
+</navigation>

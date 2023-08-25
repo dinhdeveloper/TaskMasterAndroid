@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color_edittext_input">#F7F7F9</color>
+    <color name="color_edittext_strock">#6A6A6A</color>
+    <color name="color_button">#0D6EFD</color>
+    <color name="color_xanh">#6FA4D2</color>
+    <color name="color_nau">#95A198</color>
+    <color name="color_trang_duc">#FAFAFA</color>
+    <color name="color_xanhla">#58ceb5</color>
+    <color name="color_datroi">#54aceb</color>
+    <color name="color_datroi_1">#0677F1</color>
+    <color name="color_red">#E94438</color>
+    <color name="color_line">#dddddd</color>
+    <color name="E3">#D5DAED</color>
+    <color name="D2">#333333</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_2">#80000000</color>
+    <color name="color_title">#00428E</color>
+    <color name="MarineBlue">#00428E</color>
+    <color name="D1">#141414</color>
+    <color name="error_text">#b71c1c</color>
+    <color name="primary_text">#212121</color>
+    <color name="multiselect_done">#388e3c</color>
+    <color name="SkyBlue">#0083CD</color>
+
+    <color name="color_tb_one">#993300</color>
+    <color name="color_tb_two">#0ACD0E</color>
+    <color name="color_tb_three">#FAE20E</color>
+    <color name="color_tb_f">#A2D80C</color>
+    <color name="color_pp">#5A50EB</color>
+
+    <color name="colorPrimary">#C51162</color>
+    <color name="colorPrimaryDark">#AD1457</color>
+    <color name="colorAccent">#C51162</color>
+    <color name="background">#2B292B</color>
+    <color name="background800">#424242</color>
+    <color name="background900">#212121</color>
+    <color name="white_56">#8effffff</color>
+    <color name="white_70">#b2ffffff</color>
+    <color name="white_87">#ddffffff</color>
+    <color name="white_93">#edf8f8f8</color>
+    <color name="skyBlue">#57A8D8</color>
+    <color name="yellow">#FBC02D</color>
+    <color name="md_yellow_100">#FFD600</color>
+    <color name="md_yellow_200">#FBC02D</color>
+    <color name="md_amber_700">#FFA000</color>
+    <color name="md_orange_100">#FFA726</color>
+    <color name="md_orange_200">#FF6D00</color>
+    <color name="md_green_100">#81C784</color>
+    <color name="md_green_200">#388E3C</color>
+    <color name="md_blue_100">#81D4fA</color>
+    <color name="md_blue_200">#0091EA</color>
+    <color name="md_purple_100">#AA00FF</color>
+    <color name="md_purple_200">#7200CA</color>
+
+    <!--    Background Colors-->
+    <color name="warning_color">#FBC02D</color>
+    <color name="error_color">#D50000</color>
+    <color name="success_color">#17B978</color>
+    <color name="info_color">#0340DA</color>
+    <color name="delete_color">#0288D1</color>
+
+
+    <!--    Custom Colors-->
+    <color name="custom_warning_color">#FF9800</color>
+    <color name="custom_error_color">#F44336</color>
+    <color name="custom_success_color">#8BC34A</color>
+    <color name="custom_info_color">#2196F3</color>
+    <color name="custom_delete_color">#673AB7</color>
+    <color name="custom_dark_toast">#121212</color>
+
+
+    <!--    Background Transparent Colors-->
+    <color name="warning_bg_color">#33FBC02D</color>
+    <color name="error_bg_color">#33D32F2F</color>
+    <color name="success_bg_color">#3317B978</color>
+    <color name="info_bg_color">#330340DA</color>
+    <color name="delete_bg_color">#330288D1</color>
+
+    <!--    Dark Toast bg-->
+    <color name="dark_bg_color">#2F3032</color>
+</resources>

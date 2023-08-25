@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_white_radius_dialog"
+    android:minWidth="300dp"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/subtitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="Shinhan Finance"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/font20_sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="result_description"
+        android:textSize="@dimen/font15_sp" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp" />
+    <LinearLayout
+        android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/btnYes"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Có"
+            android:textColor="@color/color_datroi_1"
+            android:textAllCaps="false"
+            android:textSize="15sp" />
+
+        <View
+            android:background="@color/color_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/btnNo"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:gravity="center"
+            android:textColor="@color/color_datroi_1"
+            android:paddingRight="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Không"
+            android:textAllCaps="false"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>

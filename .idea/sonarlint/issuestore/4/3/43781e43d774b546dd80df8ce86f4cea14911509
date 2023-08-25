@@ -1,0 +1,12 @@
+
+D
+java:S1604V"(Make this anonymous inner class a lambda(®àÕx8šˆ–àŸ1
+V
+java:S3516b"9Refactor this method to not always return the same value.(ùºø8ªˆ–àŸ1
+
+java:S1450"_Remove the "topSheetBehavior" field and declare it as a local variable in the relevant methods.(«Ò¹°øÿÿÿÿ8ªˆ–àŸ1
+E
+java:S1185t"(Remove this method to simply inherit it.(Àİì8Éˆ–àŸ1
+]	java:S125v"<This block of commented-out lines of code should be removed.(åÿéšúÿÿÿÿ8Éˆ–àŸ1
+Ÿ
+java:S1186“"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(É›Ê±8Éˆ–àŸ1

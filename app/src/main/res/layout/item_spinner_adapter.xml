@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="data"
+            type="String" />
+
+        <variable
+            name="isLastItem"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_spinder_dpl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_view_height"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:id="@+id/iv_check_parent"
+            android:layout_width="@dimen/default_view_height"
+            android:layout_height="@dimen/default_view_height"
+            android:layout_marginStart="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_check"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/check_done"
+                android:visibility="@{isSelected ? View.VISIBLE : View.INVISIBLE}"/>
+        </FrameLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_data_spinner_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@{data}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font16_sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_check_parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_check_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_check_parent"
+            tools:text="Hồ Chí Minh" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/E3"
+            android:visibility="@{isLastItem ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

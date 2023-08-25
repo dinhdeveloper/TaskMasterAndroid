@@ -1,0 +1,10 @@
+
+Lkotlin:S108\")Either remove or fill this block of code.(·Ğõïüÿÿÿÿ8›©¢Â¢1
+Hkotlin:S1481H"*Remove this unused "token" local variable.(×Û™\8¡©¢Â¢1
+Ckotlin:S125"Remove this commented out code.(Ãò¿Ùúÿÿÿÿ8·ğ¾¢1
+±kotlin:S1192¬"‹Define a constant instead of duplicating this literal "860/29 XÃ´ Viáº¿t Nghá»‡ TÄ©nh, phÆ°á»ng 25, quáº­n BÃ¬nh Tháº¡nh, TPHCM" 20 times.(Ãğ¼£ÿÿÿÿÿ8¹ğ¾¢1
+kkotlin:S1192¯"KDefine a constant instead of duplicating this literal "20-03-2023" 6 times.(èúË¤8¹ğ¾¢1
+pkotlin:S1192Ö"KDefine a constant instead of duplicating this literal "ÄÃ£ cÃ¢n" 12 times.(Ş«õôüÿÿÿÿ8¹ğ¾¢1
+_kotlin:S1144":Remove this unused private "getYesterdayLocalDate" method.(–©Šàûÿÿÿÿ8Äğ¾¢1
+[kotlin:S1144…"6Remove this unused private "getTodayLocalDate" method.(ÎÙ‡ºşÿÿÿÿ8Åğ¾¢1
+Skotlin:S1066‘".Merge this "if" statement with the nested one.(¥âÃ©øÿÿÿÿ8Èğ¾¢1
