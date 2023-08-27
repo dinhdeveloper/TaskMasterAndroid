@@ -3,6 +3,7 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.model.request.LoginRequest
@@ -11,7 +12,7 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : ApiHelper {
-    override suspend fun loginUser(userName: String, passWord: String): ApiResponse<LoginResponse> {
+    override suspend fun loginUser(userName: String, passWord: String): ApiResponse<Any> {
         val loginRequest = LoginRequest(userName, passWord)
         return apiService.loginUser(loginRequest)
     }
@@ -88,4 +89,8 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
     override suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any> {
         return apiService.deleteMedia(deleteMediaRequest)
     }
+    override suspend fun deleteMaterial(deleteMaterialRequest: DeleteMaterialRequest): ApiResponse<Any> {
+        return apiService.deleteMaterial(deleteMaterialRequest)
+    }
+
 }

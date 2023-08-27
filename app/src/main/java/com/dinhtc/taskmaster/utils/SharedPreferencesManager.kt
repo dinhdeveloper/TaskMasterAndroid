@@ -53,6 +53,7 @@ class SharedPreferencesManager(context: Context) {
     companion object {
         const val DEVICE_ID = "DEVICE_ID"
         const val TOKEN_LOGIN = "TOKEN_LOGIN"
+        const val ROLE_CODE = "ROLE_CODE"
         const val TOKEN_FIREBASE = "TOKEN_FIREBASE"
 
         private const val FILE_NAME = "advsarg"

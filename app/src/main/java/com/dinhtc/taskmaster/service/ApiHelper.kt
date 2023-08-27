@@ -3,13 +3,14 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.utils.ApiResponse
 import okhttp3.MultipartBody
 
 interface ApiHelper {
-    suspend fun loginUser(userName: String, passWord: String): ApiResponse<LoginResponse>
+    suspend fun loginUser(userName: String, passWord: String): ApiResponse<Any>
     suspend fun saveFirebaseToken(firebaseToken: String): ApiResponse<Any>
     suspend fun getListJobType(): ApiResponse<ListJobTypeResponse>
     suspend fun getListEmployeeNotById(id : Int): ApiResponse<ListEmployeeResponse>
@@ -32,4 +33,6 @@ interface ApiHelper {
     suspend fun getJobDetails(id : Int): ApiResponse<JobDetailsResponse>
     suspend fun updateStateJob(jobsId: Int, dalamgon: Int): ApiResponse<UpdateJobsResponse>
     suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any>
+    suspend fun deleteMaterial(deleteMaterialRequest: DeleteMaterialRequest): ApiResponse<Any>
+
 }

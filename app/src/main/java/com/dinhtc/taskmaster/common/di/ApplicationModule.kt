@@ -27,7 +27,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
     @Provides
-    fun provideBaseUrl() = "http://192.168.1.109:8080/api/" //192.168.1.2  192.168.1.153
+    fun provideBaseUrl() = "http://192.168.1.2:8080/api/" //192.168.1.2  192.168.1.153
     @Provides
     @Singleton
     fun provideOkHttpClient(sharedPreferences: SharedPreferencesManager): OkHttpClient {

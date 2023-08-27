@@ -8,8 +8,8 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:background="@drawable/supply"
         android:layout_width="match_parent"
-        android:background="@drawable/bg_home"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -20,6 +20,7 @@
 
             <LinearLayout
                 android:id="@+id/tvTTDH"
+                android:layout_marginTop="20dp"
                 android:elevation="15dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_title"
@@ -41,6 +42,16 @@
                     android:textStyle="bold"/>
             </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutViewOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_one"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +68,7 @@
                     android:gravity="center_vertical"
                     android:text="Mã công việc:"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -70,9 +81,15 @@
                     android:gravity="start"
                     tools:text="SADFGHJ"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +107,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/uu_tien"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -103,9 +120,15 @@
                     android:gravity="start"
                     android:text="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,7 +146,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/tinh_trang"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -136,9 +159,15 @@
                     android:gravity="start"
                     tools:text="Mới"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,7 +185,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/dia_diem"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -169,9 +198,15 @@
                     android:gravity="start"
                     tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,7 +224,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/dia_chi"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -202,10 +237,14 @@
                     android:gravity="start"
                     tools:text="@string/string_demo_2"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
-
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,10 +261,11 @@
                     android:gravity="center_vertical"
                     android:text="@string/thanh_tien"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPrice"
                     android:layout_width="0dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:layout_height="match_parent"
@@ -233,12 +273,16 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="start"
                     android:textStyle="bold"
-                    android:text="@string/money_demo"
+                    android:text="0 VNĐ"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
-
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,25 +291,29 @@
                 android:weightSum="2">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radioCuaToi"
+                    android:id="@+id/radioChuyenKhoan"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
                     android:text="Chuyển khoản"
-                    android:textSize="@dimen/font20_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radioNhom"
+                    android:id="@+id/radioChuaThanhToan"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Chưa th.toán"
-                    android:textSize="@dimen/font20_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </RadioGroup>
-
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -282,11 +330,11 @@
                     android:gravity="center_vertical"
                     android:text="@string/nv_ung"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
-                    android:id="@+id/edtDonGia"
+                    android:id="@+id/edtNVUng"
                     android:hint="Nhập số tiền muốn ứng"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:paddingHorizontal="10dp"
@@ -298,10 +346,14 @@
                     android:layout_weight="2"
                     android:gravity="end"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
-
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -318,10 +370,11 @@
                     android:gravity="center_vertical"
                     android:text="@string/chuyen_viec_toi"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:textStyle="bold" />
 
                 <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                    android:id="@+id/selectNV"
                     style="@style/TextViewAddressValue"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:layout_width="0dp"
@@ -330,10 +383,14 @@
                     android:gravity="end"
                     android:hint="Chọn nhân viên"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
-
+            <View
+                android:background="@color/color_line"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"/>
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -342,7 +399,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/ghi_chu_2"
                 android:textColor="@color/color_title"
-                android:textSize="@dimen/font16_sp"
+                android:textSize="@dimen/font17_sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -358,6 +415,8 @@
                 android:padding="5dp"
                 android:scrollbarSize="2dp"
                 android:scrollbars="vertical" />
+
+        </LinearLayout>
 
             <LinearLayout
                 android:weightSum="2"
@@ -386,7 +445,7 @@
                         android:padding="15dp"
                         android:text="Vật liệu"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:elevation="2dp"/>
 
                     <TextView
@@ -402,7 +461,7 @@
                         android:padding="15dp"
                         android:text="Ảnh"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:elevation="2dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -434,7 +493,7 @@
                         android:padding="15dp"
                         android:text="@string/da_lam_gon"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:elevation="2dp"/>
 
                     <TextView
@@ -450,13 +509,14 @@
                         android:padding="15dp"
                         android:text="@string/da_can"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:elevation="2dp" />
                 </LinearLayout>
             </LinearLayout>
 
             <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
                 android:id="@+id/btnSubmit"
+                android:elevation="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="25dp"
@@ -466,11 +526,11 @@
                 app:layout_duration="500"
                 app:layout_scale="0.85">
                 <TextView
-                    android:text="Giao việc"
+                    android:text="Lưu"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_width="wrap_content"

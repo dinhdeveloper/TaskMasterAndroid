@@ -3,7 +3,7 @@
     <style name="Theme.TaskMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/color_xanh</item>
+        <item name="colorPrimaryVariant">@color/custom_info_color</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/color_button</item>

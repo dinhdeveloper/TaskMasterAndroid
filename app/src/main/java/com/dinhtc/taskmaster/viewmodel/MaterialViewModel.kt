@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
+import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
+import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
+import com.dinhtc.taskmaster.model.response.JobMaterialDetailResponse
 import com.dinhtc.taskmaster.model.response.ListMaterialResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
@@ -52,6 +55,33 @@ class MaterialViewModel @Inject constructor(private val apiHelperImpl: ApiHelper
                 }
             } catch (e: Exception) {
                 _datAddMaterial.value = UiState.Error("Error message: ${e.message}")
+            }
+        }
+    }
+
+    private val _dataDeleteMaterial = MutableLiveData<UiState<Any>>()
+    val dataDeleteMaterial: LiveData<UiState<Any>>
+        get() = _dataDeleteMaterial
+
+    fun deleteMaterial(material: JobMaterialDetailResponse) {
+        viewModelScope.launch {
+            _dataDeleteMaterial.value = UiState.Loading
+            try {
+                val deleteMediaRequest = DeleteMaterialRequest(
+                    material.jobId,
+                    material.mateId
+                )
+                val response =
+                    apiHelperImpl.deleteMaterial(
+                        deleteMediaRequest
+                    )
+                if (response.result_code == 0) {
+                    _dataDeleteMaterial.value = UiState.Success(response)
+                } else {
+                    _dataDeleteMaterial.value = UiState.Error(response.data.toString())
+                }
+            } catch (e: Exception) {
+                _dataDeleteMaterial.value = UiState.Error("Error message: ${e.message}")
             }
         }
     }

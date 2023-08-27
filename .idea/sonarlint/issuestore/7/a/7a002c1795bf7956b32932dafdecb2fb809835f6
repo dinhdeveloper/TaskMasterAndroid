@@ -1,10 +1,11 @@
 
-Tkotlin:S1172ê"4Remove this unused function parameter "edtPassword".(Ÿ•Üµ8ÂìË›¢1
-Tkotlin:S1172¨"4Use "_" instead of this unused lambda parameter "v".(­ëÆã8ÃìË›¢1
->kotlin:S1128"Remove this unused import.(µ®›¬şÿÿÿÿ8ƒßÌ›¢1
->kotlin:S1128"Remove this unused import.(’—ÄÑùÿÿÿÿ8ÈìË›¢1
-Bkotlin:S125w"Remove this commented out code.(ˆŒèªøÿÿÿÿ8ÊìË›¢1
-vkotlin:S3776O"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(µƒû‰ûÿÿÿÿ8ÌìË›¢1
-rkotlin:S117©"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(óÈëª8ÍìË›¢1
-Nkotlin:S1066ª".Merge this "if" statement with the nested one.(Õ÷Ø8ÏìË›¢1
-akotlin:S6510Í"AMove "return" statements from all branches before "if" statement.(‘óÎ8ÏìË›¢1
+Tkotlin:S1172õ"4Remove this unused function parameter "edtPassword".(Ÿ•Üµ8·Êì£1
+Tkotlin:S1172³"4Use "_" instead of this unused lambda parameter "v".(­ëÆã8¸Êì£1
+9kotlin:S1128"Remove this unused import.(Ò¦öí8¾Êì£1
+>kotlin:S1128"Remove this unused import.(µ®›¬şÿÿÿÿ8¾Êì£1
+>kotlin:S1128"Remove this unused import.(’—ÄÑùÿÿÿÿ8¾Êì£1
+Ckotlin:S125‚"Remove this commented out code.(ˆŒèªøÿÿÿÿ8¿Êì£1
+vkotlin:S3776R"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(µƒû‰ûÿÿÿÿ8ÂÊì£1
+rkotlin:S117´"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(óÈëª8ÃÊì£1
+Nkotlin:S1066µ".Merge this "if" statement with the nested one.(Õ÷Ø8ÅÊì£1
+akotlin:S6510Ø"AMove "return" statements from all branches before "if" statement.(‘óÎ8ÆÊì£1

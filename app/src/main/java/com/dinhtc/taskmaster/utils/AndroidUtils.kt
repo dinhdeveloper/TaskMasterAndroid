@@ -54,7 +54,7 @@ object AndroidUtils {
             s = myFormatter.format(money?.toDouble() ?: 0)
         } catch (ignore: java.lang.Exception) {}
 
-        return s
+        return "$s VNĐ"
     }
 
     @JvmStatic

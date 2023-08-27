@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UsersViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl) : ViewModel() {
 
-    private val _dataLogin = MutableLiveData<UiState<LoginResponse>>()
-    val dataLogin : LiveData<UiState<LoginResponse>>
+    private val _dataLogin = MutableLiveData<UiState<Any>>()
+    val dataLogin : LiveData<UiState<Any>>
     get() = _dataLogin
 
     fun loginUser(userName: String, passWord: String) {

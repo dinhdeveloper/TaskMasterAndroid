@@ -8,20 +8,21 @@
     </data>
 
     <ScrollView
+        android:background="@drawable/supply"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_home"
             android:fitsSystemWindows="true">
 
             <LinearLayout
                 android:id="@+id/tvTTDH"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_margin="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_title"
                 android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -291,6 +292,7 @@
 
                     <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
                         android:id="@+id/btnSubmit"
+                        android:elevation="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="13dp"

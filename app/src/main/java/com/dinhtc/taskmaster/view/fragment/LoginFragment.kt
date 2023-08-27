@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.content.PackageManagerCompat.LOG_TAG
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -25,9 +26,11 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.LAST_LOGIN
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.PASS_W
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USERNAME
 import com.dinhtc.taskmaster.utils.UiState
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.viewmodel.UsersViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
 
 
 @AndroidEntryPoint
@@ -57,7 +60,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 // Đăng nhập tự động
                 // Chuyển đến màn hình chính
                 findNavController().navigate(
-                    R.id.action_loginFragment_to_homeFragment
+                    R.id.action_loginFragment_to_mainFragment
                 )
             } else {
                 // Đăng xuất người dùng
@@ -88,10 +91,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     when (uiState) {
                         is UiState.Success -> {
                             LoadingScreen.hideLoading()
-                            val loginData = uiState.data.data as LoginResponse
+                            val loginData = uiState.data.data.toString()
+                            val jsonObject = JSONObject(loginData)
+                            val tokenAuth = jsonObject.getString("tokenAuth")
+                            val roleCode = jsonObject.getString("role")
+
                             SharedPreferencesManager.instance.putString(
                                 SharedPreferencesManager.TOKEN_LOGIN,
-                                loginData.tokenAuth
+                                tokenAuth
+                            )
+                            SharedPreferencesManager.instance.putString(
+                                SharedPreferencesManager.ROLE_CODE,
+                                roleCode
                             )
                             rememberLogin(
                                 viewBinding.edtUsername.text.toString().trim(),
@@ -236,7 +247,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         SharedPreferencesManager.instance.putString(PASS_W, edtUsername)
         SharedPreferencesManager.instance.putBoolean(IS_LOGGED_IN, true)
         SharedPreferencesManager.instance.putLong(LAST_LOGIN_TINE, System.currentTimeMillis())
-        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
         LoadingScreen.hideLoading()
     }
 }

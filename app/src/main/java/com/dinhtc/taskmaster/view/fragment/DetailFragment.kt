@@ -1,11 +1,11 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.graphics.Typeface
-import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
@@ -15,16 +15,19 @@ import com.dinhtc.taskmaster.databinding.FragmentDetailBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticAnimation
 import com.dinhtc.taskmaster.common.widgets.spinner.ItemViewLocation
+import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
-import com.dinhtc.taskmaster.model.response.JobMaterialDetailResponse
+import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
 import com.dinhtc.taskmaster.model.response.ListMaterialResponse
 import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
+import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.activity.MainActivity
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.viewmodel.MaterialViewModel
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
@@ -35,7 +38,7 @@ import okhttp3.MultipartBody
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
-
+    private var nvSelected: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
     private var dataResponse: JobDetailsResponse? = null
     private var jobsId: Int = -1
@@ -50,6 +53,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private val jobsViewModel: JobsViewModel by viewModels()
 
     private val dataListJob = ArrayList<ItemViewLocation<ProvinceData>>()
+    private val dataListEmployee = ArrayList<ItemViewLocation<ProvinceData>>()
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_detail
@@ -61,6 +65,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         addTaskViewModel.getListJobType()
         jobsViewModel.getJobDetails(idJob = jobsId)
         materialViewModel.getListMaterial()
+        addTaskViewModel.getListEmployee()
 
 
         observe(uploadMediaViewModel.dataUpLoadImage, ::responseUploadMultiImage)
@@ -68,12 +73,46 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         observe(materialViewModel.datAddMaterial, ::addMaterialLive)
         observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
         observe(jobsViewModel.updateStateJob, ::updateStateJobLive)
+        observe(addTaskViewModel.dataEmployee, ::onGetListEmployee)
 
         onClickItem()
+        viewBinding.selectNV.setOnItemSelectedListener(mOnSelectedNV1Listener)
     }
+
+    private val mOnSelectedNV1Listener =
+        object : LocationSpinner.OnItemSelectedListener<ProvinceData> {
+            override fun onItemSelected(
+                parent: LocationSpinner<ProvinceData>,
+                position: Int,
+                item: ItemViewLocation<ProvinceData>?
+            ) {
+                nvSelected = item?.data?.id!!
+            }
+        }
 
     private fun onClickItem() {
         viewBinding.apply {
+            edtNVUng.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (edtNVUng.money > 0){
+                        viewBinding.apply {
+                            radioChuaThanhToan.isEnabled = false
+                            radioChuyenKhoan.isEnabled = false
+                        }
+                    }else{
+                        viewBinding.apply {
+                            radioChuaThanhToan.isEnabled = true
+                            radioChuyenKhoan.isEnabled = true
+                        }
+                    }
+                }
+
+            })
+
             btnVatLieu.setOnClickListener {
                 if (dataResponse!= null){
                     if (dataResponse!!.jobMaterial.isNotEmpty()){
@@ -117,7 +156,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
 
-            btnSubmit.setOnClickListener {}
+            btnSubmit.setOnClickListener {
+//                jobsViewModel.updateJobDetails(
+//                )
+            }
         }
     }
 
@@ -183,6 +225,36 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 it,
                 bottomSheetAddVatLieu.tag
             )
+        }
+    }
+
+    private fun onGetListEmployee(uiState: UiState<ListEmployeeResponse>) {
+        when (uiState) {
+            is UiState.Success -> {
+                LoadingScreen.hideLoading()
+                val listEmpLiveData = uiState.data.data.listItem
+                for (data in listEmpLiveData) {
+                    dataListEmployee.add(
+                        ItemViewLocation(
+                            ProvinceData(
+                                data.empId,
+                                "${data.empId}",
+                                "${data.name}"
+                            )
+                        )
+                    )
+                }
+                viewBinding.selectNV.setData(dataListEmployee)
+            }
+
+            is UiState.Error -> {
+                val errorMessage = uiState.message
+                Log.e("SSSSSSSSSSS", errorMessage)
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+            }
+
+            UiState.Loading -> {}
         }
     }
 
@@ -289,6 +361,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             checkCloseImage = true
                         }
                     }
+                }
+                var moneyTemp: Long = 0
+                if (dataResponse?.jobMaterial?.isNotEmpty() == true){
+                    for (data in dataResponse!!.jobMaterial){
+                        moneyTemp += data.price
+                    }
+                    Log.e(TAG_LOG,"$moneyTemp")
+                    viewBinding.tvPrice.text = AndroidUtils.formatMoneyCard("$moneyTemp")
+                }else{
+                    viewBinding.tvPrice.text = AndroidUtils.formatMoneyCard("0")
                 }
             }
 

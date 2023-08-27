@@ -3,6 +3,7 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.request.LoginRequest
 import com.dinhtc.taskmaster.model.response.*
@@ -20,7 +21,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @POST("auth/login")
-    suspend fun loginUser(@Body loginRequest : LoginRequest): ApiResponse<LoginResponse>
+    suspend fun loginUser(@Body loginRequest : LoginRequest): ApiResponse<Any>
     @POST("firebase/save")
     suspend fun saveFirebaseToken(@Query("firebaseToken") firebaseToken: String): ApiResponse<Any>
     @GET("mobile/job_type/list")
@@ -82,4 +83,9 @@ interface ApiService {
 
     @POST("mobile/delete_media")
     suspend fun deleteMedia(@Body collectPoint: DeleteMediaRequest): ApiResponse<Any>
+
+    @POST("mobile/delete_material")
+    suspend fun deleteMaterial(@Body deleteMaterial: DeleteMaterialRequest): ApiResponse<Any>
+
+
 }

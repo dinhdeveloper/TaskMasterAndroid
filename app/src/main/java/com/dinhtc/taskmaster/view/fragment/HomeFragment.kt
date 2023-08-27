@@ -30,6 +30,7 @@ import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.viewmodel.SharedViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
@@ -40,7 +41,6 @@ import java.time.LocalDate
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHandler {
-    private val sharedViewModel: SharedViewModel by viewModels()
 
     private var statusUser: String = "TOI"
     private var radioPersonLocal: String = SharedPreferencesManager.instance.getString(SharedPreferencesManager.USERNAME, null)
@@ -52,68 +52,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
         get() = R.layout.fragment_home
 
     override fun onViewCreated() {
-        AppEventBus.getInstance().registerEvent(this, EventBusAction.Action.CHANGE_LOGO, this)
-        AppEventBus.getInstance().registerEvent(this, EventBusAction.Action.REFRESH_TOKEN_FB, this)
         actionView()
         setupAdapterLogistic()
-
-        askNotificationPermission()
-
-        observe(sharedViewModel.updateTokenFirebase, ::updateTokenFirebaseLiveData)
-
-        Firebase.messaging.token.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("MyFirebaseMsgService", "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // Get new FCM registration token
-                val token = task.result
-
-            },
-        )
-    }
-
-    private fun updateTokenFirebaseLiveData(uiState: UiState<Any>){
-        when (uiState) {
-            is UiState.Success -> {
-                LoadingScreen.hideLoading()
-                Log.e("updateTokenFirebaseLiveData","${uiState.data.data}")
-            }
-
-            is UiState.Error -> {
-                val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
-                LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
-            }
-
-            UiState.Loading -> {}
-        }
-    }
-
-    private fun askNotificationPermission() {
-        // This is only necessary for API Level > 33 (TIRAMISU)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.POST_NOTIFICATIONS) } ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                // FCM SDK (and your app) can post notifications.
-                Log.e("API_R", "GỬI LẠI TOKEN")
-            } else {
-                // Directly ask for the permission
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        }
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            AppEventBus.getInstance().publishEvent(EventBusAction.Action.REFRESH_TOKEN_FB)
-        }
     }
 
     private fun setupAdapterLogistic() {
@@ -143,8 +83,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
 //                findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
 //            }
             notifyIcon.setOnClickListener {
-                notifyIcon.setImageResource(R.drawable.icons_notification_2)
-                findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
+
             }
             searchIcon.setOnClickListener {
                 val dialog = Dialog(requireContext())
@@ -263,27 +202,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
         return LocalDate.now()
     }
 
-    private var count = 1
+    override fun onDestroy() {
+        AppEventBus.getInstance().unRegisterEvent(this)
+        super.onDestroy()
+    }
+
     override fun handleEvent(result: EventBusAction) {
         if (result.action == EventBusAction.Action.CHANGE_LOGO){
             viewBinding.notifyIcon.setImageResource(R.drawable.animation_list)
             val animationDrawable = viewBinding.notifyIcon.drawable as AnimationDrawable
             animationDrawable.start()
         }
-        else if (result.action == EventBusAction.Action.REFRESH_TOKEN_FB){
-            if (count == 1){
-                sharedViewModel.updateTokenFirebase(
-                    SharedPreferencesManager.instance.getString(
-                        SharedPreferencesManager.TOKEN_FIREBASE, null))
-                count ++
-            }
-
-        }
-    }
-
-    override fun onDestroy() {
-        AppEventBus.getInstance().unRegisterEvent(this)
-        super.onDestroy()
     }
 
     companion object {
