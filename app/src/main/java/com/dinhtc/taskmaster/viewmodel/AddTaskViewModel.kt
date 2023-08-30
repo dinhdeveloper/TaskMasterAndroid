@@ -138,4 +138,24 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
             }
         }
     }
+
+    private val _dataEmployeeByJobId = MutableLiveData<UiState<ListEmployeeResponse>>()
+    val dataEmployeeByJobId : LiveData<UiState<ListEmployeeResponse>>
+        get() = _dataEmployeeByJobId
+
+    fun getListEmployeeByJobId(jobId: Int) {
+        viewModelScope.launch {
+            _dataEmployeeByJobId.value = UiState.Loading
+            try {
+                val response = apiHelperImpl.getListEmployeeByJobId(jobId)
+                if (response.result_code == 0) {
+                    _dataEmployeeByJobId.value = UiState.Success(response)
+                } else {
+                    _dataEmployeeByJobId.value = UiState.Error(response.data.toString())
+                }
+            } catch (e: Exception) {
+                _dataEmployeeByJobId.value = UiState.Error("Error message: ${e.message}")
+            }
+        }
+    }
 }

@@ -21,7 +21,7 @@
     <color name="E3">#D5DAED</color>
     <color name="D2">#333333</color>
     <color name="transparent">#00000000</color>
-    <color name="transparent_2">#80000000</color>
+    <color name="transparent_2">#90000000</color>
     <color name="transparent_3">#60000000</color>
     <color name="color_title">#00428E</color>
     <color name="MarineBlue">#00428E</color>
@@ -87,4 +87,10 @@
 
     <!--    Dark Toast bg-->
     <color name="dark_bg_color">#2F3032</color>
+
+    <color name="blue_one">#7BAFFD</color>
+    <color name="grey_one">#C4C4C4C4</color>
+    <color name="grey_two">#A5A5A5</color>
+    <color name="blue_three">#000000</color>
+    <color name="blue_four">#D2E4FF</color>
 </resources>

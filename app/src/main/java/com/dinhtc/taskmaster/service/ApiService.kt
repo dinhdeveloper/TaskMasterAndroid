@@ -3,6 +3,7 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.request.LoginRequest
@@ -22,12 +23,16 @@ import retrofit2.http.Query
 interface ApiService {
     @POST("auth/login")
     suspend fun loginUser(@Body loginRequest : LoginRequest): ApiResponse<Any>
+    @POST("auth/logout")
+    suspend fun loginOut(): ApiResponse<Any>
     @POST("firebase/save")
     suspend fun saveFirebaseToken(@Query("firebaseToken") firebaseToken: String): ApiResponse<Any>
     @GET("mobile/job_type/list")
     suspend fun getListJobType(): ApiResponse<ListJobTypeResponse>
     @GET("mobile/employees/{id}")
     suspend fun getListEmployeeNotById(@Path("id") id : Int): ApiResponse<ListEmployeeResponse>
+    @GET("mobile/employees/jobId/{jobId}")
+    suspend fun getListEmployeeByJobId(@Path("jobId") jobId : Int): ApiResponse<ListEmployeeResponse>
 
     @GET("mobile/employees")
     suspend fun getListEmployee(): ApiResponse<ListEmployeeResponse>
@@ -78,7 +83,8 @@ interface ApiService {
     @PUT("mobile/update/update_state_job/{jobId}/{newStateId}")
     suspend fun updateStateJob(
         @Path("jobId") jobId: Int,
-        @Path("newStateId") newStateId: Int
+        @Path("newStateId") newStateId: Int,
+        @Path("dateCreate") dateCreate: String
     ): ApiResponse<UpdateJobsResponse>
 
     @POST("mobile/delete_media")
@@ -86,6 +92,24 @@ interface ApiService {
 
     @POST("mobile/delete_material")
     suspend fun deleteMaterial(@Body deleteMaterial: DeleteMaterialRequest): ApiResponse<Any>
+
+    @GET("mobile/userprofile/{username}")
+    suspend fun getUserProfile(@Path("username") username : String): ApiResponse<Any>
+
+    @POST("mobile/update_job_detail")
+    suspend fun updateJobDetails(@Body dataUpdate: DataUpdateJobRequest): ApiResponse<Any>
+
+    @GET("mobile/search")
+    suspend fun search(
+        @Query("startDate") startDate: String?,
+        @Query("endDate") endDate: String?,
+        @Query("empStatus") empStatus: Int?,
+        @Query("empId") empId: Int?,
+        @Query("status") status: Int?,
+        @Query("paymentStatus") paymentStatus: Int?,
+        @Query("jobId") jobId: Int?,
+        @Query("collectPoint") collectPoint: String?
+    ): ApiResponse<ListJobSearchResponse>
 
 
 }

@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import com.dinhtc.taskmaster.service.ApiHelper
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.service.ApiService
-import com.dinhtc.taskmaster.service.AuthTokenInterceptor
 import com.dinhtc.taskmaster.service.CustomLoggingInterceptor
 import com.dinhtc.taskmaster.service.GeneralHeaderInterceptor
 import com.dinhtc.taskmaster.service.SpecialHeaderInterceptor

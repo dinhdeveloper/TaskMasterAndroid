@@ -6,10 +6,12 @@ import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -31,6 +33,7 @@ import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
+import com.dinhtc.taskmaster.viewmodel.JobsViewModel
 import com.dinhtc.taskmaster.viewmodel.SharedViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
@@ -42,14 +45,19 @@ import java.time.LocalDate
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHandler {
 
-    private var statusUser: String = "TOI"
-    private var radioPersonLocal: String = SharedPreferencesManager.instance.getString(SharedPreferencesManager.USERNAME, null)
-    private var radioTaskLocal: String = "1"
-    private lateinit var radioTodayDate: String
-    private var showLayoutSearch = true
-
     override val layoutResourceId: Int
         get() = R.layout.fragment_home
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        parentFragmentManager.setFragmentResultListener(
+//            REQUEST_KEY,
+//            this
+//        ) { _, result ->
+//            val number = result.getInt(KEY_NUMBER)
+//            Toast.makeText(requireContext(), "$number", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     override fun onViewCreated() {
         actionView()
@@ -58,7 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
 
     private fun setupAdapterLogistic() {
         val tableViewAdapter = TableViewAdapter()
-        tableViewAdapter.submitList(logisticInfoModels)
+        //tableViewAdapter.submitList(logisticInfoModels)
         viewBinding.recyclerViewMovieList.layoutManager = LinearLayoutManager(context)
         viewBinding.recyclerViewMovieList.setHasFixedSize(true)
         viewBinding.recyclerViewMovieList.adapter = tableViewAdapter
@@ -76,131 +84,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
             }
         })
     }
-    @SuppressLint("ResourceType")
     private fun actionView() {
         viewBinding.apply {
-//            layoutSave.btnSubmit.setOnClickListener {
-//                findNavController().navigate(R.id.action_homeFragment_to_addTaskFragment)
-//            }
-            notifyIcon.setOnClickListener {
-
-            }
-            searchIcon.setOnClickListener {
-                val dialog = Dialog(requireContext())
-                dialog.setContentView(R.layout.sheet_content)
-
-                dialog.window!!.setLayout(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                findByView(dialog)
-                dialog.window!!.setGravity(Gravity.TOP)
-                dialog.show()
+            floatingAction.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_searchActionFragment)
             }
         }
     }
 
-    private fun findByView(dialog: Dialog) {
-        val btnSeach = dialog.findViewById<TextView>(R.id.btnSeach)
-
-        val radioCuaToi = dialog.findViewById<AppCompatTextView>(R.id.radioCuaToi)
-        val radioNhom = dialog.findViewById<AppCompatTextView>(R.id.radioNhom)
-        val radioTatCaNguoi = dialog.findViewById<AppCompatTextView>(R.id.radioTatCaNguoi)
-
-        val radioChuaXong = dialog.findViewById<AppCompatTextView>(R.id.radioChuaXong)
-        val radioDaXong = dialog.findViewById<AppCompatTextView>(R.id.radioDaXong)
-        val radioTatCaTask = dialog.findViewById<AppCompatTextView>(R.id.radioTatCaTask)
-
-        val daThanhToan = dialog.findViewById<AppCompatTextView>(R.id.daThanhToan)
-        val chuaThanhToan = dialog.findViewById<AppCompatTextView>(R.id.chuaThanhToan)
-
-        val radioHomNay = dialog.findViewById<AppCompatTextView>(R.id.radioHomNay)
-        val radioHomQua = dialog.findViewById<AppCompatTextView>(R.id.radioHomQua)
-
-        onClickRadioPerson(radioCuaToi,radioNhom,radioTatCaNguoi)
-        onClickRadioTask(radioChuaXong,radioDaXong,radioTatCaTask)
-        onClickRadioMoney(daThanhToan,chuaThanhToan)
-        onClickRadioDate(radioHomNay,radioHomQua)
-
-        btnSeach.setOnClickListener {
-            dialog.dismiss()
-        }
-    }
-
-    private fun onClickRadioMoney(daThanhToan: AppCompatTextView?, chuaThanhToan: AppCompatTextView?) {
-        daThanhToan?.setOnClickListener {
-            chuaThanhToan?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            daThanhToan.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-        chuaThanhToan?.setOnClickListener {
-            daThanhToan?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            chuaThanhToan.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-    }
-
-    private fun onClickRadioPerson(
-        radioCuaToi: AppCompatTextView?,
-        radioNhom: AppCompatTextView?,
-        radioTatCaNguoi: AppCompatTextView?
-    ) {
-        radioCuaToi?.setOnClickListener {
-            radioNhom?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioTatCaNguoi?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioCuaToi.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-        radioNhom?.setOnClickListener {
-            radioCuaToi?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioTatCaNguoi?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioNhom.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-        radioTatCaNguoi?.setOnClickListener {
-            radioCuaToi?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioNhom?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioTatCaNguoi.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-    }
-
-    private fun onClickRadioTask(
-        radioChuaXong: AppCompatTextView?,
-        radioDaXong: AppCompatTextView?,
-        radioTatCaTask: AppCompatTextView?
-    ) {
-        radioChuaXong?.setOnClickListener {
-            radioDaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioTatCaTask?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioChuaXong.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-        radioDaXong?.setOnClickListener {
-            radioChuaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioTatCaTask?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioDaXong.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-        radioTatCaTask?.setOnClickListener {
-            radioChuaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioDaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioTatCaTask.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-    }
-
-    private fun onClickRadioDate(radioHomNay: AppCompatTextView?, radioHomQua: AppCompatTextView?) {
-        radioHomNay?.setOnClickListener {
-            radioHomQua?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioHomNay.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-        radioHomQua?.setOnClickListener {
-            radioHomNay?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
-            radioHomQua.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
-        }
-    }
-
-    private fun getYesterdayLocalDate(): LocalDate {
-        radioTodayDate = LocalDate.now().minusDays(1).toString()
-        return LocalDate.now().minusDays(1)
-    }
-    private fun getTodayLocalDate(): LocalDate {
-        radioTodayDate = LocalDate.now().toString()
-        return LocalDate.now()
-    }
 
     override fun onDestroy() {
         AppEventBus.getInstance().unRegisterEvent(this)
@@ -208,15 +99,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
     }
 
     override fun handleEvent(result: EventBusAction) {
-        if (result.action == EventBusAction.Action.CHANGE_LOGO){
-            viewBinding.notifyIcon.setImageResource(R.drawable.animation_list)
-            val animationDrawable = viewBinding.notifyIcon.drawable as AnimationDrawable
-            animationDrawable.start()
-        }
+//        if (result.action == EventBusAction.Action.CHANGE_LOGO){
+//            viewBinding.notifyIcon.setImageResource(R.drawable.animation_list)
+//            val animationDrawable = viewBinding.notifyIcon.drawable as AnimationDrawable
+//            animationDrawable.start()
+//        }
     }
 
     companion object {
         val ID_JOB = "ID_JOB"
+        val REQUEST_KEY = "REQUEST_KEY"
+        val KEY_NUMBER = "KEY_NUMBER"
     }
 }
 

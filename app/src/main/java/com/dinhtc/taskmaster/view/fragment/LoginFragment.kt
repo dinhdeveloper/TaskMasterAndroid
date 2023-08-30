@@ -72,9 +72,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     // Đăng xuất người dùng
     private fun logout() {
         // Xóa thông tin đăng nhập từ SharedPreferences
-        SharedPreferencesManager.instance.remove(USERNAME)
-        SharedPreferencesManager.instance.remove(IS_LOGGED_IN)
-        SharedPreferencesManager.instance.remove(LAST_LOGIN_TINE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USERNAME)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.IS_LOGGED_IN)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.LAST_LOGIN_TINE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_LOGIN)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_FIREBASE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.ROLE_CODE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
         // Chuyển đến màn hình đăng nhập
     }
 
@@ -104,6 +108,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 SharedPreferencesManager.ROLE_CODE,
                                 roleCode
                             )
+                            SharedPreferencesManager.instance.putString(USERNAME,
+                                viewBinding.edtUsername.text.toString().trim())
                             rememberLogin(
                                 viewBinding.edtUsername.text.toString().trim(),
                                 viewBinding.edtPassword.text.toString().trim()

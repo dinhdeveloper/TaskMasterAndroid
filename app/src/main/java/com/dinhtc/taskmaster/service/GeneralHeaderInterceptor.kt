@@ -4,7 +4,7 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class GeneralHeaderInterceptor() : Interceptor {
+class GeneralHeaderInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 

@@ -147,7 +147,11 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
     }
 
     override fun getItemCount(): Int {
-        return imageList!!.size + 1 // one more to add header row
+        return if (imageList?.isNotEmpty() == true) {
+            imageList!!.size + 1
+        } else {
+            1
+        }
     }
 
     inner class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

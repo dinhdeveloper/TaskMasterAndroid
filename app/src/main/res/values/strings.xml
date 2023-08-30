@@ -30,7 +30,7 @@
     <string name="imagepicker_gallery_intent_title">Chọn nhiều hình ảnh</string>
     <string name="imagepicker_no_image_text_view">Không có hình ảnh</string>
     <string name="take_image">Chụp ảnh</string>
-
+    <string name="empty_date_text">10</string>
 
     <string name="tao_cong_viec">Tạo công việc</string>
     <string name="chi_tiet_cong_viec">Chi tiết công việc</string>
@@ -61,6 +61,7 @@
 
     <string name="da_lam_gon">Đã làm gọn</string>
     <string name="da_can">Đã cân</string>
+    <string name="da_xong">Đã xong</string>
     <string name="bao_tai">3. Báo tài</string>
     <string name="nhap_kho">4. Nhập kho</string>
     <string name="da_ban">5. Đã bán</string>

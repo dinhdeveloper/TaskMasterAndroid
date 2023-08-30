@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:padding="15dp"
+            android:src="@drawable/ic_close_dialog"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:id="@+id/layoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/radioCuaToi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_check_search"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:text="Cuả tôi"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/radioNhom"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:text="Nhóm"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/radioTatCaNguoi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:text="Tất cả"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/radioChuaXong"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_check_search"
+                    android:drawableStart="@drawable/check_done"
+                    android:gravity="start|center"
+                    android:text="Chưa xong"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/radioDaXong"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="2dp"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:text="Đã xong"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/radioTatCaTask"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:padding="10dp"
+                    android:text="Tất cả"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/daThanhToan"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_check_search"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:padding="5dp"
+                    android:text="Đã thanh toán"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/chuaThanhToan"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawableStart="@drawable/check_done"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:padding="5dp"
+                    android:text="Chưa thanh toán"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3.5">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1.2"
+                    android:gravity="start|center"
+                    android:padding="5dp"
+                    android:text="Thời gian: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/btnSelectDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="2.2"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawableEnd="@drawable/calendar_svgrepo_com"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:hint="Chọn ngày tháng năm"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3.5">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1.2"
+                    android:gravity="start|center"
+                    android:padding="5dp"
+                    android:text="Địa điểm: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                    android:id="@+id/btnSelectCollectPoint"
+                    style="@style/TextViewAddressValue"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="2.2"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawablePadding="8dp"
+                    android:gravity="start|center"
+                    android:hint="Chọn địa điểm"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3.5">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1.2"
+                    android:gravity="start|center"
+                    android:padding="5dp"
+                    android:text="Mã công việc: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtMaCV"
+                    android:inputType="number"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/bg_item_detail"
+                    android:drawablePadding="5dp"
+                    android:gravity="start|center"
+                    android:hint="Nhập Mã CV"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3.5">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1.2"
+                    android:gravity="start|center"
+                    android:padding="5dp"
+                    android:text="Mã NV: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtMaNV"
+                    android:inputType="number"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/bg_item_detail"
+                    android:enabled="false"
+                    android:gravity="start|center"
+                    android:hint="Nhập Mã NV"
+                    android:padding="5dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font16_sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnSeach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:background="@drawable/bg_no_strock_red"
+                android:drawableEnd="@drawable/arrow_right_svgrepo_com"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:paddingHorizontal="35dp"
+                android:paddingVertical="15dp"
+                android:text="Tìm kiếm"
+                android:textColor="@color/color_red"
+                android:textSize="@dimen/font16_sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

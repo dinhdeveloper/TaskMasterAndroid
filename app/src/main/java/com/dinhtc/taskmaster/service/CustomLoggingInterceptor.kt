@@ -2,12 +2,9 @@ package com.dinhtc.taskmaster.service
 
 import android.util.Log
 import okhttp3.Interceptor
-import okhttp3.Request
 import okhttp3.Response
-import okhttp3.RequestBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
-import timber.log.Timber
 
 class CustomLoggingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

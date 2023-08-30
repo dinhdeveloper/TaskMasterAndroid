@@ -1,6 +1,7 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -12,6 +13,7 @@ import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.common.widgets.spinner.ItemViewLocation
 import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
+import com.dinhtc.taskmaster.model.RoleCode
 import com.dinhtc.taskmaster.model.SuggestionModel
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
@@ -19,6 +21,7 @@ import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
 import com.dinhtc.taskmaster.model.response.ListJobTypeResponse
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
@@ -68,30 +71,39 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
     private fun onClickItem() {
         viewBinding.apply {
-            btnAddDiaDiem.setOnClickListener {
-                bottomSheetAdd = context?.let {
-                    BottomSheetAddCollectPoint(it) { data ->
-                        addTaskViewModel.addCollectPoint(data)
+            when (SharedPreferencesManager.instance.getString(SharedPreferencesManager.ROLE_CODE, "") ?: "") {
+                RoleCode.ADMIN.name, RoleCode.LEADER.name, RoleCode.MASTER.name -> {
+                    btnAddDiaDiem.visibility = View.VISIBLE
+                    btnAddDiaDiem.setOnClickListener {
+                        bottomSheetAdd = context?.let {
+                            BottomSheetAddCollectPoint(it) { data ->
+                                addTaskViewModel.addCollectPoint(data)
+                            }
+                        }
+                        bottomSheetAdd?.isCancelable = false
+                        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                        activity?.supportFragmentManager?.let {
+                            bottomSheetAdd?.show(
+                                it,
+                                bottomSheetAdd?.tag
+                            )
+                        }
                     }
-                }
-                bottomSheetAdd?.isCancelable = false
-                activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-                activity?.supportFragmentManager?.let {
-                    bottomSheetAdd?.show(
-                        it,
-                        bottomSheetAdd?.tag
-                    )
+                }else ->{
+                    btnAddDiaDiem.visibility = View.GONE
                 }
             }
 
             btnSubmit.setOnClickListener {
                 Log.d("SSSSSSSSSS_TEXT", "${viewBinding.edtGhiChu.inputText}")
-                if (checkValidate()){
+                if (checkValidate()) {
                     if (nv2Selected != -1) {
                         val addTaskRequest = AddTaskRequest(
                             jobTypeIdSelected,
                             nv1Selected,
                             nv2Selected,
+                            SharedPreferencesManager.instance.getInt(
+                                SharedPreferencesManager.USER_ID,0),
                             viewBinding.edtDiaDiem.ids,
                             viewBinding.edtGhiChu.inputText
                         )
@@ -187,6 +199,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
             }
         }
     }
+
     private fun onGetListEmployee(uiState: UiState<ListEmployeeResponse>) {
         when (uiState) {
             is UiState.Success -> {
@@ -308,7 +321,8 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
             UiState.Loading -> {}
         }
     }
-    private fun  onAddTask(uiState: UiState<Any>) {
+
+    private fun onAddTask(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
@@ -330,31 +344,61 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
     private fun checkValidate(): Boolean {
         viewBinding.apply {
-            return if (edtSelectTask.text.toString().trim().isEmpty()){
-                edtSelectTask.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+            return if (edtSelectTask.text.toString().trim().isEmpty()) {
+                edtSelectTask.background =
+                    context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                 false
-            } else{
-                edtSelectTask.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_item_detail_black) }
-                return if (edtSelectNV1.text.toString().trim().isEmpty()){
-                    edtSelectNV1.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+            } else {
+                edtSelectTask.background =
+                    context?.let { ContextCompat.getDrawable(it, R.drawable.bg_item_detail_black) }
+                return if (edtSelectNV1.text.toString().trim().isEmpty()) {
+                    edtSelectNV1.background =
+                        context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                     false
-                } else{
-                    edtSelectNV1.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_item_detail_black) }
-                    return if (edtSelectNV2.text.toString().trim().isEmpty()){
-                        edtSelectNV2.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+                } else {
+                    edtSelectNV1.background = context?.let {
+                        ContextCompat.getDrawable(
+                            it,
+                            R.drawable.bg_item_detail_black
+                        )
+                    }
+                    return if (edtSelectNV2.text.toString().trim().isEmpty()) {
+                        edtSelectNV2.background =
+                            context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                         false
-                    } else{
-                        edtSelectNV2.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_item_detail_black) }
-                        return if (edtDiaDiem.text.toString().trim().isEmpty()){
-                            edtDiaDiem.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+                    } else {
+                        edtSelectNV2.background = context?.let {
+                            ContextCompat.getDrawable(
+                                it,
+                                R.drawable.bg_item_detail_black
+                            )
+                        }
+                        return if (edtDiaDiem.text.toString().trim().isEmpty()) {
+                            edtDiaDiem.background =
+                                context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                             false
-                        } else{
-                            edtDiaDiem.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_item_detail_black) }
-                            return if (edtGhiChu.text.toString().trim().isEmpty()){
-                                edtGhiChu.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+                        } else {
+                            edtDiaDiem.background = context?.let {
+                                ContextCompat.getDrawable(
+                                    it,
+                                    R.drawable.bg_item_detail_black
+                                )
+                            }
+                            return if (edtGhiChu.text.toString().trim().isEmpty()) {
+                                edtGhiChu.background = context?.let {
+                                    ContextCompat.getDrawable(
+                                        it,
+                                        R.drawable.bg_red_
+                                    )
+                                }
                                 false
-                            } else{
-                                edtGhiChu.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_item_detail_black) }
+                            } else {
+                                edtGhiChu.background = context?.let {
+                                    ContextCompat.getDrawable(
+                                        it,
+                                        R.drawable.bg_item_detail_black
+                                    )
+                                }
                                 return true
                             }
                         }
@@ -380,7 +424,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
 }
 
-private val uuTienList = ArrayList<ItemViewLocation<ProvinceData>>().apply {
+public val uuTienList = ArrayList<ItemViewLocation<ProvinceData>>().apply {
     add(
         ItemViewLocation(
             ProvinceData(

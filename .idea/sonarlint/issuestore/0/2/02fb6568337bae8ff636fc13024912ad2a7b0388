@@ -1,0 +1,11 @@
+
+W
+java:S1118":Add a private constructor to hide the implicit public one.(¼Øûì8êÀÏú£1
+W
+java:S1874":Remove this use of "requestPermissions"; it is deprecated.(Óï„€8ıÀÏú£1
+8
+java:S3626+"Remove this redundant jump.(ûÁİ…8ıÀÏú£1
+\
+java:S1874M":Remove this use of "requestPermissions"; it is deprecated.(÷¾ûÈùÿÿÿÿ8ÁÏú£1
+X
+java:S1068"6Remove this unused "checkPermissionAll" private field.(Ÿ¾÷éıÿÿÿÿ8„ÁÏú£1

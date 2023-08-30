@@ -55,9 +55,10 @@ class SharedPreferencesManager(context: Context) {
         const val TOKEN_LOGIN = "TOKEN_LOGIN"
         const val ROLE_CODE = "ROLE_CODE"
         const val TOKEN_FIREBASE = "TOKEN_FIREBASE"
+        const val USERNAME = "USERNAME"
+        const val USER_ID = "USER_ID"
 
         private const val FILE_NAME = "advsarg"
-        const val USERNAME = "USERNAME"
         const val PASS_W = "PASS_W"
         const val IS_LOGGED_IN = "IS_LOGGED_IN"
         const val LAST_LOGIN_TINE = "LAST_LOGIN_TINE"

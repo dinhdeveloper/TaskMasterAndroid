@@ -2,33 +2,44 @@ package com.dinhtc.taskmaster.view.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.drawable.AnimationDrawable
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.databinding.FragmentMainBinding
+import com.dinhtc.taskmaster.model.RoleCode
+import com.dinhtc.taskmaster.model.response.UserProfileResponse
+import com.dinhtc.taskmaster.utils.ApiResponse
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USER_ID
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.viewmodel.SharedViewModel
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
 
 @AndroidEntryPoint
 class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusHandler  {
 
     private val sharedViewModel: SharedViewModel by viewModels()
+    private var data : UserProfileResponse? = null
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_main
@@ -54,6 +65,13 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
         )
 
         onClickItem()
+
+        sharedViewModel.getUserProfile(
+            SharedPreferencesManager.instance.getString(
+            SharedPreferencesManager.USERNAME,null
+        ))
+
+        observe(sharedViewModel.getUserProfile,::getUserProfileLive)
     }
 
     private fun onClickItem() {
@@ -65,10 +83,16 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 findNavController().navigate(R.id.action_mainFragment_to_addTaskFragment)
             }
             btnNotify.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_notifyListFragment)
+                //findNavController().navigate(R.id.action_mainFragment_to_notifyListFragment)
+
+                MaterialDatePicker.Builder.dateRangePicker().build().show(requireActivity().supportFragmentManager, "")
             }
             btnSetting.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_settingFragment)
+                var bundle = Bundle()
+                bundle.putSerializable(KEY_USER_PROFILE ,data)
+                findNavController().navigate(R.id.action_mainFragment_to_settingFragment,
+                    bundle
+                )
             }
 
         }
@@ -126,5 +150,34 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
             }
 
         }
+    }
+
+    private fun getUserProfileLive(uiState: UiState<Any>) {
+        when (uiState) {
+            is UiState.Success -> {
+                LoadingScreen.hideLoading()
+                data = uiState.data.data as UserProfileResponse
+                viewBinding.tvName.text = data?.name
+                data?.empId?.toInt()?.let { SharedPreferencesManager.instance.putInt(USER_ID, it) }
+            }
+
+            is UiState.Error -> {
+                val errorMessage = uiState.message
+                Log.e("SSSSSSSSSSS", errorMessage)
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+            }
+
+            UiState.Loading -> {
+                LoadingScreen.displayLoadingWithText(
+                    requireContext(),
+                    "Please wait...",
+                    false
+                )
+            }
+        }
+    }
+    companion object {
+        val KEY_USER_PROFILE = "KEY_USER_PROFILE"
     }
 }
