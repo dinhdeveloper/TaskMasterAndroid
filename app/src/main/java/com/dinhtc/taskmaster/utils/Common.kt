@@ -3,7 +3,16 @@ package com.dinhtc.taskmaster.utils
 import android.graphics.Matrix
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
+fun <T> convertJsonToObject(responseJson: ApiResponse<Any>, clazz: Class<T>): ApiResponse<T> {
+    val gson = Gson()
+    val dataJson = gson.toJson(responseJson)
+    val type = TypeToken.getParameterized(ApiResponse::class.java, clazz).type
+    val response: ApiResponse<T> = gson.fromJson(dataJson, type)
+    return response
+}
 fun decodeExifOrientation(exifOrientation: Int): Matrix {
     val matrix = Matrix()
 

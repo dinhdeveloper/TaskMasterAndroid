@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UsersViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl) : ViewModel() {
 
-    private val _dataLogin = MutableLiveData<UiState<LoginResponse>>()
-    val dataLogin : LiveData<UiState<LoginResponse>>
+    private val _dataLogin = MutableLiveData<UiState<Any>>()
+    val dataLogin : LiveData<UiState<Any>>
     get() = _dataLogin
 
     fun loginUser(userName: String, passWord: String) {
@@ -26,6 +26,21 @@ class UsersViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImp
                 _dataLogin.value = UiState.Success(response)
             } else {
                 _dataLogin.value = UiState.Error(response.data.toString())
+            }
+        }
+    }
+
+    private val _dataLogout = MutableLiveData<UiState<Any>>()
+    val dataLogout : LiveData<UiState<Any>>
+        get() = _dataLogout
+    fun logoutUser() {
+        viewModelScope.launch {
+            _dataLogout.value = UiState.Loading
+            val response = apiHelperImpl.logOut()
+            if (response.result_code == 0) {
+                _dataLogout.value = UiState.Success(response)
+            } else {
+                _dataLogout.value = UiState.Error(response.data.toString())
             }
         }
     }

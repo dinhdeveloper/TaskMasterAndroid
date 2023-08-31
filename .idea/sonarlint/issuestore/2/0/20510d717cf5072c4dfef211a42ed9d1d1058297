@@ -1,8 +1,10 @@
 
-Rkotlin:S1172F".Remove this unused function parameter "modal".(ªÀ¨øÿÿÿÿ8µ‰¡òœ1
-Wkotlin:S1481Ü"7Remove this unused "vietnameseCollator" local variable.(ôû£š8¡ò‡â¡1
-9kotlin:S1128"Remove this unused import.(£Ãğ³8»‰¡òœ1
->kotlin:S1128"Remove this unused import.(’—ÄÑùÿÿÿÿ8äï¡òœ1
-dkotlin:S1144F"@Remove this unused private "setContentBgAndColorOnClick" method.(ªÀ¨øÿÿÿÿ8Ç‰¡òœ1
-akotlin:S6517Q"BMake this interface functional or replace it with a function type.(ƒ™şÊ8É‰¡òœ1
-\kotlin:S65117"=Merge chained "if" statements into a single "when" statement.(ÀõãÚ8Ê‰¡òœ1
+Mkotlin:S1172F".Remove this unused function parameter "modal".(‡¤¯ß8¬º¤1
+9kotlin:S1128"Remove this unused import.(£Ãğ³8“¬º¤1
+>kotlin:S1128"Remove this unused import.(ÊÒÅ­ùÿÿÿÿ8üğÛĞ¤1
+>kotlin:S1128"Remove this unused import.(’—ÄÑùÿÿÿÿ8“¬º¤1
+9kotlin:S1128"Remove this unused import.(ã²µğ8üğÛĞ¤1
+>kotlin:S1128"Remove this unused import.(Úœåùÿÿÿÿ8üğÛĞ¤1
+_kotlin:S1144F"@Remove this unused private "setContentBgAndColorOnClick" method.(‡¤¯ß8˜¬º¤1
+akotlin:S6517Q"BMake this interface functional or replace it with a function type.(ƒ™şÊ8š¬º¤1
+\kotlin:S65117"=Merge chained "if" statements into a single "when" statement.(ÔÍÚ—8›¬º¤1

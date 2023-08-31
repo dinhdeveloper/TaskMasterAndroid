@@ -3,21 +3,30 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
+import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.model.request.LoginRequest
+import com.dinhtc.taskmaster.model.request.SearchRequest
 import com.dinhtc.taskmaster.utils.ApiResponse
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : ApiHelper {
-    override suspend fun loginUser(userName: String, passWord: String): ApiResponse<LoginResponse> {
+    override suspend fun loginUser(userName: String, passWord: String): ApiResponse<Any> {
         val loginRequest = LoginRequest(userName, passWord)
         return apiService.loginUser(loginRequest)
     }
 
-    override suspend fun saveFirebaseToken(firebaseToken: String): ApiResponse<Any> {
-        return apiService.saveFirebaseToken(firebaseToken)
+    override suspend fun saveFirebaseToken(
+        firebaseToken: String,
+        deviceId: String?,
+        deviceName: String?
+    ): ApiResponse<Any> {
+        val token = "Bearer " + SharedPreferencesManager.instance.getString(SharedPreferencesManager.TOKEN_LOGIN, "")
+        return apiService.saveFirebaseToken(token, firebaseToken, deviceId, deviceName)
     }
 
     override suspend fun getListJobType(): ApiResponse<ListJobTypeResponse> {
@@ -74,18 +83,63 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         return apiService.addMaterial(material)
     }
 
-    override suspend fun getJobDetails(id: Int): ApiResponse<JobDetailsResponse> {
-        return apiService.getJobDetails(id)
+    override suspend fun getJobDetails(jobId: Int, empId: Int): ApiResponse<JobDetailsResponse> {
+        return apiService.getJobDetails(jobId, empId)
     }
 
     override suspend fun updateStateJob(
         jobsId: Int,
-        dalamgon: Int
+        dalamgon: Int,
+        dateCreate: String
     ): ApiResponse<UpdateJobsResponse> {
-        return apiService.updateStateJob(jobsId, dalamgon)
+        return apiService.updateStateJob(jobsId, dalamgon, dateCreate)
     }
 
     override suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any> {
         return apiService.deleteMedia(deleteMediaRequest)
     }
+
+    override suspend fun deleteMaterial(deleteMaterialRequest: DeleteMaterialRequest): ApiResponse<Any> {
+        return apiService.deleteMaterial(deleteMaterialRequest)
+    }
+
+    override suspend fun getUserProfile(username: String): ApiResponse<Any> {
+        return apiService.getUserProfile(username)
+    }
+
+    override suspend fun logOut(): ApiResponse<Any> {
+        val token = "Bearer " + SharedPreferencesManager.instance.getString(SharedPreferencesManager.TOKEN_LOGIN, "")
+        return apiService.loginOut(token)
+    }
+
+    override suspend fun getListEmployeeByJobId(jobId: Int): ApiResponse<ListEmployeeResponse> {
+        return apiService.getListEmployeeByJobId(jobId)
+    }
+
+    override suspend fun updateJobDetails(dataUpdate: DataUpdateJobRequest): ApiResponse<Any> {
+        return apiService.updateJobDetails(dataUpdate)
+    }
+
+    override suspend fun search(searchRequest: SearchRequest): ApiResponse<ListJobSearchResponse> {
+        var startDate = searchRequest.startDate
+        var endDate = searchRequest.endDate
+        var empStatus = searchRequest.empStatus
+        var empId = searchRequest.empId
+        var status = searchRequest.status
+        var paymentStatus = searchRequest.paymentStatus
+        var jobId = searchRequest.jobId
+        var collectPoint = searchRequest.collectPoint
+
+        return apiService.search(
+            startDate,
+            endDate,
+            empStatus,
+            empId,
+            status,
+            paymentStatus,
+            jobId,
+            collectPoint
+        )
+    }
+
 }

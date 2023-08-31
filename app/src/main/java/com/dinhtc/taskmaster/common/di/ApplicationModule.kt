@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import com.dinhtc.taskmaster.service.ApiHelper
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.service.ApiService
-import com.dinhtc.taskmaster.service.AuthTokenInterceptor
 import com.dinhtc.taskmaster.service.CustomLoggingInterceptor
 import com.dinhtc.taskmaster.service.GeneralHeaderInterceptor
 import com.dinhtc.taskmaster.service.SpecialHeaderInterceptor
@@ -27,7 +26,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
     @Provides
-    fun provideBaseUrl() = "http://192.168.1.109:8080/api/" //192.168.1.2  192.168.1.153
+    fun provideBaseUrl() = "http://192.168.1.5:8080/api/" //192.168.1.2  192.168.1.153
     @Provides
     @Singleton
     fun provideOkHttpClient(sharedPreferences: SharedPreferencesManager): OkHttpClient {

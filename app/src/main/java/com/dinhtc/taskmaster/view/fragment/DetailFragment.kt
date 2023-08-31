@@ -1,11 +1,12 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.graphics.Typeface
-import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
@@ -15,16 +16,22 @@ import com.dinhtc.taskmaster.databinding.FragmentDetailBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticAnimation
 import com.dinhtc.taskmaster.common.widgets.spinner.ItemViewLocation
+import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
+import com.dinhtc.taskmaster.model.RoleCode
+import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
-import com.dinhtc.taskmaster.model.response.JobMaterialDetailResponse
+import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
 import com.dinhtc.taskmaster.model.response.ListMaterialResponse
 import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
+import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.activity.MainActivity
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.viewmodel.MaterialViewModel
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
@@ -35,10 +42,16 @@ import okhttp3.MultipartBody
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
+    private var nv1Old: Int = -1
+    private var uuTienIdSelected: Int = -1
+    private var advancePayment: String? = null
+    private var totalMoney: String? = null
 
+    private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
     private var dataResponse: JobDetailsResponse? = null
     private var jobsId: Int = -1
+    private var empId: Int = -1
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -50,6 +63,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private val jobsViewModel: JobsViewModel by viewModels()
 
     private val dataListJob = ArrayList<ItemViewLocation<ProvinceData>>()
+    private val dataListEmployee = ArrayList<ItemViewLocation<ProvinceData>>()
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_detail
@@ -57,31 +71,144 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override fun onViewCreated() {
 
         jobsId = arguments?.getInt(HomeFragment.ID_JOB)!!
+        empId = arguments?.getInt(HomeFragment.ID_JOB)!!
 
+        jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
         addTaskViewModel.getListJobType()
-        jobsViewModel.getJobDetails(idJob = jobsId)
         materialViewModel.getListMaterial()
+        addTaskViewModel.getListEmployeeByJobId(jobId = jobsId)
 
 
+        observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
         observe(uploadMediaViewModel.dataUpLoadImage, ::responseUploadMultiImage)
         observe(materialViewModel.dataListMaterial, ::onGetListMaterialLive)
         observe(materialViewModel.datAddMaterial, ::addMaterialLive)
-        observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
         observe(jobsViewModel.updateStateJob, ::updateStateJobLive)
+        //observe(addTaskViewModel.dataEmployee, ::onGetListEmployee)
+        observe(addTaskViewModel.dataEmployeeByJobId, ::dataEmployeeByJobId)
+        observe(jobsViewModel.updateJobDetails, ::updateJobDetailsLive)
 
         onClickItem()
+        viewBinding.selectNV.setOnItemSelectedListener(mOnSelectedNV1Listener)
+        viewBinding.edtSelectUuTien.setData(uuTienList)
+        viewBinding.edtSelectUuTien.setOnItemSelectedListener(mOnSelectedUuTienListener)
+        checkRole()
     }
+
+    private fun checkRole() {
+        viewBinding.apply {
+            when (SharedPreferencesManager.instance.getString(
+                SharedPreferencesManager.ROLE_CODE,
+                ""
+            ) ?: "") {
+                RoleCode.MASTER.name -> {
+                    btnDaLamGon.isEnabled = true
+                    btnDaLamGon.alpha = 1f
+
+                    btnDaCan.isEnabled = true
+                    btnDaCan.alpha = 1f
+
+                    btnDaXong.isEnabled = true
+                    btnDaXong.alpha = 1f
+                }
+
+                RoleCode.COLLECTOR.name -> {
+                    btnDaLamGon.isEnabled = true
+                    btnDaLamGon.alpha = 1f
+
+                    btnDaCan.isEnabled = true
+                    btnDaCan.alpha = 1f
+
+                    btnDaXong.isEnabled = false
+                    btnDaXong.alpha = 0.8f
+                }
+
+                RoleCode.ADMIN.name, RoleCode.LEADER.name, RoleCode.EMPLOYEE.name, RoleCode.CUSTOMER.name -> {
+                    btnDaLamGon.isEnabled = false
+                    btnDaLamGon.alpha = 0.8f
+
+                    btnDaCan.isEnabled = false
+                    btnDaCan.alpha = 0.8f
+
+                    btnDaXong.isEnabled = false
+                    btnDaXong.alpha = 0.8f
+                }
+
+                RoleCode.DRIVER.name -> {
+                    btnDaLamGon.isEnabled = false
+                    btnDaLamGon.alpha = 0.8f
+
+                    btnDaCan.isEnabled = true
+                    btnDaCan.alpha = 1f
+
+                    btnDaXong.isEnabled = true
+                    btnDaXong.alpha = 1f
+                }
+            }
+        }
+    }
+
+    private val mOnSelectedNV1Listener =
+        object : LocationSpinner.OnItemSelectedListener<ProvinceData> {
+            override fun onItemSelected(
+                parent: LocationSpinner<ProvinceData>,
+                position: Int,
+                item: ItemViewLocation<ProvinceData>?
+            ) {
+                nvSelectedNew = item?.data?.id!!
+            }
+        }
+
+    private val mOnSelectedUuTienListener =
+        object : LocationSpinner.OnItemSelectedListener<ProvinceData> {
+            override fun onItemSelected(
+                parent: LocationSpinner<ProvinceData>,
+                position: Int,
+                item: ItemViewLocation<ProvinceData>?
+            ) {
+                uuTienIdSelected = item?.data?.id!!
+            }
+        }
 
     private fun onClickItem() {
         viewBinding.apply {
+            edtNVUng.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (edtNVUng.money > 0) {
+                        viewBinding.apply {
+                            radioChuaThanhToan.isEnabled = false
+                            radioChuyenKhoan.isEnabled = false
+                        }
+                    } else {
+                        viewBinding.apply {
+                            radioChuaThanhToan.isEnabled = true
+                            radioChuyenKhoan.isEnabled = true
+                        }
+                    }
+                }
+
+            })
+
             btnVatLieu.setOnClickListener {
-                if (dataResponse!= null){
-                    if (dataResponse!!.jobMaterial.isNotEmpty()){
-                        if (activity is MainActivity){
-                            (activity as MainActivity).sharedViewModel?.setShareListJobMaterial(dataResponse!!.jobMaterial)
+                if (dataResponse != null) {
+                    if (dataResponse!!.jobMaterial.isNotEmpty()) {
+                        if (activity is MainActivity) {
+                            (activity as MainActivity).sharedViewModel?.setShareListJobMaterial(
+                                dataResponse!!.jobMaterial
+                            )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_materialDetailFragment)
-                    }else {
+                    } else {
                         if (dataListJob.isNotEmpty()) {
                             showDialogAddVatLieu()
                         }
@@ -90,34 +217,58 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
 
             btnAnh.setOnClickListener {
-                if (dataResponse!= null){
-                    if (dataResponse!!.jobMedia.isNotEmpty()){
-                        if (activity is MainActivity){
-                            (activity as MainActivity).sharedViewModel?.setShareListJobMedia(dataResponse!!.jobMedia)
+                if (dataResponse != null) {
+                    if (dataResponse!!.jobMedia.isNotEmpty()) {
+                        if (activity is MainActivity) {
+                            (activity as MainActivity).sharedViewModel?.setShareListJobMedia(
+                                dataResponse!!.jobMedia
+                            )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_mediaDetailFragment)
-                    }else {
+                    } else {
                         if (dataListJob.isNotEmpty()) {
                             showDialogAddImage()
                         }
                     }
                 }
             }
-
+            var dateCreate = "dateCreate"
             btnDaLamGon.setOnClickListener {
-                jobsViewModel.updateStateJob(jobsId, DALAMGON)
+                jobsViewModel.updateStateJob(jobsId, DALAMGON, dateCreate)
             }
             btnDaCan.setOnClickListener {
-                if (dataResponse != null){
-                    if (dataResponse!!.jobMaterial.isNotEmpty() && dataResponse!!.jobMedia.isNotEmpty()){
-                        jobsViewModel.updateStateJob(jobsId, DACAN)
-                    }else{
-                        DialogFactory.showDialogDefaultNotCancel(context,"Thiếu Vật liệu/ Ảnh")
+                if (dataResponse != null) {
+                    if (dataResponse!!.jobMaterial.isNotEmpty() && dataResponse!!.jobMedia.isNotEmpty()) {
+                        jobsViewModel.updateStateJob(jobsId, DACAN, dateCreate)
+                    } else {
+                        DialogFactory.showDialogDefaultNotCancel(context, "Thiếu Vật liệu/ Ảnh")
                     }
                 }
             }
 
-            btnSubmit.setOnClickListener {}
+            btnDaXong.setOnClickListener {
+                jobsViewModel.updateStateJob(jobsId, XONG, dateCreate)
+            }
+
+            btnSubmit.setOnClickListener {
+                if (viewBinding.tvPrice.text.toString().trim().isNotEmpty()) {
+                    totalMoney = viewBinding.tvPrice.text.toString().trim()
+                }
+                if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
+                    advancePayment = viewBinding.edtNVUng.money.toString().trim()
+                }
+
+                val dataUpdate = DataUpdateJobRequest(
+                    totalMoney = totalMoney,
+                    statusPayment = 1, //chuyển khoản là 0, chưa thanh toán là 1
+                    advancePayment = advancePayment,
+                    priority = uuTienIdSelected,
+                    empOldId = nv1Old,
+                    empNewId = nvSelectedNew,
+                    note = viewBinding.edtGhiChu.text.toString(),
+                )
+                jobsViewModel.updateJobDetails(dataUpdate)
+            }
         }
     }
 
@@ -158,7 +309,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 checkCloseImage = false
             }, { //close videos
                 checkCloseVideos = false
-            },{})
+            }, {})
         bottomSheetAddImage?.isCancelable = false
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         activity?.supportFragmentManager?.let {
@@ -186,12 +337,72 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
+    private fun onGetListEmployee(uiState: UiState<ListEmployeeResponse>) {
+        when (uiState) {
+            is UiState.Success -> {
+                LoadingScreen.hideLoading()
+                val listEmpLiveData = uiState.data.data.listItem
+                for (data in listEmpLiveData) {
+                    dataListEmployee.add(
+                        ItemViewLocation(
+                            ProvinceData(
+                                data.empId,
+                                "${data.empId}",
+                                "${data.name}"
+                            )
+                        )
+                    )
+                }
+                viewBinding.selectNV.setData(dataListEmployee)
+            }
+
+            is UiState.Error -> {
+                val errorMessage = uiState.message
+                Log.e("SSSSSSSSSSS", errorMessage)
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+            }
+
+            UiState.Loading -> {}
+        }
+    }
+
+    private fun dataEmployeeByJobId(uiState: UiState<ListEmployeeResponse>) {
+        when (uiState) {
+            is UiState.Success -> {
+                LoadingScreen.hideLoading()
+                val listEmpLiveData = uiState.data.data.listItem
+                for (data in listEmpLiveData) {
+                    dataListEmployee.add(
+                        ItemViewLocation(
+                            ProvinceData(
+                                data.empId,
+                                "${data.empId}",
+                                "${data.name}"
+                            )
+                        )
+                    )
+                }
+                viewBinding.selectNV.setData(dataListEmployee)
+            }
+
+            is UiState.Error -> {
+                val errorMessage = uiState.message
+                Log.e("SSSSSSSSSSS", errorMessage)
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+            }
+
+            UiState.Loading -> {}
+        }
+    }
+
     private fun responseUploadMultiImage(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}") {
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddImage?.dismiss()
                 }
             }
@@ -253,7 +464,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
-                jobsViewModel.getJobDetails(idJob = jobsId)
+                jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
             }
 
             is UiState.Error -> {
@@ -277,18 +488,77 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     tvStateDecs.text = dataResponse?.stateDecs
                     tvNamePoint.text = dataResponse?.namePoint
                     tvNameAddress.text = dataResponse?.numAddress
-                    tvPriority.text = "${dataResponse?.priority}"
+                    edtSelectUuTien.text = "Ưu tiên ${dataResponse?.priority}"
+                    if (dataResponse?.jobStateId == 30) {
+                        edtNVUng.isEnabled = false
+                        edtNVUng.visibility = View.GONE
+                        tvNVUng.visibility = View.VISIBLE
+
+                        selectNV.isEnabled = false
+                        selectNV.visibility = View.GONE
+                        tvSelectNV.visibility = View.VISIBLE
+
+                        edtGhiChu.isEnabled = false
+                        radioChuyenKhoan.isEnabled = false
+                        radioChuaThanhToan.isEnabled = false
+
+                        edtSelectUuTien.isEnabled = false
+                        edtSelectUuTien.visibility = View.GONE
+                        tvUuTien.visibility = View.VISIBLE
+                    } else {
+                        edtNVUng.isEnabled = true
+                        edtNVUng.visibility = View.VISIBLE
+                        tvNVUng.visibility = View.GONE
+
+                        selectNV.isEnabled = true
+                        selectNV.visibility = View.VISIBLE
+                        tvSelectNV.visibility = View.GONE
+
+                        edtGhiChu.isEnabled = true
+                        radioChuyenKhoan.isEnabled = true
+                        radioChuaThanhToan.isEnabled = true
+
+                        edtSelectUuTien.isEnabled = true
+                        edtSelectUuTien.visibility = View.VISIBLE
+                        tvUuTien.visibility = View.GONE
+                    }
+                }
+                if (dataResponse?.employeeJobs?.isNotEmpty() == true) {
+                    if (dataResponse!!.employeeJobs.size == 1) {
+                        viewBinding.tvNV1.text = dataResponse!!.employeeJobs[0].name
+                        nv1Old = dataResponse!!.employeeJobs[0].empId
+                    }
+                    if (dataResponse!!.employeeJobs.size == 2) {
+                        viewBinding.tvNV1.text = dataResponse!!.employeeJobs[0].name
+                        viewBinding.tvNV2.text = dataResponse!!.employeeJobs[1].name
+                    }
+                    if (dataResponse!!.employeeJobs.size == 3) {
+                        viewBinding.tvNV1.text = dataResponse!!.employeeJobs[0].name
+                        viewBinding.tvNV2.text = dataResponse!!.employeeJobs[1].name
+                        viewBinding.tvNV3.text = dataResponse!!.employeeJobs[2].name
+                    }
                 }
                 jobsId = uiState.data.data.jobId
-                if (dataResponse?.jobMedia?.isNotEmpty() == true){
-                    for (data in dataResponse!!.jobMedia){
-                        if (data.mediaType == 2){
+
+                if (dataResponse?.jobMedia?.isNotEmpty() == true) {
+                    for (data in dataResponse!!.jobMedia) {
+                        if (data.mediaType == 2) {
                             checkCloseVideos = true
                         }
-                        if (data.mediaType == 1){
+                        if (data.mediaType == 1) {
                             checkCloseImage = true
                         }
                     }
+                }
+                var moneyTemp: Long = 0
+                if (dataResponse?.jobMaterial?.isNotEmpty() == true) {
+                    for (data in dataResponse!!.jobMaterial) {
+                        moneyTemp += data.price
+                    }
+                    Log.e(TAG_LOG, "$moneyTemp")
+                    viewBinding.tvPrice.text = AndroidUtils.formatMoneyCard("$moneyTemp")
+                } else {
+                    viewBinding.tvPrice.text = AndroidUtils.formatMoneyCard("0")
                 }
             }
 
@@ -307,14 +577,45 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data.description}") {
-                    jobsViewModel.getJobDetails(jobsId)
-                    ElasticAnimation(viewBinding.tvStateDecs).setScaleX(0.75f).setScaleY(0.75f).setDuration(
-                        500
-                    ).doAction()
-                    viewBinding.tvStateDecs.setTypeface(viewBinding.tvStateDecs.typeface, Typeface.BOLD)
-                    viewBinding.tvStateDecs.setTextColor(ContextCompat.getColor(requireContext(), R.color.custom_error_color))
+                DialogFactory.showDialogDefaultNotCancelAndClick(
+                    context,
+                    "${uiState.data.data.description}"
+                ) {
+                    jobsViewModel.getJobDetails(jobsId, empId = empId)
+                    ElasticAnimation(viewBinding.tvStateDecs).setScaleX(0.75f).setScaleY(0.75f)
+                        .setDuration(
+                            500
+                        ).doAction()
+                    viewBinding.tvStateDecs.setTypeface(
+                        viewBinding.tvStateDecs.typeface,
+                        Typeface.BOLD
+                    )
+                    viewBinding.tvStateDecs.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.custom_error_color
+                        )
+                    )
                 }
+            }
+
+            is UiState.Error -> {
+                val errorMessage = uiState.message
+                Log.e("SSSSSSSSSSS", errorMessage)
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+            }
+
+            UiState.Loading -> {}
+        }
+    }
+
+    private fun updateJobDetailsLive(uiState: UiState<Any>) {
+        when (uiState) {
+            is UiState.Success -> {
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
+                jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
             }
 
             is UiState.Error -> {

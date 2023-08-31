@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/blue_bg"
+        android:background="@drawable/supply_chain_cp"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
@@ -61,7 +61,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtUsername"
-                    android:text="canhdinh"
                     android:layout_width="match_parent"
                     android:imeOptions="actionNext"
                     android:textSize="20sp"

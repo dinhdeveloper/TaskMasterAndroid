@@ -5,10 +5,8 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dinhtc.taskmaster.R
-import com.dinhtc.taskmaster.adapter.ImageViewAdapter
 import com.dinhtc.taskmaster.adapter.MaterialAdapter
 import com.dinhtc.taskmaster.bottomsheet.BottomSheetAddFreight
 import com.dinhtc.taskmaster.common.view.BaseFragment
@@ -31,10 +29,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
 
     private var bottomSheetAddVatLieu: BottomSheetAddFreight? = null
-    private var nodataAdapter: MaterialAdapter? = null
+    private var noDataAdapter: MaterialAdapter? = null
     private var listJobMaterial : MutableList<JobMaterialDetailResponse> = mutableListOf()
-    private var jobsId: Int = -1
     private val dataListJob = ArrayList<ItemViewLocation<ProvinceData>>()
+
+    private var jobsId: Int = -1
+    private var empId: Int = -1
+    private var positionDelete: Int = -1
 
     private val materialViewModel: MaterialViewModel by viewModels()
     private val jobsViewModel: JobsViewModel by viewModels()
@@ -50,17 +51,18 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
                     listJobMaterial.add(values)
                 }
 
-                nodataAdapter = context?.let { MaterialAdapter(it) }
-                nodataAdapter?.submitList(listJobMaterial)
-                nodataAdapter?.setOnClickListener(object : MaterialAdapter.OnClickListener {
-                    override fun onItemClick(position: Int, media: JobMaterialDetailResponse) {
+                noDataAdapter = context?.let { MaterialAdapter(it) }
+                noDataAdapter?.submitList(listJobMaterial)
+                noDataAdapter?.setOnClickListener(object : MaterialAdapter.OnClickListener {
+                    override fun onItemClick(position: Int, material: JobMaterialDetailResponse) {
                         DialogFactory.createMessageDialogWithYesNo(
                             context,
                             "Bạn chắc chắn xóa vật liệu này không?",
                             "Có",
                             "Không",
                             {
-                                nodataAdapter?.removeItem(position)
+                                positionDelete = position
+                                materialViewModel.deleteMaterial(material)
                             },
                             {}
                         )
@@ -69,7 +71,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
                 })
 
                 viewBinding.recyclerView.apply {
-                    adapter = nodataAdapter
+                    adapter = noDataAdapter
                     val layoutManager = LinearLayoutManager(context)
                     setLayoutManager(layoutManager)
                     setHasFixedSize(true)
@@ -82,6 +84,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
         observe(materialViewModel.dataListMaterial, ::onGetListMaterialLive)
         observe(materialViewModel.datAddMaterial, ::addMaterialLive)
         observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
+        observe(materialViewModel.dataDeleteMaterial, ::dataDeleteMaterialLive)
 
 
         onClickItem()
@@ -98,7 +101,6 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
     private fun showDialogAddVatLieu() {
         bottomSheetAddVatLieu = context?.let {
             BottomSheetAddFreight(it, dataListJob, jobsId) { dataAdd ->
-
                 materialViewModel.addMaterial(dataAdd)
             }
         }
@@ -153,7 +155,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
                 LoadingScreen.hideLoading()
                 //DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
                 Toast.makeText(context,"${uiState.data.data}",Toast.LENGTH_SHORT).show()
-                jobsViewModel.getJobDetails(idJob = jobsId)
+                jobsViewModel.getJobDetails(idJob = jobsId, empId = empId )
             }
 
             is UiState.Error -> {
@@ -174,9 +176,30 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
                 LoadingScreen.hideLoading()
                 jobsId = uiState.data.data.jobId
                 listJobMaterial = uiState.data.data.jobMaterial as MutableList<JobMaterialDetailResponse>
-                nodataAdapter?.submitList(listJobMaterial)
+                noDataAdapter?.submitList(listJobMaterial)
                 viewBinding.recyclerView.setHasFixedSize(true)
                 bottomSheetAddVatLieu?.dismiss()
+            }
+
+            is UiState.Error -> {
+                val errorMessage = uiState.message
+                Log.e("SSSSSSSSSSS", errorMessage)
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+            }
+
+            UiState.Loading -> {}
+        }
+    }
+    private fun dataDeleteMaterialLive(uiState: UiState<Any>) {
+        when (uiState) {
+            is UiState.Success -> {
+                LoadingScreen.hideLoading()
+                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
+                    bottomSheetAddVatLieu?.dismiss()
+                    noDataAdapter?.removeItem(positionDelete)
+                }
             }
 
             is UiState.Error -> {

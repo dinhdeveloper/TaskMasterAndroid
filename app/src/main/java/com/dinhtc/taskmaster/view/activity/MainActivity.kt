@@ -50,4 +50,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
             }
         }
     }
+    companion object {
+        val TAG_LOG = "API_NOTE: "
+    }
 }

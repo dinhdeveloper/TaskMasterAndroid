@@ -33,9 +33,10 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
     private var countMediaVideoHave : Int = 0
 
     private var positionDelete: Int = -1
-    private var nodataAdapter: ImageViewAdapter? = null
+    private var noDataAdapter: ImageViewAdapter? = null
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
     private var jobsId: Int = -1
+    private var empId: Int = -1
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -61,9 +62,9 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
                     countMediaVideoHave++
                 }
             }
-            nodataAdapter = context?.let { ImageViewAdapter(it) }
-            nodataAdapter?.submitList(listJobMedia)
-            nodataAdapter?.setOnClickListener(object : ImageViewAdapter.OnClickListener {
+            noDataAdapter = context?.let { ImageViewAdapter(it) }
+            noDataAdapter?.submitList(listJobMedia)
+            noDataAdapter?.setOnClickListener(object : ImageViewAdapter.OnClickListener {
                 override fun onItemClick(position: Int, media: JobMediaDetailResponse) {
                     DialogFactory.createMessageDialogWithYesNo(
                         context,
@@ -81,7 +82,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
             })
 
             viewBinding.recyclerView.apply {
-                adapter = nodataAdapter
+                adapter = noDataAdapter
                 val layoutManager = GridLayoutManager(context, 2)
                 setLayoutManager(layoutManager)
                 setHasFixedSize(true)
@@ -171,7 +172,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddImage?.dismiss()
                 }
             }
@@ -200,7 +201,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
                 LoadingScreen.hideLoading()
                 jobsId = uiState.data.data.jobId
                 listJobMedia = uiState.data.data.jobMedia as MutableList<JobMediaDetailResponse>
-                nodataAdapter?.submitList(listJobMedia)
+                noDataAdapter?.submitList(listJobMedia)
                 viewBinding.recyclerView.setHasFixedSize(true)
                 if (listJobMedia.isNotEmpty()){
                     countMediaImageHave = 0
@@ -234,9 +235,9 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddImage?.dismiss()
-                    nodataAdapter?.removeItem(positionDelete)
+                    noDataAdapter?.removeItem(positionDelete)
                 }
             }
 
