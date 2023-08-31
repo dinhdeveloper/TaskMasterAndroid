@@ -41,9 +41,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         }
 
         viewBinding.btnLogout.setOnClickListener {
-            //viewModel.logoutUser()
-            logout()
-            findNavController().navigate(R.id.action_settingFragment_to_loginFragment)
+            viewModel.logoutUser()
+//            logout()
+//            findNavController().navigate(R.id.action_settingFragment_to_loginFragment)
         }
 
         observe(viewModel.dataLogout, ::dataLogoutLive)

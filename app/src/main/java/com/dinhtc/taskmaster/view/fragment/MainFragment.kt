@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
@@ -15,7 +14,7 @@ import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.databinding.FragmentMainBinding
 import com.dinhtc.taskmaster.model.RoleCode
 import com.dinhtc.taskmaster.model.response.UserProfileResponse
-import com.dinhtc.taskmaster.utils.ApiResponse
+import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
@@ -24,16 +23,11 @@ import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
 import com.dinhtc.taskmaster.utils.observe
-import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.viewmodel.SharedViewModel
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
 
 @AndroidEntryPoint
 class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusHandler  {
@@ -60,7 +54,14 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
 
                 // Get new FCM registration token
                 val token = task.result
-
+                SharedPreferencesManager.instance.putString(SharedPreferencesManager.TOKEN_FIREBASE, token)
+                sharedViewModel.updateTokenFirebase(
+                    SharedPreferencesManager.instance.getString(
+                        SharedPreferencesManager.TOKEN_FIREBASE, null),
+                    activity?.applicationContext?.let { deviceId ->
+                        AndroidUtils.getAndroidDeviceId(deviceId) },
+                    AndroidUtils.getDeviceName()
+                )
             },
         )
 
@@ -83,9 +84,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 findNavController().navigate(R.id.action_mainFragment_to_addTaskFragment)
             }
             btnNotify.setOnClickListener {
-                //findNavController().navigate(R.id.action_mainFragment_to_notifyListFragment)
-
-                MaterialDatePicker.Builder.dateRangePicker().build().show(requireActivity().supportFragmentManager, "")
+                findNavController().navigate(R.id.action_mainFragment_to_notifyListFragment)
             }
             btnSetting.setOnClickListener {
                 var bundle = Bundle()
@@ -124,6 +123,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
             ) {
                 // FCM SDK (and your app) can post notifications.
                 Log.e("API_R", "GỬI LẠI TOKEN")
+
             } else {
                 // Directly ask for the permission
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -145,7 +145,11 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
             if (count == 1){
                 sharedViewModel.updateTokenFirebase(
                     SharedPreferencesManager.instance.getString(
-                        SharedPreferencesManager.TOKEN_FIREBASE, null))
+                        SharedPreferencesManager.TOKEN_FIREBASE, null),
+                    activity?.applicationContext?.let { deviceId ->
+                        AndroidUtils.getAndroidDeviceId(deviceId) },
+                    AndroidUtils.getDeviceName()
+                    )
                 count ++
             }
 
@@ -159,6 +163,18 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 data = uiState.data.data as UserProfileResponse
                 viewBinding.tvName.text = data?.name
                 data?.empId?.toInt()?.let { SharedPreferencesManager.instance.putInt(USER_ID, it) }
+
+                when (SharedPreferencesManager.instance.getString(
+                    SharedPreferencesManager.ROLE_CODE, "") ?: "") {
+                    RoleCode.ADMIN.name, RoleCode.LEADER.name, RoleCode.MASTER.name -> {
+                        viewBinding.btnAddTask.isEnabled = true
+                        viewBinding.btnAddTask.alpha = 1f
+                    }
+                    else -> {
+                        viewBinding.btnAddTask.isEnabled = false
+                        viewBinding.btnAddTask.alpha = 0.8f
+                    }
+                }
             }
 
             is UiState.Error -> {

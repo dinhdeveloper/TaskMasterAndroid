@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dinhtc.taskmaster.R
-import com.dinhtc.taskmaster.model.LogisticInfoModel
+import com.dinhtc.taskmaster.model.response.SearchResponse
 import com.google.gson.Gson
 import java.text.Collator
 import java.util.Locale
@@ -21,10 +21,10 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
 
     var onItemClickListener: OnItemClickListener? = null
     private var selectedPosition = -1
-    var imageList: List<LogisticInfoModel>? = null
+    var imageList: List<SearchResponse>? = null
 
     // Danh sách các item
-    val imageListSort: MutableList<LogisticInfoModel> = mutableListOf()
+    val imageListSort: MutableList<SearchResponse> = mutableListOf()
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) {
@@ -51,14 +51,14 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
         txtView.setTextColor(Color.WHITE)
     }
 
-    private fun setContentBgAndColor(txtView: TextView, modal: LogisticInfoModel?) {
-        if (modal?.prioritizeOrder.equals("1") ) {
+    private fun setContentBgAndColor(txtView: TextView, modal: SearchResponse?) {
+        if (modal?.priority?.equals("1") == true) {
             txtView.setBackgroundResource(R.drawable.table_cell_bg_status_one)
             txtView.setTextColor(Color.WHITE)
-        } else if (modal?.prioritizeOrder.equals("2")){
+        } else if (modal?.priority?.equals("2") == true){
             txtView.setBackgroundResource(R.drawable.table_cell_bg_status_two)
             txtView.setTextColor(Color.WHITE)
-        } else if (modal?.prioritizeOrder.equals("3")){
+        } else if (modal?.priority?.equals("3") == true){
             txtView.setBackgroundResource(R.drawable.table_cell_bg_status_three)
             txtView.setTextColor(Color.WHITE)
         } else {
@@ -67,7 +67,7 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
         }
     }
 
-    private fun setContentBgAndColorOnClick(txtView: TextView, status: Boolean, modal: LogisticInfoModel?) {
+    private fun setContentBgAndColorOnClick(txtView: TextView, status: Boolean, modal: SearchResponse?) {
         if (status) {
             txtView.setBackgroundResource(R.drawable.table_cell_bg_onclick)
             txtView.setTextColor(Color.WHITE)
@@ -79,30 +79,30 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
 
 
     interface OnItemClickListener {
-        fun onClickItem(logisticsModel: LogisticInfoModel?)
+        fun onClickItem(logisticsModel: SearchResponse?)
     }
 
     fun setOnClickItem(onClickListener: OnItemClickListener) {
         this.onItemClickListener = onClickListener
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<LogisticInfoModel>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<SearchResponse>() {
         override fun areItemsTheSame(
-            oldItem: LogisticInfoModel,
-            newItem: LogisticInfoModel
+            oldItem: SearchResponse,
+            newItem: SearchResponse
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.jobId == newItem.jobId
         }
 
         override fun areContentsTheSame(
-            oldItem: LogisticInfoModel,
-            newItem: LogisticInfoModel
+            oldItem: SearchResponse,
+            newItem: SearchResponse
         ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
 
-    fun submitList(imageList: List<LogisticInfoModel>) {
+    fun submitList(imageList: List<SearchResponse>) {
         this.imageList = imageList
         imageListSort.addAll(imageList)
         notifyDataSetChanged()
@@ -129,11 +129,11 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
                     setContentBgAndColor(txtStatus, modal)
                     setContentBgAndColor(txtDate, modal)
 
-                    txtIdOrder.text = modal?.idOrder.toString()
-                    txtLocation.text = modal?.locationOrder.toString()
-                    txtPerson.text = modal?.personOrder.toString()
-                    txtStatus.text = modal?.statusOrder.toString()
-                    txtDate.text = modal?.prioritizeOrder.toString()
+                    txtIdOrder.text = modal?.jobId.toString()
+                    txtLocation.text = modal?.collectPoint.toString()
+                    txtPerson.text = modal?.emp.toString()
+                    txtStatus.text = modal?.status.toString()
+                    txtDate.text = modal?.date.toString()
                     holder.itemView.setOnClickListener {
                         selectedPosition = position
                         onItemClickListener?.onClickItem(modal)
@@ -219,23 +219,6 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
         txtStatus.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.sort_svg_2)
         txtDate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0,R.drawable.sort_svg_2)
 
-        txtIdOrder.setOnClickListener {
-            // Create a Collator for Vietnamese locale
-            val vietnameseCollator = Collator.getInstance(Locale("vi", "VN"))
-
-            val personOrderComparator = compareBy<LogisticInfoModel> { it.personOrder?.split(" ")?.last() }
-            // Sort the MutableList based on isAscending
-            if (isAscending) {
-                imageListSort.sortWith(personOrderComparator)
-            } else {
-                imageListSort.sortWith(personOrderComparator.reversed())
-            }
-            // Print the sorted list
-            for (person in imageListSort) {
-                Log.e("SSSSSSSSSSSSSSSS", "${person.personOrder}")
-            }
-            isAscending = !isAscending
-        }
     }
 
 }

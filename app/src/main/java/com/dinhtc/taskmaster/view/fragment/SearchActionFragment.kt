@@ -2,12 +2,14 @@ package com.dinhtc.taskmaster.view.fragment
 
 import android.app.Dialog
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.date_picker.CalendarPicker
 import com.dinhtc.taskmaster.common.date_picker.model.CalendarEvent
@@ -17,27 +19,28 @@ import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
 import com.dinhtc.taskmaster.databinding.FragmentSearchActionBinding
 import com.dinhtc.taskmaster.model.request.SearchRequest
-import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
+import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.BUNDLE_KEY
+import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.REQUEST_KEY
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
+
 
 @AndroidEntryPoint
 class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
 
     private var paymentStatus: Int = 0
-    private var empStatus: Int = 0
-    private var statusStatus: Int = 0
+    private var empStatus: Int = 1
+    private var statusStatus: Int = 1
 
     private val jobsViewModel: JobsViewModel by viewModels()
     private val addTaskViewModel: AddTaskViewModel by viewModels()
@@ -47,17 +50,6 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
     private var firstDateFormat: String? = null
     private var collectPointSelected: Int = -1
     private lateinit var dataDateRadio: String
-
-   /*
-   startDate,
-    endDate,
-    empStatus,
-    empId,
-    status,
-    paymentStatus,
-    jobId,
-    collectPoint
-    */
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_search_action
@@ -140,8 +132,11 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                val listCollectPointLiveData = uiState.data.data.data
-                Log.e("SSSSSSSSS", Gson().toJson(listCollectPointLiveData))
+                val listDataSearchLiveData = uiState.data.data
+                val bundle = Bundle()
+                bundle.putSerializable(BUNDLE_KEY,listDataSearchLiveData)
+                parentFragmentManager.setFragmentResult(REQUEST_KEY, bundle)
+                findNavController().popBackStack()
             }
 
             is UiState.Error -> {
@@ -178,16 +173,20 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
             if (viewBinding.edtMaNV.text.toString().trim().isNotEmpty() || viewBinding.edtMaNV.text.toString().trim().isNotBlank()){
                 jobId = viewBinding.edtMaNV.text.toString().trim().toInt()
             }
+            var collectPoint : String? = null
+            if (btnSelectCollectPoint.text.toString().isNotEmpty()){
+                collectPoint = btnSelectCollectPoint.text.toString()
+            }
             btnSeach.setOnClickListener {
                 var searchRequest = SearchRequest(
                     startDate = firstDateFormat,
                     endDate = secondDateFormat,
                     empStatus = empStatus,
-                    empId = empId,
+                    empId =  if (empId == 0) null else empId,
                     status = statusStatus,
                     paymentStatus = paymentStatus,
-                    jobId = jobId,
-                    collectPoint = btnSelectCollectPoint.text.toString()
+                    jobId = if (jobId == 0) null else jobId,
+                    collectPoint = collectPoint
                 )
 
                 jobsViewModel.search(searchRequest)
@@ -283,31 +282,22 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
         radioTatCaTask: AppCompatTextView?
     ) {
         radioChuaXong?.setOnClickListener {
-            statusStatus = 0
+            statusStatus = 1
             radioDaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
             radioTatCaTask?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
             radioChuaXong.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
         }
         radioDaXong?.setOnClickListener {
-            statusStatus = 1
+            statusStatus = 2
             radioChuaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
             radioTatCaTask?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
             radioDaXong.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
         }
         radioTatCaTask?.setOnClickListener {
-            statusStatus = 2
+            statusStatus = 3
             radioChuaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
             radioDaXong?.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }
             radioTatCaTask.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_check_search) }
         }
-    }
-
-    private fun getYesterdayLocalDate(): LocalDate {
-        dataDateRadio = LocalDate.now().minusDays(1).toString()
-        return LocalDate.now().minusDays(1)
-    }
-    private fun getTodayLocalDate(): LocalDate {
-        dataDateRadio = LocalDate.now().toString()
-        return LocalDate.now()
     }
 }

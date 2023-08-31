@@ -1,6 +1,5 @@
 package com.dinhtc.taskmaster.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 
 import androidx.lifecycle.MutableLiveData
@@ -9,15 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dinhtc.taskmaster.model.response.JobMaterialDetailResponse
 import com.dinhtc.taskmaster.model.response.JobMediaDetailResponse
-import com.dinhtc.taskmaster.model.response.LoginResponse
 import com.dinhtc.taskmaster.model.response.UserProfileResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
-import com.dinhtc.taskmaster.utils.ApiResponse
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.convertJsonToObject
-import com.dinhtc.taskmaster.view.activity.MainActivity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,11 +24,11 @@ class SharedViewModel @Inject constructor(private val apiHelperImpl: ApiHelperIm
     val updateTokenFirebase : LiveData<UiState<Any>>
         get() = _updateTokenFirebase
 
-    fun updateTokenFirebase(newToken: String) {
+    fun updateTokenFirebase(newToken: String, androidDeviceId: String?, deviceName: String?) {
         viewModelScope.launch {
             _updateTokenFirebase.value = UiState.Loading
             try {
-                val response = apiHelperImpl.saveFirebaseToken(newToken)
+                val response = apiHelperImpl.saveFirebaseToken(newToken,androidDeviceId, deviceName)
                 if (response.result_code == 0) {
                     _updateTokenFirebase.value = UiState.Success(response)
                 } else {

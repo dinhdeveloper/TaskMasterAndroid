@@ -424,7 +424,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
 }
 
-public val uuTienList = ArrayList<ItemViewLocation<ProvinceData>>().apply {
+val uuTienList = ArrayList<ItemViewLocation<ProvinceData>>().apply {
     add(
         ItemViewLocation(
             ProvinceData(

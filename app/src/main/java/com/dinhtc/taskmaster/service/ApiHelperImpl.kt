@@ -10,6 +10,7 @@ import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.model.request.LoginRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
 import com.dinhtc.taskmaster.utils.ApiResponse
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -19,8 +20,13 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         return apiService.loginUser(loginRequest)
     }
 
-    override suspend fun saveFirebaseToken(firebaseToken: String): ApiResponse<Any> {
-        return apiService.saveFirebaseToken(firebaseToken)
+    override suspend fun saveFirebaseToken(
+        firebaseToken: String,
+        deviceId: String?,
+        deviceName: String?
+    ): ApiResponse<Any> {
+        val token = "Bearer " + SharedPreferencesManager.instance.getString(SharedPreferencesManager.TOKEN_LOGIN, "")
+        return apiService.saveFirebaseToken(token, firebaseToken, deviceId, deviceName)
     }
 
     override suspend fun getListJobType(): ApiResponse<ListJobTypeResponse> {
@@ -77,16 +83,16 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         return apiService.addMaterial(material)
     }
 
-    override suspend fun getJobDetails(id: Int): ApiResponse<JobDetailsResponse> {
-        return apiService.getJobDetails(id)
+    override suspend fun getJobDetails(jobId: Int, empId: Int): ApiResponse<JobDetailsResponse> {
+        return apiService.getJobDetails(jobId, empId)
     }
 
     override suspend fun updateStateJob(
         jobsId: Int,
         dalamgon: Int,
-        dateCreate : String
+        dateCreate: String
     ): ApiResponse<UpdateJobsResponse> {
-        return apiService.updateStateJob(jobsId, dalamgon,dateCreate)
+        return apiService.updateStateJob(jobsId, dalamgon, dateCreate)
     }
 
     override suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any> {
@@ -102,7 +108,8 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
     }
 
     override suspend fun logOut(): ApiResponse<Any> {
-        return apiService.loginOut()
+        val token = "Bearer " + SharedPreferencesManager.instance.getString(SharedPreferencesManager.TOKEN_LOGIN, "")
+        return apiService.loginOut(token)
     }
 
     override suspend fun getListEmployeeByJobId(jobId: Int): ApiResponse<ListEmployeeResponse> {

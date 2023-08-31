@@ -1,3 +1,5 @@
 package com.dinhtc.taskmaster.model.response
 
-class ListJobSearchResponse(val data : List<SearchResponse>)
+import java.io.Serializable
+
+class ListJobSearchResponse(val data : List<SearchResponse>) : Serializable

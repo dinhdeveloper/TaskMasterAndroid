@@ -18,6 +18,26 @@ object AndroidUtils {
 
     fun getAndroidDeviceId(context: Context): String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 
+    fun getDeviceName(): String {
+        val manufacturer = Build.MANUFACTURER
+        val model = Build.MODEL
+        return if (model.startsWith(manufacturer)) {
+            capitalize(model)
+        } else {
+            capitalize(manufacturer) + " " + model
+        }
+    }
+
+    private fun capitalize(s: String): String {
+        if (s.isEmpty()) return s
+        val first = s[0]
+        return if (Character.isUpperCase(first)) {
+            s
+        } else {
+            Character.toUpperCase(first) + s.substring(1)
+        }
+    }
+
     @JvmStatic
     fun fromHtml(str: String?): Spanned {
         return when {

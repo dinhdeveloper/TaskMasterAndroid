@@ -43,7 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated() {
         context?.let { SharedPreferencesManager.init(it) }
-        checkAutoLogin()
+       // checkAutoLogin()
         actionView()
     }
 

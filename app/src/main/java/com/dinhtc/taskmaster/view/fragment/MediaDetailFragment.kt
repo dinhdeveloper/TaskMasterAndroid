@@ -36,6 +36,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
     private var noDataAdapter: ImageViewAdapter? = null
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
     private var jobsId: Int = -1
+    private var empId: Int = -1
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -171,7 +172,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddImage?.dismiss()
                 }
             }
@@ -234,7 +235,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddImage?.dismiss()
                     noDataAdapter?.removeItem(positionDelete)
                 }

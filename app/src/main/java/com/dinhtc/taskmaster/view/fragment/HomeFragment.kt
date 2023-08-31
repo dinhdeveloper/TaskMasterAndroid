@@ -1,22 +1,7 @@
 package com.dinhtc.taskmaster.view.fragment
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.pm.PackageManager
-import android.graphics.drawable.AnimationDrawable
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dinhtc.taskmaster.R
@@ -25,21 +10,12 @@ import com.dinhtc.taskmaster.adapter.TableViewAdapter
 import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.databinding.FragmentHomeBinding
 import com.dinhtc.taskmaster.model.LogisticInfoModel
-import com.dinhtc.taskmaster.utils.DialogFactory
-import com.dinhtc.taskmaster.utils.LoadingScreen
-import com.dinhtc.taskmaster.utils.SharedPreferencesManager
-import com.dinhtc.taskmaster.utils.UiState
+import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
+import com.dinhtc.taskmaster.model.response.SearchResponse
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
-import com.dinhtc.taskmaster.utils.observe
-import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
-import com.dinhtc.taskmaster.viewmodel.JobsViewModel
-import com.dinhtc.taskmaster.viewmodel.SharedViewModel
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
+import java.io.Serializable
 
 
 @AndroidEntryPoint
@@ -48,25 +24,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
     override val layoutResourceId: Int
         get() = R.layout.fragment_home
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        parentFragmentManager.setFragmentResultListener(
-//            REQUEST_KEY,
-//            this
-//        ) { _, result ->
-//            val number = result.getInt(KEY_NUMBER)
-//            Toast.makeText(requireContext(), "$number", Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY,
+            this
+        ) { _, result ->
+            val data = result.getSerializable(BUNDLE_KEY) as ListJobSearchResponse
+            setupAdapterLogistic(data)
+        }
+    }
 
     override fun onViewCreated() {
         actionView()
-        setupAdapterLogistic()
     }
 
-    private fun setupAdapterLogistic() {
+    private fun setupAdapterLogistic(data: ListJobSearchResponse?) {
         val tableViewAdapter = TableViewAdapter()
-        //tableViewAdapter.submitList(logisticInfoModels)
+        data?.data?.let { tableViewAdapter.submitList(it) }
         viewBinding.recyclerViewMovieList.layoutManager = LinearLayoutManager(context)
         viewBinding.recyclerViewMovieList.setHasFixedSize(true)
         viewBinding.recyclerViewMovieList.adapter = tableViewAdapter
@@ -75,10 +50,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
         viewBinding.recyclerViewMovieList.addItemDecoration(stickyHeaderDecoration)
 
         tableViewAdapter.setOnClickItem(object : TableViewAdapter.OnItemClickListener {
-            override fun onClickItem(logisticsModel: LogisticInfoModel?) {
+            override fun onClickItem(logisticsModel: SearchResponse?) {
                 findNavController().navigate(
                     R.id.action_homeFragment_to_detailFragment,
-                            bundleOf(ID_JOB to logisticsModel?.idOrder?.toInt())
+                    bundleOf(
+                        ID_JOB to logisticsModel?.jobId,
+                        ID_EMP to logisticsModel?.empId,
+                    )
                     //bundleOf(LOGISTIC_MODEL to logisticsModel)
                 )
             }
@@ -108,7 +86,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
 
     companion object {
         val ID_JOB = "ID_JOB"
+        val ID_EMP = "ID_EMP"
         val REQUEST_KEY = "REQUEST_KEY"
+        val BUNDLE_KEY = "BUNDLE_KEY"
         val KEY_NUMBER = "KEY_NUMBER"
     }
 }

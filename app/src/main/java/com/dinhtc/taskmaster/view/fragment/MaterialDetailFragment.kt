@@ -34,6 +34,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
     private val dataListJob = ArrayList<ItemViewLocation<ProvinceData>>()
 
     private var jobsId: Int = -1
+    private var empId: Int = -1
     private var positionDelete: Int = -1
 
     private val materialViewModel: MaterialViewModel by viewModels()
@@ -154,7 +155,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
                 LoadingScreen.hideLoading()
                 //DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
                 Toast.makeText(context,"${uiState.data.data}",Toast.LENGTH_SHORT).show()
-                jobsViewModel.getJobDetails(idJob = jobsId)
+                jobsViewModel.getJobDetails(idJob = jobsId, empId = empId )
             }
 
             is UiState.Error -> {
@@ -195,7 +196,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddVatLieu?.dismiss()
                     noDataAdapter?.removeItem(positionDelete)
                 }

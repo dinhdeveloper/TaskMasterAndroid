@@ -12,6 +12,7 @@ import com.dinhtc.taskmaster.utils.ApiResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -24,9 +25,16 @@ interface ApiService {
     @POST("auth/login")
     suspend fun loginUser(@Body loginRequest : LoginRequest): ApiResponse<Any>
     @POST("auth/logout")
-    suspend fun loginOut(): ApiResponse<Any>
+    suspend fun loginOut(
+        @Header("Authorization") token: String
+    ): ApiResponse<Any>
     @POST("firebase/save")
-    suspend fun saveFirebaseToken(@Query("firebaseToken") firebaseToken: String): ApiResponse<Any>
+    suspend fun saveFirebaseToken(
+        @Header("Authorization") token: String,
+        @Query("firebaseToken") firebaseToken: String,
+        @Query("deviceId") deviceId: String?,
+        @Query("deviceName") deviceName: String?
+    ): ApiResponse<Any>
     @GET("mobile/job_type/list")
     suspend fun getListJobType(): ApiResponse<ListJobTypeResponse>
     @GET("mobile/employees/{id}")
@@ -77,8 +85,11 @@ interface ApiService {
     @POST("mobile/add_material")
     suspend fun addMaterial(@Body collectPoint: AddMaterialRequest): ApiResponse<Any>
 
-    @GET("mobile/details/{id}")
-    suspend fun getJobDetails(@Path("id") id : Int): ApiResponse<JobDetailsResponse>
+    @GET("mobile/details/{jobId}/{empId}")
+    suspend fun getJobDetails(
+        @Path("jobId") jobId : Int,
+        @Path("empId") empId : Int
+    ): ApiResponse<JobDetailsResponse>
 
     @PUT("mobile/update/update_state_job/{jobId}/{newStateId}")
     suspend fun updateStateJob(

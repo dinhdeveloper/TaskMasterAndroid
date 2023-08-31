@@ -13,7 +13,7 @@ import okhttp3.MultipartBody
 
 interface ApiHelper {
     suspend fun loginUser(userName: String, passWord: String): ApiResponse<Any>
-    suspend fun saveFirebaseToken(firebaseToken: String): ApiResponse<Any>
+    suspend fun saveFirebaseToken(firebaseToken: String, deviceId: String?, deviceName: String?): ApiResponse<Any>
     suspend fun getListJobType(): ApiResponse<ListJobTypeResponse>
     suspend fun getListEmployeeNotById(id: Int): ApiResponse<ListEmployeeResponse>
     suspend fun getListEmployee(): ApiResponse<ListEmployeeResponse>
@@ -37,7 +37,7 @@ interface ApiHelper {
     suspend fun addTask(addTaskRequest: AddTaskRequest): ApiResponse<Any>
     suspend fun getListMaterial(): ApiResponse<ListMaterialResponse>
     suspend fun addMaterial(material: AddMaterialRequest): ApiResponse<Any>
-    suspend fun getJobDetails(id: Int): ApiResponse<JobDetailsResponse>
+    suspend fun getJobDetails(jobId: Int, empId : Int): ApiResponse<JobDetailsResponse>
     suspend fun updateStateJob(jobsId: Int, dalamgon: Int, dateCreate : String): ApiResponse<UpdateJobsResponse>
     suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any>
     suspend fun deleteMaterial(deleteMaterialRequest: DeleteMaterialRequest): ApiResponse<Any>

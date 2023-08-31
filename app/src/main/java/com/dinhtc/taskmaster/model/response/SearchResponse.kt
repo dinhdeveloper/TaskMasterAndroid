@@ -1,5 +1,7 @@
 package com.dinhtc.taskmaster.model.response
 
+import java.io.Serializable
+
 data class SearchResponse(
     val jobId: Int,
     val collectPoint: String,
@@ -7,4 +9,6 @@ data class SearchResponse(
     val status: String,
     val priority: Int,
     val date: String,
-)
+    val temp: String,
+    val empId: Int
+): Serializable

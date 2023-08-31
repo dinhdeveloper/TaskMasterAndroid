@@ -51,6 +51,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
     private var dataResponse: JobDetailsResponse? = null
     private var jobsId: Int = -1
+    private var empId: Int = -1
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -70,8 +71,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override fun onViewCreated() {
 
         jobsId = arguments?.getInt(HomeFragment.ID_JOB)!!
+        empId = arguments?.getInt(HomeFragment.ID_JOB)!!
 
-        jobsViewModel.getJobDetails(idJob = jobsId)
+        jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
         addTaskViewModel.getListJobType()
         materialViewModel.getListMaterial()
         addTaskViewModel.getListEmployeeByJobId(jobId = jobsId)
@@ -400,7 +402,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}") {
-                    jobsViewModel.getJobDetails(idJob = jobsId)
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                     bottomSheetAddImage?.dismiss()
                 }
             }
@@ -462,7 +464,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
-                jobsViewModel.getJobDetails(idJob = jobsId)
+                jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
             }
 
             is UiState.Error -> {
@@ -537,6 +539,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     }
                 }
                 jobsId = uiState.data.data.jobId
+
                 if (dataResponse?.jobMedia?.isNotEmpty() == true) {
                     for (data in dataResponse!!.jobMedia) {
                         if (data.mediaType == 2) {
@@ -578,7 +581,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     context,
                     "${uiState.data.data.description}"
                 ) {
-                    jobsViewModel.getJobDetails(jobsId)
+                    jobsViewModel.getJobDetails(jobsId, empId = empId)
                     ElasticAnimation(viewBinding.tvStateDecs).setScaleX(0.75f).setScaleY(0.75f)
                         .setDuration(
                             500
@@ -612,7 +615,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
-                jobsViewModel.getJobDetails(idJob = jobsId)
+                jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
             }
 
             is UiState.Error -> {

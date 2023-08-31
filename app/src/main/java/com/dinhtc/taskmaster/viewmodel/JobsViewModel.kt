@@ -23,11 +23,11 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
     val dataJobDetail : LiveData<UiState<JobDetailsResponse>>
         get() = _dataJobDetail
 
-    fun getJobDetails(idJob: Int){
+    fun getJobDetails(idJob: Int, empId : Int){
         viewModelScope.launch {
             _dataJobDetail.value = UiState.Loading
             try {
-                val response = apiHelperImpl.getJobDetails(idJob)
+                val response = apiHelperImpl.getJobDetails(idJob,empId)
                 if (response.result_code == 0) {
                     _dataJobDetail.value = UiState.Success(response)
                 } else {
