@@ -5,13 +5,14 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
 import com.dinhtc.taskmaster.R
+import com.dinhtc.taskmaster.model.ReceiverNotiData
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
@@ -21,8 +22,6 @@ import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONObject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    val notificationId = 1 // Đặt notificationId theo nhu cầu của bạn
-
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -40,15 +39,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val dataNotify = data["data"]
         val jsonObject = JSONObject(dataNotify)
         val notificationTitle = jsonObject.getString("title")?: "Chúc quý khách 1 ngày tốt lành"
-        val notificationType = jsonObject.getString("type")?: "Default"
-        val notificationBody = jsonObject.getString("data")?: "Chúc quý khách 1 ngày tốt lành"
-//        val notificationTitle = data["title"] ?: "Default Title"
-//        val notificationType = data["type"] ?: "Default Type"
-//        val notificationBody = data["body"] ?: "Default Body"
+        val notificationType = jsonObject.getString("type")?: "WORK"
+        val notificationBody = jsonObject.getString("body")?: "Chúc quý khách 1 ngày tốt lành"
+        val notificationData = jsonObject.getString("data")?: "Chúc quý khách 1 ngày tốt lành"
 
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra("fragmentToOpen", notificationType)
+        intent.putExtra("OPEN_FRAGMENT", notificationData)
 
         val pendingIntent = PendingIntent.getActivity(
             this,
@@ -57,33 +54,63 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_MUTABLE
         )
 
-        val notificationBuilder = NotificationCompat.Builder(this, "channel_id")
+        createChannel(notificationTitle, notificationBody,pendingIntent)
+    }
+
+    fun createNotificationChannel(context: Context, channelId: String, channelName: String, channelDescription: String) {
+        // Kiểm tra phiên bản Android
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance)
+            channel.description = channelDescription
+
+            // Lấy quản lý thông báo
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            // Tạo kênh thông báo
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
+    private fun createChannel(
+        notificationTitle: String,
+        notificationBody: String,
+        pendingIntent: PendingIntent?
+    ) {
+        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val notificationBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
+            .setSmallIcon(R.drawable.icons_notification_2)
             .setContentTitle(notificationTitle)
             .setContentText(notificationBody)
-            .setSmallIcon(R.drawable.icon_noti)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setSound(defaultSoundUri)
+            .setContentIntent(pendingIntent)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(notificationId, notificationBuilder.build())
-        pushChangeIcon()
+
+        // Tạo một kênh thông báo (Notification Channel) cho Android Oreo trở lên
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                getString(R.string.default_notification_channel_id),
+                "Channel Name",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.enableLights(true)
+            channel.lightColor = Color.BLUE
+            channel.enableVibration(true)
+            notificationManager.createNotificationChannel(channel)
+        }
+        val id = System.currentTimeMillis().toInt()
+        notificationManager.notify(id, notificationBuilder.build())
     }
 
     private fun sendNotificationFromNotification(notification: RemoteMessage.Notification?) {
         val notificationTitle = notification?.title ?: "Chúc quý khách 1 ngày tốt lành"
         val notificationBody = notification?.body ?: "Chúc quý khách 1 ngày tốt lành"
 
-        val notificationBuilder = NotificationCompat.Builder(this, "channel_id")
-            .setContentTitle(notificationTitle)
-            .setContentText(notificationBody)
-            .setSmallIcon(R.drawable.icon_noti)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setAutoCancel(true)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(notificationId, notificationBuilder.build())
-        pushChangeIcon()
+        createChannel(notificationTitle, notificationBody,null)
     }
 
 

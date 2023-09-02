@@ -54,6 +54,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
 
                 // Get new FCM registration token
                 val token = task.result
+                Log.e("TOKEN_FCM: ","$token")
                 SharedPreferencesManager.instance.putString(SharedPreferencesManager.TOKEN_FIREBASE, token)
                 sharedViewModel.updateTokenFirebase(
                     SharedPreferencesManager.instance.getString(

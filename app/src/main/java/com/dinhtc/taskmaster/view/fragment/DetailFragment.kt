@@ -69,8 +69,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         get() = R.layout.fragment_detail
 
     override fun onViewCreated() {
-
-        jobsId = arguments?.getInt(HomeFragment.ID_JOB)!!
+        var jobIdNoti = arguments?.getString(MainActivity.JOB_ID)
+        jobsId = if (jobIdNoti?.isNotEmpty() == true){
+            jobIdNoti.toInt()
+        }else {
+            arguments?.getInt(HomeFragment.ID_JOB)!!
+        }
         empId = arguments?.getInt(HomeFragment.ID_JOB)!!
 
         jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
