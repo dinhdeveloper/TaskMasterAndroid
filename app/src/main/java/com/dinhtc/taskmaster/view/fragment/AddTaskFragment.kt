@@ -5,8 +5,10 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.adapter.SuggestionAdapter
+import com.dinhtc.taskmaster.adapter.SuggestionNoteAdapter
 import com.dinhtc.taskmaster.bottomsheet.BottomSheetAddCollectPoint
 import com.dinhtc.taskmaster.databinding.FragmentAddTaskBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
@@ -25,6 +27,7 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +35,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
     private var bottomSheetAdd: BottomSheetAddCollectPoint? = null
     val mTagList: MutableList<SuggestionModel> = mutableListOf()
+    val mTagListNote: MutableList<SuggestionModel> = mutableListOf()
     private val addTaskViewModel: AddTaskViewModel by viewModels()
     private val dataListJob = ArrayList<ItemViewLocation<ProvinceData>>()
     private val dataListEmployeeNV1 = ArrayList<ItemViewLocation<ProvinceData>>()
@@ -67,6 +71,8 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         onClickItem()
+
+        observe(addTaskViewModel.combinedData, ::combinedDataLive)
     }
 
     private fun onClickItem() {
@@ -215,7 +221,11 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
                             )
                         )
                     )
+
+                    val model = SuggestionModel(data.empId, data.name, (data.phone.lowercase()))
+                    mTagListNote.add(model)
                 }
+
                 viewBinding.edtSelectNV1.setData(dataListEmployeeNV1)
             }
 
@@ -273,10 +283,11 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
                     val model =
                         SuggestionModel(data.empId, data.name, (data.numAddress.lowercase()))
                     mTagList.add(model)
+                    mTagListNote.add(model)
                 }
                 if (mTagList.isNotEmpty()) {
                     viewBinding.edtDiaDiem.setTags(mTagList.toList())
-                    viewBinding.edtGhiChu.setTags(mTagList.toList())
+                    //viewBinding.edtGhiChu.setTags(mTagList.toList())
 
                     var tagViewAdapter =
                         context?.let {
@@ -287,9 +298,8 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
                             )
                         }
                     viewBinding.edtDiaDiem.setAdapter(tagViewAdapter)
-                    viewBinding.edtGhiChu.setAdapter(tagViewAdapter)
+                    //viewBinding.edtGhiChu.setAdapter(tagViewAdapter)
                 }
-
             }
 
             is UiState.Error -> {
@@ -303,11 +313,27 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         }
     }
 
+    private fun combinedDataLive(uiState: MutableList<SuggestionModel>){
+        viewBinding.edtGhiChu.setTags(uiState.toList())
+
+        var suggetdapter =
+            context?.let {
+                SuggestionNoteAdapter(
+                    it,
+                    R.layout.item_user_suggestion,
+                    uiState.toList()
+                )
+            }
+        viewBinding.edtGhiChu.setAdapter(suggetdapter)
+        suggetdapter?.notifyDataSetChanged()
+    }
+
     private fun onAddCollectPoint(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
+                addTaskViewModel.getListCollectPoint()
                 bottomSheetAdd?.dismiss()
             }
 

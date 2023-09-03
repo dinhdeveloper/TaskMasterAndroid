@@ -13,5 +13,8 @@ data class EmployeeResponse(
     val state: Boolean,
     val streetAddress: String,
     val teamId: Int,
-    val ward: String
+    val ward: String,
+    val phone: String,
+    val posId: Int,
+    val roleId: Int
 )

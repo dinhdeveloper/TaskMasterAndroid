@@ -10,6 +10,7 @@ data class JobDetailsResponse(
     val namePoint: String,
     val priority: Int,
     val noteJob: String,
+    val jobStateCode: String,
     val jobMedia : List<JobMediaDetailResponse>,
     val jobMaterial : List<JobMaterialDetailResponse>,
     val employeeJobs : List<JobEmployeeDetailResponse>

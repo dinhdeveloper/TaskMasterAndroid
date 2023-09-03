@@ -173,7 +173,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                     }
                     else -> {
                         viewBinding.btnAddTask.isEnabled = false
-                        viewBinding.btnAddTask.alpha = 0.8f
+                        viewBinding.btnAddTask.alpha = 0.7f
                     }
                 }
             }

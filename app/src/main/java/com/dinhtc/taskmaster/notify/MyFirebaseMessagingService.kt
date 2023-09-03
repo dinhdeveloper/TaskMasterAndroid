@@ -44,7 +44,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val notificationData = jsonObject.getString("data")?: "Chúc quý khách 1 ngày tốt lành"
 
         val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra("OPEN_FRAGMENT", notificationData)
 
         val pendingIntent = PendingIntent.getActivity(
@@ -82,6 +82,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val notificationBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
             .setSmallIcon(R.drawable.icons_notification_2)
+            .setStyle(NotificationCompat.BigTextStyle().setBigContentTitle(notificationTitle))
             .setContentTitle(notificationTitle)
             .setContentText(notificationBody)
             .setAutoCancel(true)

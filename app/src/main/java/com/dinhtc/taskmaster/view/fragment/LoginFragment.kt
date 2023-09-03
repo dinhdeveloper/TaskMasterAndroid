@@ -9,14 +9,12 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.content.PackageManagerCompat.LOG_TAG
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.databinding.FragmentLoginBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
-import com.dinhtc.taskmaster.model.response.LoginResponse
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
@@ -26,15 +24,15 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.LAST_LOGIN
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.PASS_W
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USERNAME
 import com.dinhtc.taskmaster.utils.UiState
-import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
+import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.UsersViewModel
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+    private var jobIdNotify: String? = null
     private var checkShowEyePass: Boolean = false
     private val viewModel: UsersViewModel by viewModels()
 
@@ -45,41 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         context?.let { SharedPreferencesManager.init(it) }
        // checkAutoLogin()
         actionView()
-    }
-
-    private fun checkAutoLogin() {
-        val isLoggedIn = SharedPreferencesManager.instance.getBoolean(IS_LOGGED_IN, false)
-        val lastLoginTime = SharedPreferencesManager.instance.getLong(LAST_LOGIN_TINE, 0)
-        if (isLoggedIn) {
-            // Kiểm tra thời gian đăng nhập gần nhất
-            val currentTime = System.currentTimeMillis()
-            val elapsedTime = currentTime - lastLoginTime
-            //val maxLoginDuration = (7 * 24 * 60 * 60 * 1000).toLong() // 7 ngày
-            val maxLoginDuration = (1 * 24 * 60 * 60 * 1000).toLong() // 7 ngày
-            if (elapsedTime <= maxLoginDuration) {
-                // Đăng nhập tự động
-                // Chuyển đến màn hình chính
-                findNavController().navigate(
-                    R.id.action_loginFragment_to_mainFragment
-                )
-            } else {
-                // Đăng xuất người dùng
-                logout()
-            }
-        }
-    }
-
-    // Đăng xuất người dùng
-    private fun logout() {
-        // Xóa thông tin đăng nhập từ SharedPreferences
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USERNAME)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.IS_LOGGED_IN)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.LAST_LOGIN_TINE)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_LOGIN)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_FIREBASE)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.ROLE_CODE)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
-        // Chuyển đến màn hình đăng nhập
+        jobIdNotify = arguments?.getString(MainActivity.ID_JOB_NOTIFY)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -108,8 +72,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                 SharedPreferencesManager.ROLE_CODE,
                                 roleCode
                             )
-                            SharedPreferencesManager.instance.putString(USERNAME,
-                                viewBinding.edtUsername.text.toString().trim())
                             rememberLogin(
                                 viewBinding.edtUsername.text.toString().trim(),
                                 viewBinding.edtPassword.text.toString().trim()
@@ -132,11 +94,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         }
                     }
                 }
-
-//                rememberLogin(
-//                    viewBinding.edtUsername.text.toString().trim(),
-//                    viewBinding.edtPassword.text.toString().trim()
-//                )
             }
         }
 
@@ -250,10 +207,54 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun rememberLogin(edtUsername: String, edtPassword: String) {
         SharedPreferencesManager.instance.putString(USERNAME, edtUsername)
-        SharedPreferencesManager.instance.putString(PASS_W, edtUsername)
+        SharedPreferencesManager.instance.putString(PASS_W, edtPassword)
         SharedPreferencesManager.instance.putBoolean(IS_LOGGED_IN, true)
         SharedPreferencesManager.instance.putLong(LAST_LOGIN_TINE, System.currentTimeMillis())
-        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
-        LoadingScreen.hideLoading()
+        if (jobIdNotify != null){
+            findNavController().navigate(R.id.action_loginFragment_to_detailFragment,
+            bundleOf(MainActivity.ID_JOB_NOTIFY to jobIdNotify)
+            )
+            LoadingScreen.hideLoading()
+        }else{
+            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+            LoadingScreen.hideLoading()
+        }
+    }
+
+
+    // Đăng xuất người dùng
+    private fun logout() {
+        // Xóa thông tin đăng nhập từ SharedPreferences
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USERNAME)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.IS_LOGGED_IN)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.LAST_LOGIN_TINE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_LOGIN)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_FIREBASE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.ROLE_CODE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.PASS_W)
+        // Chuyển đến màn hình đăng nhập
+    }
+
+    private fun checkAutoLogin() {
+        val isLoggedIn = SharedPreferencesManager.instance.getBoolean(IS_LOGGED_IN, false)
+        val lastLoginTime = SharedPreferencesManager.instance.getLong(LAST_LOGIN_TINE, 0)
+        if (isLoggedIn) {
+            // Kiểm tra thời gian đăng nhập gần nhất
+            val currentTime = System.currentTimeMillis()
+            val elapsedTime = currentTime - lastLoginTime
+            //val maxLoginDuration = (7 * 24 * 60 * 60 * 1000).toLong() // 7 ngày
+            val maxLoginDuration = (1 * 24 * 60 * 60 * 1000).toLong() // 7 ngày
+            if (elapsedTime <= maxLoginDuration) {
+                // Đăng nhập tự động
+                // Chuyển đến màn hình chính
+                findNavController().navigate(
+                    R.id.action_loginFragment_to_mainFragment
+                )
+            } else {
+                // Đăng xuất người dùng
+                logout()
+            }
+        }
     }
 }

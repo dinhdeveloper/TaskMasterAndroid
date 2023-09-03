@@ -40,13 +40,13 @@ class SharedViewModel @Inject constructor(private val apiHelperImpl: ApiHelperIm
         }
     }
 
-    private val sharedData = MutableLiveData<String>()
-    fun setSharedData(data: String) {
-        sharedData.value = data
+    private val sharedDataNotify = MutableLiveData<String>()
+    fun setSharedNotifyData(data: String) {
+        sharedDataNotify.value = data
     }
 
-    fun getSharedData(): LiveData<String> {
-        return sharedData
+    fun getSharedNotifyData(): LiveData<String> {
+        return sharedDataNotify
     }
 
     private val sharedDataListJobMedia = MutableLiveData<List<JobMediaDetailResponse>?>()

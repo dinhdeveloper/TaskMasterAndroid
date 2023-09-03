@@ -23,6 +23,8 @@ import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
 import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USER_ID
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.BUNDLE_KEY
@@ -49,8 +51,8 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
     private var secondDateFormat: String? = null
     private var firstDateFormat: String? = null
     private var collectPointSelected: Int = -1
-    private lateinit var dataDateRadio: String
 
+    var empId = SharedPreferencesManager.instance.getInt(USER_ID, 0).toString().toInt()
     override val layoutResourceId: Int
         get() = R.layout.fragment_search_action
 
@@ -165,7 +167,6 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
                 dialog.show()
             }
 
-            var empId = 0
             if (viewBinding.edtMaNV.text.toString().trim().isNotEmpty() || viewBinding.edtMaNV.text.toString().trim().isNotBlank()){
                 empId = viewBinding.edtMaNV.text.toString().trim().toInt()
             }
@@ -177,7 +178,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
             if (btnSelectCollectPoint.text.toString().isNotEmpty()){
                 collectPoint = btnSelectCollectPoint.text.toString()
             }
-            btnSeach.setOnClickListener {
+            btnSearch.setOnClickListener {
                 var searchRequest = SearchRequest(
                     startDate = firstDateFormat,
                     endDate = secondDateFormat,

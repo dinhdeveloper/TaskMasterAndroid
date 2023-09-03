@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dinhtc.taskmaster.model.SuggestionModel
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
 import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
@@ -13,6 +14,9 @@ import com.dinhtc.taskmaster.model.response.ListJobTypeResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,19 +47,17 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
     val dataEmployee: LiveData<UiState<ListEmployeeResponse>>
         get() = _dataEmployee
 
-    fun getListEmployee(){
-        viewModelScope.launch {
-            _dataEmployee.value = UiState.Loading
-            try {
-                val response = apiHelperImpl.getListEmployee()
-                if (response.result_code == 0) {
-                    _dataEmployee.value = UiState.Success(response)
-                } else {
-                    _dataEmployee.value = UiState.Error(response.data.toString())
-                }
-            } catch (e: Exception) {
-                _dataEmployee.value = UiState.Error("Error message: ${e.message}")
+    fun getListEmployee(): Flow<UiState<ListEmployeeResponse>> = flow {
+        emit(UiState.Loading)
+        try {
+            val response = apiHelperImpl.getListEmployee()
+            if (response.result_code == 0) {
+                emit(UiState.Success(response))
+            } else {
+                emit(UiState.Error(response.data.toString()))
             }
+        } catch (e: Exception) {
+            emit(UiState.Error("Error message: ${e.message}"))
         }
     }
 
@@ -82,21 +84,79 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
     val dataListCollectPoint: LiveData<UiState<ListCollectPointResponse>>
         get() = _dataListCollectPoint
 
-    fun getListCollectPoint() {
-        viewModelScope.launch {
-            _dataListCollectPoint.value = UiState.Loading
-            try {
-                val response = apiHelperImpl.getListCollectPoint()
-                if (response.result_code == 0) {
-                    _dataListCollectPoint.value = UiState.Success(response)
-                } else {
-                    _dataListCollectPoint.value = UiState.Error(response.data.toString())
-                }
-            } catch (e: Exception) {
-                _dataListCollectPoint.value = UiState.Error("Error message: ${e.message}")
+    fun getListCollectPoint(): Flow<UiState<ListCollectPointResponse>> = flow {
+        emit(UiState.Loading)
+        try {
+            val response = apiHelperImpl.getListCollectPoint()
+            if (response.result_code == 0) {
+                emit(UiState.Success(response))
+            } else {
+                emit(UiState.Error(response.data.toString()))
             }
+        } catch (e: Exception) {
+            emit(UiState.Error("Error message: ${e.message}"))
         }
     }
+
+
+    private val _combinedData = MutableLiveData<MutableList<SuggestionModel>>()
+    val combinedData: LiveData<MutableList<SuggestionModel>>
+        get() = _combinedData
+
+    init {
+        viewModelScope.launch {
+            combineAndCreateList().collect { combinedList ->
+                _combinedData.value = combinedList
+            }
+        }
+
+        viewModelScope.launch {
+            getListCollectPoint().collect { combinedList ->
+                _dataListCollectPoint.value = combinedList
+            }
+        }
+
+        viewModelScope.launch {
+            getListEmployee().collect { combinedList ->
+                _dataEmployee.value = combinedList
+            }
+        }
+
+    }
+    private fun combineAndCreateList(): Flow<MutableList<SuggestionModel>> = combine(
+        getListEmployee(),
+        getListCollectPoint()
+    ) { employeeResult, collectPointResult ->
+        // Xử lý kết quả từ cả hai Flow ở đây và tạo MutableList<SuggestionModel>
+        val combinedList = mutableListOf<SuggestionModel>()
+
+        if (employeeResult is UiState.Success) {
+            val employeeData = employeeResult.data
+            for (data in employeeData.data.listItem){
+                val model = SuggestionModel(
+                    data.empId,
+                    data.name,
+                    data.numAddress.lowercase()
+                )
+                combinedList.add(model)
+            }
+        }
+
+        if (collectPointResult is UiState.Success) {
+            val collectPointData = collectPointResult.data
+            for (data in collectPointData.data.listItem){
+                val model = SuggestionModel(
+                    data.empId,
+                    data.name,
+                    data.numAddress.lowercase()
+                )
+                combinedList.add(model)
+            }
+        }
+
+        return@combine combinedList
+    }
+
 
 
     private val _dataAddCollectPoint = MutableLiveData<UiState<Any>>()

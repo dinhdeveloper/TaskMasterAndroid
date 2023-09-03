@@ -83,6 +83,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_FIREBASE)
         SharedPreferencesManager.instance.remove(SharedPreferencesManager.ROLE_CODE)
         SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.PASS_W)
         // Chuyển đến màn hình đăng nhập
     }
 }

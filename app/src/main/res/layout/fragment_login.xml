@@ -61,6 +61,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtUsername"
+                    android:text="master"
                     android:layout_width="match_parent"
                     android:imeOptions="actionNext"
                     android:textSize="20sp"

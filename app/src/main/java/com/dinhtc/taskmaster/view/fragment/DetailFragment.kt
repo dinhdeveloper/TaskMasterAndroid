@@ -18,6 +18,8 @@ import com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticAnimation
 import com.dinhtc.taskmaster.common.widgets.spinner.ItemViewLocation
 import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
+import com.dinhtc.taskmaster.model.JobEmployeeDetailResponse
+import com.dinhtc.taskmaster.model.JobStateCode.*
 import com.dinhtc.taskmaster.model.RoleCode
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
@@ -42,9 +44,10 @@ import okhttp3.MultipartBody
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
+    private val listEmployeeJobs = mutableListOf<JobEmployeeDetailResponse>()
     private var nv1Old: Int = -1
     private var uuTienIdSelected: Int = -1
-    private var advancePayment: String? = null
+    private var amountPaidEmp: String? = null
     private var totalMoney: String? = null
 
     private var nvSelectedNew: Int = -1
@@ -69,9 +72,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         get() = R.layout.fragment_detail
 
     override fun onViewCreated() {
-        var jobIdNoti = arguments?.getString(MainActivity.JOB_ID)
-        jobsId = if (jobIdNoti?.isNotEmpty() == true){
-            jobIdNoti.toInt()
+        var jobIdNotify = arguments?.getString(MainActivity.ID_JOB_NOTIFY)
+        jobsId = if (jobIdNotify?.isNotEmpty() == true){
+            jobIdNotify.toInt()
         }else {
             arguments?.getInt(HomeFragment.ID_JOB)!!
         }
@@ -116,7 +119,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     btnDaXong.alpha = 1f
                 }
 
-                RoleCode.COLLECTOR.name -> {
+                    RoleCode.COLLECTOR.name -> {
                     btnDaLamGon.isEnabled = true
                     btnDaLamGon.alpha = 1f
 
@@ -190,6 +193,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 override fun afterTextChanged(s: Editable?) {
                     if (edtNVUng.money > 0) {
                         viewBinding.apply {
+                            radioChuyenKhoan.isSelected = true
+                            radioChuaThanhToan.isSelected = false
+
                             radioChuaThanhToan.isEnabled = false
                             radioChuyenKhoan.isEnabled = false
                         }
@@ -259,21 +265,36 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     totalMoney = viewBinding.tvPrice.text.toString().trim()
                 }
                 if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
-                    advancePayment = viewBinding.edtNVUng.money.toString().trim()
+                    amountPaidEmp = viewBinding.edtNVUng.money.toString().trim()
                 }
 
-                val dataUpdate = DataUpdateJobRequest(
-                    totalMoney = totalMoney,
-                    statusPayment = 1, //chuyển khoản là 0, chưa thanh toán là 1
-                    advancePayment = advancePayment,
-                    priority = uuTienIdSelected,
-                    empOldId = nv1Old,
-                    empNewId = nvSelectedNew,
-                    note = viewBinding.edtGhiChu.text.toString(),
-                )
-                jobsViewModel.updateJobDetails(dataUpdate)
+                Log.e("SSSSSSSSSSSSSS","$totalMoney")
+                Log.d("SSSSSSSSSSSSSS","$amountPaidEmp")
+
+//                if (checkValidateEmp()){
+//                    val dataUpdate = DataUpdateJobRequest(
+//                        jodId = jobsId,
+//                        totalMoney = totalMoney,
+//                        statusPayment = 1, //chuyển khoản là 0, chưa thanh toán là 1
+//                        amountPaidEmp = amountPaidEmp,
+//                        priority = uuTienIdSelected,
+//                        empOldId = nv1Old,
+//                        empNewId = nvSelectedNew,
+//                        note = viewBinding.edtGhiChu.text.toString(),
+//                    )
+//                    jobsViewModel.updateJobDetails(dataUpdate)
+//                }else{
+//                    DialogFactory.showDialogDefaultNotCancel(context,"Vui lòng chọn lại nhân viên giao việc.")
+//                }
             }
         }
+    }
+
+    private fun checkValidateEmp(): Boolean {
+        for (data in listEmployeeJobs){
+            return data.empId != nvSelectedNew
+        }
+        return false
     }
 
     private fun showDialogAddImage() {
@@ -493,41 +514,115 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     tvNamePoint.text = dataResponse?.namePoint
                     tvNameAddress.text = dataResponse?.numAddress
                     edtSelectUuTien.text = "Ưu tiên ${dataResponse?.priority}"
-                    if (dataResponse?.jobStateId == 30) {
-                        edtNVUng.isEnabled = false
-                        edtNVUng.visibility = View.GONE
-                        tvNVUng.visibility = View.VISIBLE
 
-                        selectNV.isEnabled = false
-                        selectNV.visibility = View.GONE
-                        tvSelectNV.visibility = View.VISIBLE
+                    when(dataResponse?.jobStateId){
+                        1,5,10 ->{
+                            btnDaXong.isEnabled = false
+                            btnDaXong.alpha = 0.7f
 
-                        edtGhiChu.isEnabled = false
-                        radioChuyenKhoan.isEnabled = false
-                        radioChuaThanhToan.isEnabled = false
+                            btnDaCan.isEnabled = false
+                            btnDaCan.alpha = 0.7f
 
-                        edtSelectUuTien.isEnabled = false
-                        edtSelectUuTien.visibility = View.GONE
-                        tvUuTien.visibility = View.VISIBLE
-                    } else {
-                        edtNVUng.isEnabled = true
-                        edtNVUng.visibility = View.VISIBLE
-                        tvNVUng.visibility = View.GONE
+                            layoutChuyenViecToi.visibility = View.GONE
+                            layoutChuyenKhoan.visibility = View.GONE
+                            layoutNVUng.visibility = View.GONE
+                            layoutGhiChu.visibility = View.GONE
 
-                        selectNV.isEnabled = true
-                        selectNV.visibility = View.VISIBLE
-                        tvSelectNV.visibility = View.GONE
+                        }
+                        15 ->{
+                            layoutChuyenViecToi.visibility = View.VISIBLE
+                            layoutChuyenKhoan.visibility = View.VISIBLE
+                            layoutNVUng.visibility = View.VISIBLE
+                            layoutGhiChu.visibility = View.VISIBLE
 
-                        edtGhiChu.isEnabled = true
-                        radioChuyenKhoan.isEnabled = true
-                        radioChuaThanhToan.isEnabled = true
+                            btnDaXong.isEnabled = false
+                            btnDaXong.alpha = 0.7f
 
-                        edtSelectUuTien.isEnabled = true
-                        edtSelectUuTien.visibility = View.VISIBLE
-                        tvUuTien.visibility = View.GONE
+                            btnDaLamGon.isEnabled = false
+                            btnDaLamGon.alpha = 0.7f
+
+                            btnDaCan.isEnabled = true
+                            btnDaCan.alpha = 1f
+                        }
+                        20,25 ->{
+                            layoutChuyenViecToi.visibility = View.VISIBLE
+                            layoutChuyenKhoan.visibility = View.VISIBLE
+                            layoutNVUng.visibility = View.VISIBLE
+                            layoutGhiChu.visibility = View.VISIBLE
+
+                            btnDaLamGon.isEnabled = false
+                            btnDaLamGon.alpha = 0.7f
+
+                            btnDaCan.isEnabled = false
+                            btnDaCan.alpha = 0.7f
+
+                            btnVatLieu.isEnabled = false
+                            btnVatLieu.alpha = 0.7f
+
+                            btnAnh.isEnabled = false
+                            btnAnh.alpha = 0.7f
+
+                            btnDaXong.isEnabled = true
+                            btnDaXong.alpha = 1f
+                        }
+                        30 -> {
+                            btnDaCan.isEnabled = false
+                            btnDaCan.alpha = 0.7f
+
+                            btnDaLamGon.isEnabled = false
+                            btnDaLamGon.alpha = 0.7f
+
+                            btnDaXong.isEnabled = false
+                            btnDaXong.alpha = 0.7f
+
+                            edtNVUng.isEnabled = false
+                            edtNVUng.visibility = View.GONE
+                            layoutChuyenViecToi.visibility = View.GONE
+                            tvNVUng.visibility = View.VISIBLE
+
+                            selectNV.isEnabled = false
+                            selectNV.visibility = View.GONE
+                            tvSelectNV.visibility = View.VISIBLE
+
+                            edtGhiChu.isEnabled = false
+                            radioChuyenKhoan.isEnabled = false
+                            radioChuaThanhToan.isEnabled = false
+
+                            edtSelectUuTien.isEnabled = false
+                            edtSelectUuTien.visibility = View.GONE
+                            tvUuTien.visibility = View.VISIBLE
+
+                            layoutChuyenViecToi.visibility = View.VISIBLE
+                            layoutChuyenKhoan.visibility = View.GONE
+
+                            viewBinding.layoutGhiChu.visibility = View.VISIBLE
+                            viewBinding.tvGhiChu.text = dataResponse?.noteJob
+                            viewBinding.tvGhiChu.visibility = View.VISIBLE
+                            viewBinding.edtGhiChu.visibility = View.GONE
+                        }
+                        else ->{
+                            edtNVUng.isEnabled = true
+                            edtNVUng.visibility = View.VISIBLE
+                            tvNVUng.visibility = View.GONE
+
+                            selectNV.isEnabled = true
+                            selectNV.visibility = View.VISIBLE
+                            tvSelectNV.visibility = View.GONE
+
+                            edtGhiChu.isEnabled = true
+                            radioChuyenKhoan.isEnabled = true
+                            radioChuaThanhToan.isEnabled = true
+
+                            edtSelectUuTien.isEnabled = true
+                            edtSelectUuTien.visibility = View.VISIBLE
+                            tvUuTien.visibility = View.GONE
+                        }
                     }
                 }
                 if (dataResponse?.employeeJobs?.isNotEmpty() == true) {
+                    for ( data in dataResponse?.employeeJobs!!){
+                        listEmployeeJobs.add(data)
+                    }
                     if (dataResponse!!.employeeJobs.size == 1) {
                         viewBinding.tvNV1.text = dataResponse!!.employeeJobs[0].name
                         nv1Old = dataResponse!!.employeeJobs[0].empId

@@ -1,11 +1,15 @@
 package com.dinhtc.taskmaster.view.activity
 
+import android.util.Log
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.view.BaseActivity
 import com.dinhtc.taskmaster.databinding.ActivityMainBinding
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,20 +28,46 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
         val navController = findNavController(R.id.navhost)
 
         val jobIdNoti = intent.getStringExtra("OPEN_FRAGMENT")
+        val rememberLogin = SharedPreferencesManager.instance.getBoolean(SharedPreferencesManager.IS_LOGGED_IN,false)
         if (jobIdNoti != null) {
-            navController.navigate(R.id.action_loginFragment_to_detailFragment,
-                bundleOf(JOB_ID to jobIdNoti )
-            )
-//            when (fragmentToOpen) {
-//                "DETAIL" -> {
-//                    navController.navigate(R.id.action_homeFragment_to_detailFragment)
-//                }
-//                // Xử lý các fragment khác tương tự ở đây
-//            }
+            if (rememberLogin){
+                navController.navigate(R.id.action_loginFragment_to_detailFragment,
+                    bundleOf(ID_JOB_NOTIFY to jobIdNoti )
+                )
+            } else{
+                navController.navigate(R.id.loginFragment,
+                    bundleOf(ID_JOB_NOTIFY to jobIdNoti )
+                )
+            }
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.navhost)
+        val prevDestinationId = navController.previousBackStackEntry?.destination?.id ?: -1
+
+       return when{
+           navController.currentDestination?.id == R.id.detailFragment &&
+                   prevDestinationId == R.id.loginFragment -> {
+
+               navController.navigate(R.id.mainFragment)
+               //clear back stack
+                       true
+           }
+            else -> navController.navigateUp()
+        }
+
+
+        //return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        onSupportNavigateUp()
+    }
+
+
     companion object {
         val TAG_LOG = "API_NOTE: "
-        val JOB_ID = "JOB_ID"
+        val ID_JOB_NOTIFY = "ID_JOB_NOTIFY"
     }
 }
