@@ -91,7 +91,7 @@ interface ApiService {
         @Path("empId") empId : Int
     ): ApiResponse<JobDetailsResponse>
 
-    @PUT("mobile/update/update_state_job/{jobId}/{newStateId}")
+    @PUT("mobile/update/update_state_job/{jobId}/{newStateId}/{dateCreate}")
     suspend fun updateStateJob(
         @Path("jobId") jobId: Int,
         @Path("newStateId") newStateId: Int,
