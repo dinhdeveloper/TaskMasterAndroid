@@ -18,12 +18,13 @@
         android:padding="3dp"
         android:textColor="@color/black"
         android:textSize="@dimen/font16_sp"
+        android:fontFamily="@font/roboto_regular"
         tools:text="Đơn gom" />
 
     <TextView
         android:id="@+id/txtLocation"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="@drawable/table_content_cell_bg"
@@ -33,12 +34,13 @@
         android:padding="3dp"
         android:textColor="@color/black"
         android:textSize="@dimen/font16_sp"
+        android:fontFamily="@font/roboto_regular"
         tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM" />
 
     <TextView
         android:id="@+id/txtPerson"
         android:layout_width="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="@drawable/table_content_cell_bg"
@@ -46,6 +48,7 @@
         android:padding="3dp"
         android:textColor="@color/black"
         android:textSize="@dimen/font16_sp"
+        android:fontFamily="@font/roboto_regular"
         tools:text="Người" />
 
     <TextView
@@ -58,6 +61,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="@dimen/font16_sp"
+        android:fontFamily="@font/roboto_regular"
         tools:text="Tình trạng" />
 
     <TextView
@@ -70,6 +74,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="@dimen/font16_sp"
+        android:fontFamily="@font/roboto_regular"
         tools:text="Ưu tiên" />
 
 </LinearLayout>

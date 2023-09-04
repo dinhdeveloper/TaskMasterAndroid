@@ -67,7 +67,7 @@
                     android:padding="10dp"
                     android:text="Cuả tôi"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioNhom"
@@ -83,7 +83,7 @@
                     android:padding="10dp"
                     android:text="Nhóm"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioTatCaNguoi"
@@ -99,7 +99,7 @@
                     android:padding="10dp"
                     android:text="Tất cả"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,7 +121,7 @@
                     android:gravity="start|center"
                     android:text="Chưa xong"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioDaXong"
@@ -137,7 +137,7 @@
                     android:padding="10dp"
                     android:text="Đã xong"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioTatCaTask"
@@ -153,7 +153,7 @@
                     android:padding="10dp"
                     android:text="Tất cả"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,7 +164,7 @@
                 android:weightSum="2">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/daThanhToan"
+                    android:id="@+id/chuaThanhToan"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -175,12 +175,12 @@
                     android:drawablePadding="5dp"
                     android:gravity="start|center"
                     android:padding="5dp"
-                    android:text="Đã thanh toán"
+                    android:text="Chưa thanh toán"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/chuaThanhToan"
+                    android:id="@+id/daThanhToan"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -191,9 +191,9 @@
                     android:drawablePadding="5dp"
                     android:gravity="start|center"
                     android:padding="5dp"
-                    android:text="Chưa thanh toán"
+                    android:text="Đã thanh toán"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
 
@@ -212,9 +212,10 @@
                     android:layout_weight="1.2"
                     android:gravity="start|center"
                     android:padding="5dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Thời gian: "
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/btnSelectDate"
@@ -230,7 +231,7 @@
                     android:hint="Chọn ngày tháng năm"
                     android:padding="5dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -248,9 +249,10 @@
                     android:layout_weight="1.2"
                     android:gravity="start|center"
                     android:padding="5dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Địa điểm: "
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
                     android:id="@+id/btnSelectCollectPoint"
@@ -267,7 +269,7 @@
                     android:padding="5dp"
                     android:paddingStart="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -285,9 +287,10 @@
                     android:layout_weight="1.2"
                     android:gravity="start|center"
                     android:padding="5dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Mã công việc: "
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtMaCV"
@@ -304,7 +307,7 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -323,8 +326,9 @@
                     android:gravity="start|center"
                     android:padding="5dp"
                     android:text="Mã NV: "
+                    android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edtMaNV"
@@ -342,7 +346,7 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <TextView
@@ -358,8 +362,9 @@
                 android:paddingHorizontal="35dp"
                 android:paddingVertical="15dp"
                 android:text="Tìm kiếm"
+                android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/color_red"
-                android:textSize="@dimen/font16_sp" />
+                android:textSize="@dimen/font17_sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

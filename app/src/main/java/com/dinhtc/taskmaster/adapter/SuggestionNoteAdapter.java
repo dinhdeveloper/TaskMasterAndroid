@@ -12,20 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.dinhtc.taskmaster.R;
-import com.dinhtc.taskmaster.model.SuggestionModel;
+import com.dinhtc.taskmaster.model.SuggestionNoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionModel> {
+public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionNoteModel> {
 
     private final Context mContext;
 
     private final int mResourceId;
-    private final List<SuggestionModel> mList, mTempList, mSuggestionList;
+    private final List<SuggestionNoteModel> mList, mTempList, mSuggestionList;
 
     public SuggestionNoteAdapter(@NonNull Context context, int resourceId,
-                             List<SuggestionModel> items) {
+                             List<SuggestionNoteModel> items) {
         super(context, resourceId, items);
         mContext = context;
         mResourceId = resourceId;
@@ -41,7 +41,7 @@ public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionModel> {
         if (convertView == null) {
             view = LayoutInflater.from(mContext).inflate(mResourceId, parent, false);
         }
-        SuggestionModel model = getItem(position);
+        SuggestionNoteModel model = getItem(position);
         TextView nameTextView = view.findViewById(R.id.textView_name);
         TextView usernameTextView = view.findViewById(R.id.textView_username);
         nameTextView.setText(model.getName());
@@ -51,7 +51,7 @@ public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionModel> {
 
     @NonNull
     @Override
-    public SuggestionModel getItem(int position) {
+    public SuggestionNoteModel getItem(int position) {
 
         return mList.get(position);
     }
@@ -76,7 +76,7 @@ public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionModel> {
 
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            SuggestionModel model = (SuggestionModel) resultValue;
+            SuggestionNoteModel model = (SuggestionNoteModel) resultValue;
             return model.getTag();
         }
 
@@ -85,7 +85,7 @@ public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionModel> {
             if (charSequence != null) {
                 String query = charSequence.toString().toLowerCase();
                 mSuggestionList.clear();
-                for (SuggestionModel model : mTempList) {
+                for (SuggestionNoteModel model : mTempList) {
                     if (model.getLabel().toLowerCase().contains(query)
                             || ("@" + model.getAddress()).toLowerCase().contains(query)) {
                         mSuggestionList.add(model);
@@ -106,7 +106,7 @@ public class SuggestionNoteAdapter extends ArrayAdapter<SuggestionModel> {
             try{
                 clear();
                 if (filterResults != null && filterResults.count > 0) {
-                    SuggestionNoteAdapter.this.addAll((ArrayList<SuggestionModel>) filterResults.values);
+                    SuggestionNoteAdapter.this.addAll((ArrayList<SuggestionNoteModel>) filterResults.values);
                     notifyDataSetChanged();
                 } else {
                     notifyDataSetInvalidated();

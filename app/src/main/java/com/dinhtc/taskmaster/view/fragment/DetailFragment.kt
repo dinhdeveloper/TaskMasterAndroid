@@ -575,6 +575,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             btnDaXong.isEnabled = false
                             btnDaXong.alpha = 0.7f
 
+                            btnAnh.isEnabled = false
+                            btnAnh.alpha = 0.7f
+
+                            btnVatLieu.isEnabled = false
+                            btnVatLieu.alpha = 0.7f
+
+                            btnSubmit.isEnabled = false
+                            btnSubmit.alpha = 0.7f
+
                             edtNVUng.isEnabled = false
                             edtNVUng.visibility = View.GONE
                             layoutChuyenViecToi.visibility = View.GONE

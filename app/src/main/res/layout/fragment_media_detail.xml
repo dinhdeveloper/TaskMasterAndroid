@@ -28,11 +28,10 @@
                 android:gravity="center"
                 android:textAllCaps="true"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
                 android:text="HÌNH ẢNH - VIDEO"
                 android:textColor="#00428E"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/fontToolbar"
+                android:fontFamily="@font/roboto_medium"/>
         </LinearLayout>
 
         <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView

@@ -16,7 +16,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font17_sp"
         tools:text="@tools:sample/full_names" />
 
     <TextView

@@ -32,13 +32,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
                     android:text="TÌM KIẾM"
                     android:textAllCaps="true"
                     android:textColor="#00428E"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/fontToolbar" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="20dp"
@@ -58,24 +57,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="15dp"
-                    android:text="@string/danh_sach_cv"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto_medium"
                     android:textSize="@dimen/font18_sp"
                     tools:text="Danh sách công việc: [Số lượng]" />
 
                 <!-- Table View-->
 
-                <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView
-                    android:id="@+id/recyclerViewMovieList"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:animationDuration="600"
-                    app:layoutAnimation="@anim/layout_animation_from_bottom_scale"
-                    app:layoutManagerOrientation="vertical"
-                    app:layoutManagerReverse="false"
-                    app:layoutManagerType="linear"
-                    android:layout_marginBottom="15dp" />
+                    android:layout_height="match_parent">
+                    <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView
+                        android:id="@+id/recyclerViewMovieList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:animationDuration="600"
+                        app:layoutAnimation="@anim/layout_animation_from_bottom_scale"
+                        app:layoutManagerOrientation="vertical"
+                        app:layoutManagerReverse="false"
+                        app:layoutManagerType="linear"
+                        android:layout_marginBottom="15dp" />
+
+                    <ImageView
+                        android:id="@+id/imageEmpty"
+                        tools:visibility="visible"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/search_empty"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"/>
+                </RelativeLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

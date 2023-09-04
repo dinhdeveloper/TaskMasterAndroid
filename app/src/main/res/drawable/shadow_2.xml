@@ -4,14 +4,14 @@
         <shape
             android:shape="rectangle">
             <solid android:color="@color/color_datroi_1" />
-            <corners android:radius="50dp"/>
+            <corners android:radius="5dp"/>
         </shape>
     </item>
     <item android:top="0.75dp" android:right="1dp" android:left="1dp" android:bottom="3dp">
         <shape
             android:shape="rectangle">
-            <solid android:color="#F0F0F0"/>
-            <corners android:radius="50dp"/>
+            <solid android:color="#FFFFFF"/>
+            <corners android:radius="5dp"/>
         </shape>
     </item>
 </layer-list>

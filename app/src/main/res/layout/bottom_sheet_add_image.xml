@@ -32,7 +32,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTitle"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/roboto_medium"
         android:text="Thêm Ảnh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +69,9 @@
             android:layout_gravity="center"
             android:padding="10dp"
             android:text="1. Ảnh"
+            android:fontFamily="@font/roboto_medium"
             android:textColor="@color/color_title"
-            android:textSize="@dimen/font16_sp" />
+            android:textSize="@dimen/font17_sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="200dp"
@@ -141,8 +142,9 @@
             android:layout_gravity="center"
             android:padding="10dp"
             android:text="2. Video"
+            android:fontFamily="@font/roboto_medium"
             android:textColor="@color/color_title"
-            android:textSize="@dimen/font16_sp" />
+            android:textSize="@dimen/font17_sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginBottom="30dp"
@@ -206,7 +208,7 @@
             android:layout_margin="13dp"
             android:layout_marginBottom="20dp"
             android:background="@color/md_blue_200"
-            app:layout_cornerRadius="25dp"
+            app:layout_cornerRadius="5dp"
             app:layout_duration="500"
             app:layout_scale="0.85">
             <TextView
@@ -214,8 +216,8 @@
                 android:text="Lưu"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="@dimen/font16_sp"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="@dimen/font17_sp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="wrap_content"

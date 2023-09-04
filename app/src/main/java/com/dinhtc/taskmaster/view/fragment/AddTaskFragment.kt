@@ -17,6 +17,7 @@ import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
 import com.dinhtc.taskmaster.model.RoleCode
 import com.dinhtc.taskmaster.model.SuggestionModel
+import com.dinhtc.taskmaster.model.SuggestionNoteModel
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
 import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
@@ -26,6 +27,7 @@ import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -277,7 +279,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                val listCollectPointLiveData = uiState.data.data.listItem
+                val listCollectPointLiveData = uiState.data.data.listItem.sortedBy { it.name }
                 mTagList.clear()
                 for (data in listCollectPointLiveData) {
                     val model =
@@ -313,7 +315,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         }
     }
 
-    private fun combinedDataLive(uiState: MutableList<SuggestionModel>){
+    private fun combinedDataLive(uiState: MutableList<SuggestionNoteModel>){
         viewBinding.edtGhiChu.setTags(uiState.toList())
 
         var suggetdapter =

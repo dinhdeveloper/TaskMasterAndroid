@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.22"
+            app:layout_constraintGuide_percent="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,8 +53,8 @@
             android:layout_height="wrap_content"
             android:text="E - LOGISTICS"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:textSize="26sp"
+            android:fontFamily="@font/roboto_medium"
             app:layout_constraintBottom_toBottomOf="@+id/guideline1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
             tools:text="Trần Cảnh Dinh"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/roboto_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvXC" />
 
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.9"
+            app:layout_constraintGuide_percent="0.85"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,7 +108,7 @@
             android:id="@+id/layout_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
             android:orientation="horizontal"
             android:weightSum="2"
@@ -159,7 +159,7 @@
                             android:text="Tìm Kiếm"
                             android:textColor="@color/white"
                             android:textSize="@dimen/font18_sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="@font/roboto_medium" />
                     </LinearLayout>
 
                 </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
@@ -198,7 +198,7 @@
                             android:text="Thông Báo"
                             android:textColor="@color/white"
                             android:textSize="@dimen/font18_sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="@font/roboto_medium"/>
                     </LinearLayout>
                 </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
@@ -246,7 +246,7 @@
                             android:text="Giao Việc"
                             android:textColor="@color/white"
                             android:textSize="@dimen/font18_sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="@font/roboto_medium"/>
                     </LinearLayout>
                 </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
@@ -284,7 +284,7 @@
                             android:text="Cài Đặt"
                             android:textColor="@color/white"
                             android:textSize="@dimen/font18_sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="@font/roboto_medium" />
                     </LinearLayout>
                 </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
             </LinearLayout>

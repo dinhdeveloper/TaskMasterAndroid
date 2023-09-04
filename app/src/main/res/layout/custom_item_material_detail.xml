@@ -41,7 +41,8 @@
 
                     <TextView
                         android:text="Tên vật liệu: "
-                        android:textSize="@dimen/font16_sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
                     <TextView
                         android:id="@+id/tvName"
                         tools:text="Gạch"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -71,7 +72,8 @@
 
                     <TextView
                         android:text="Khối lượng (kg): "
-                        android:textSize="@dimen/font16_sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -80,7 +82,7 @@
                     <TextView
                         android:id="@+id/tvKL"
                         tools:text="Gạch"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -101,7 +103,8 @@
 
                     <TextView
                         android:text="Khối lượng báo KH (kg): "
-                        android:textSize="@dimen/font16_sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -110,7 +113,7 @@
                     <TextView
                         android:id="@+id/tvKLBK"
                         tools:text="Gạch"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -131,7 +134,8 @@
 
                     <TextView
                         android:text="Đơn giá: "
-                        android:textSize="@dimen/font16_sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
@@ -140,7 +144,7 @@
                     <TextView
                         android:id="@+id/tvPrice"
                         tools:text="Gạch"
-                        android:textSize="@dimen/font16_sp"
+                        android:textSize="@dimen/font17_sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"

@@ -103,9 +103,11 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
     }
 
     fun submitList(imageList: List<SearchResponse>) {
-        this.imageList = imageList
-        imageListSort.addAll(imageList)
-        notifyDataSetChanged()
+        if (imageList.isNotEmpty()){
+            this.imageList = imageList
+            imageListSort.addAll(imageList)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onBindViewHolder(

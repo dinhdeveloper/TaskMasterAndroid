@@ -27,7 +27,7 @@
         <item name="android:drawablePadding">15dp</item>
         <item name="android:minHeight">@dimen/default_edittext_min_height</item>
         <item name="android:maxLength">160</item>
-        <item name="android:textSize">@dimen/font16_sp</item>
+        <item name="android:textSize">@dimen/font17_sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:paddingVertical">5dp</item>
         <item name="android:paddingHorizontal">3dp</item>
@@ -42,7 +42,7 @@
         <item name="android:drawablePadding">15dp</item>
         <item name="android:minHeight">@dimen/default_edittext_min_height</item>
         <item name="android:maxLength">160</item>
-        <item name="android:textSize">@dimen/font16_sp</item>
+        <item name="android:textSize">@dimen/font17_sp</item>
         <item name="android:textColor">@color/D2</item>
         <item name="android:paddingVertical">5dp</item>
         <item name="android:paddingHorizontal">5dp</item>

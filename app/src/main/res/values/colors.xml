@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bg_main">#FFD9DDEC</color>
+    <color name="bg_main_2">#FFE3E7F3</color>
     <color name="color_edittext_input">#F7F7F9</color>
     <color name="color_edittext_strock">#6A6A6A</color>
     <color name="color_button">#0D6EFD</color>

@@ -10,7 +10,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/supply">
+        android:background="@color/bg_main_2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,13 +34,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
                     android:text="@string/chi_tiet_cong_viec"
                     android:textAllCaps="true"
                     android:textColor="#00428E"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/fontToolbar" />
             </LinearLayout>
 
             <LinearLayout
@@ -64,13 +63,13 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
                         android:gravity="center_vertical"
                         android:text="Mã công việc:"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp"
+                        android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/tvIdJob"
@@ -81,7 +80,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="SADFGHJ" />
 
                 </LinearLayout>
@@ -103,13 +102,12 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
                         android:gravity="center_vertical"
                         android:text="@string/tinh_trang"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvStateDecs"
@@ -120,7 +118,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="Mới" />
 
                 </LinearLayout>
@@ -143,12 +141,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="@string/dia_diem"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvNamePoint"
@@ -159,7 +156,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM" />
 
                 </LinearLayout>
@@ -182,12 +179,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="@string/dia_chi"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvNameAddress"
@@ -198,7 +194,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="@string/string_demo_2" />
 
                 </LinearLayout>
@@ -221,12 +217,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="@string/thanh_tien"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvPrice"
@@ -238,7 +233,7 @@
                         android:text="0 VNĐ"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -265,7 +260,7 @@
                         android:checked="true"
                         android:text="Chuyển khoản"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/radioChuaThanhToan"
@@ -274,7 +269,7 @@
                         android:layout_weight="1"
                         android:text="Chưa th.toán"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
                 </RadioGroup>
 
                 <View
@@ -295,12 +290,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="Ưu tiên: "
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font16_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17_sp" />
 
                     <RelativeLayout
                         android:layout_weight="2"
@@ -314,7 +308,7 @@
                             android:gravity="end"
                             android:hint="Chọn độ ưu tiên"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font16_sp" />
+                            android:textSize="@dimen/font17_sp" />
 
                         <TextView
                             android:id="@+id/tvUuTien"
@@ -328,7 +322,7 @@
                             android:paddingHorizontal="10dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp" />
+                            android:textSize="@dimen/font17._sp" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -350,12 +344,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="@string/nv_ung"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <RelativeLayout
                         android:layout_weight="2"
@@ -373,7 +366,7 @@
                             android:paddingHorizontal="10dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp" />
+                            android:textSize="@dimen/font17._sp" />
 
                         <TextView
                             android:id="@+id/tvNVUng"
@@ -387,7 +380,7 @@
                             android:paddingHorizontal="10dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp" />
+                            android:textSize="@dimen/font17._sp" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -411,12 +404,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="@string/chuyen_viec_toi"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -431,7 +423,7 @@
                             android:hint="Chọn nhân viên"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp" />
+                            android:textSize="@dimen/font17._sp" />
 
                         <TextView
                             android:id="@+id/tvSelectNV"
@@ -445,7 +437,7 @@
                             android:paddingHorizontal="10dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp" />
+                            android:textSize="@dimen/font17._sp" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -462,12 +454,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="Nhân viên 1:"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvNV1"
@@ -478,7 +469,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="Mới" />
 
                 </LinearLayout>
@@ -501,12 +492,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="Nhân viên 2:"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvNV2"
@@ -517,7 +507,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="Mới" />
 
                 </LinearLayout>
@@ -540,12 +530,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="Nhân viên 3:"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvNV3"
@@ -556,7 +545,7 @@
                         android:gravity="start"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font17_sp"
+                        android:textSize="@dimen/font17._sp"
                         tools:text="Mới" />
 
                 </LinearLayout>
@@ -577,11 +566,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="@string/ghi_chu_2"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -595,7 +583,7 @@
                             android:gravity="start"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp"
+                            android:textSize="@dimen/font17._sp"
                             tools:text="@string/appbar_scrolling_view_behavior" />
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtGhiChu"
@@ -644,7 +632,7 @@
                         android:padding="15dp"
                         android:text="Vật liệu"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <TextView
                         android:id="@+id/btnAnh"
@@ -660,7 +648,7 @@
                         android:padding="15dp"
                         android:text="Ảnh"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -692,7 +680,7 @@
                         android:padding="15dp"
                         android:text="@string/da_lam_gon"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
 
                     <TextView
                         android:id="@+id/btnDaCan"
@@ -708,7 +696,7 @@
                         android:padding="15dp"
                         android:text="@string/da_can"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -737,7 +725,7 @@
                         android:padding="15dp"
                         android:text="@string/da_xong"
                         android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp" />
+                        android:textSize="@dimen/font17._sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -745,11 +733,11 @@
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_margin="20dp"
+                android:layout_margin="18dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/md_blue_200"
                 android:elevation="6dp"
-                app:layout_cornerRadius="25dp"
+                app:layout_cornerRadius="5dp"
                 app:layout_duration="500"
                 app:layout_scale="0.85">
 
@@ -761,8 +749,8 @@
                     android:text="Lưu"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font17_sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/font17._sp"
+                    android:fontFamily="@font/roboto_medium" />
             </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
         </LinearLayout>

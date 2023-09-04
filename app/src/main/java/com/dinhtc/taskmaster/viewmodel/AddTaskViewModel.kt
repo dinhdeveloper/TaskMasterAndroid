@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dinhtc.taskmaster.model.SuggestionModel
+import com.dinhtc.taskmaster.model.SuggestionNoteModel
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
 import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
@@ -22,6 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl) : ViewModel() {
+
+    private var suggestionIdCounter = 1
 
     private val _dataJobType = MutableLiveData<UiState<ListJobTypeResponse>>()
     val dataJobType : LiveData<UiState<ListJobTypeResponse>>
@@ -99,8 +102,8 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
     }
 
 
-    private val _combinedData = MutableLiveData<MutableList<SuggestionModel>>()
-    val combinedData: LiveData<MutableList<SuggestionModel>>
+    private val _combinedData = MutableLiveData<MutableList<SuggestionNoteModel>>()
+    val combinedData: LiveData<MutableList<SuggestionNoteModel>>
         get() = _combinedData
 
     init {
@@ -123,17 +126,18 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
         }
 
     }
-    private fun combineAndCreateList(): Flow<MutableList<SuggestionModel>> = combine(
+    private fun combineAndCreateList(): Flow<MutableList<SuggestionNoteModel>> = combine(
         getListEmployee(),
         getListCollectPoint()
     ) { employeeResult, collectPointResult ->
         // Xử lý kết quả từ cả hai Flow ở đây và tạo MutableList<SuggestionModel>
-        val combinedList = mutableListOf<SuggestionModel>()
+        val combinedList = mutableListOf<SuggestionNoteModel>()
 
         if (employeeResult is UiState.Success) {
             val employeeData = employeeResult.data
             for (data in employeeData.data.listItem){
-                val model = SuggestionModel(
+                val model = SuggestionNoteModel(
+                    suggestionIdCounter++,
                     data.empId,
                     data.name,
                     data.numAddress.lowercase()
@@ -145,7 +149,8 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
         if (collectPointResult is UiState.Success) {
             val collectPointData = collectPointResult.data
             for (data in collectPointData.data.listItem){
-                val model = SuggestionModel(
+                val model = SuggestionNoteModel(
+                    suggestionIdCounter++,
                     data.empId,
                     data.name,
                     data.numAddress.lowercase()
@@ -154,7 +159,9 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
             }
         }
 
-        return@combine combinedList
+        val sortedList = combinedList.sortedBy { it.name }
+
+        return@combine sortedList.toMutableList()
     }
 
 

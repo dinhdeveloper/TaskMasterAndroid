@@ -38,7 +38,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtTitle"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_medium"
             android:text="Thêm Địa Điểm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,8 +84,7 @@
                     android:layout_weight="1"
                     android:text="@string/add_dia_diem"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/font17_sp"/>
 
                 <EditText
                     android:id="@+id/edtTenDiaDiem"
@@ -97,7 +96,7 @@
                     android:layout_weight="2"
                     android:gravity="start"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
 
@@ -122,8 +121,7 @@
                     android:text="Địa chỉ:"
                     android:paddingVertical="10dp"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <EditText
                     android:id="@+id/edtDiaChi"
@@ -136,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
 
@@ -161,8 +159,7 @@
                     android:text="Người liên hệ:"
                     android:layout_gravity="center"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <EditText
                     android:id="@+id/edtLienHe"
@@ -174,7 +171,7 @@
                     android:layout_weight="2"
                     android:gravity="start"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
 
@@ -194,8 +191,7 @@
                     android:text="Điện thoại:"
                     android:layout_gravity="center"
                     android:textColor="@color/color_title"
-                    android:textSize="@dimen/font16_sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <EditText
                     android:id="@+id/edtPhone"
@@ -208,7 +204,7 @@
                     android:layout_weight="2"
                     android:gravity="start"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
 
@@ -218,15 +214,15 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/md_blue_200"
-                app:layout_cornerRadius="25dp"
+                app:layout_cornerRadius="5dp"
                 app:layout_duration="500"
                 app:layout_scale="0.85">
                 <TextView
                     android:text="Thêm"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/font16_sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="@dimen/font17_sp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_width="wrap_content"

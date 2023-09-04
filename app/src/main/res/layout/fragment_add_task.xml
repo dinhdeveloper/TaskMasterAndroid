@@ -8,7 +8,7 @@
     </data>
 
     <ScrollView
-        android:background="@drawable/supply"
+        android:background="@color/bg_main_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -33,13 +33,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="GIAO VIỆC"
                     android:textAllCaps="true"
                     android:textColor="#00428E"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/fontToolbar"
+                    android:fontFamily="@font/roboto_medium" />
             </LinearLayout>
 
             <ScrollView
@@ -79,12 +78,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/roboto_bold"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/loai_viec"
                                 android:textColor="@color/color_title"
-                                android:textSize="@dimen/font16_sp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/font17_sp" />
 
                             <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
                                 android:id="@+id/edtSelectTask"
@@ -95,7 +93,7 @@
                                 android:gravity="end"
                                 android:hint="Chọn công việc"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font16_sp" />
+                                android:textSize="@dimen/font17_sp" />
 
                         </LinearLayout>
 
@@ -112,12 +110,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/roboto_bold"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="Nhân Viên 1:"
                                 android:textColor="@color/color_title"
-                                android:textSize="@dimen/font16_sp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/font17_sp"/>
 
                             <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
                                 android:id="@+id/edtSelectNV1"
@@ -128,7 +125,7 @@
                                 android:gravity="end"
                                 android:hint="Chọn nhân viên 1"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font16_sp" />
+                                android:textSize="@dimen/font17_sp" />
 
                         </LinearLayout>
 
@@ -145,12 +142,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/roboto_bold"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="Nhân Viên 2:"
                                 android:textColor="@color/color_title"
-                                android:textSize="@dimen/font16_sp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/font17_sp"/>
 
                             <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
                                 android:id="@+id/edtSelectNV2"
@@ -161,7 +157,7 @@
                                 android:gravity="end"
                                 android:hint="Chọn nhân viên 2"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font16_sp" />
+                                android:textSize="@dimen/font17_sp" />
 
                         </LinearLayout>
 
@@ -178,12 +174,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/roboto_bold"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="Ưu tiên: "
                                 android:textColor="@color/color_title"
-                                android:textSize="@dimen/font16_sp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/font17_sp"/>
 
                             <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
                                 android:id="@+id/edtSelectUuTien"
@@ -194,7 +189,7 @@
                                 android:gravity="end"
                                 android:hint="Chọn độ ưu tiên"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font16_sp" />
+                                android:textSize="@dimen/font17_sp" />
 
                         </LinearLayout>
 
@@ -227,11 +222,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/roboto_bold"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="@string/dia_diem_2"
                                 android:textColor="@color/color_title"
-                                android:textSize="@dimen/font16_sp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/font17_sp"/>
 
                             <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticImageView
                                 android:id="@+id/btnAddDiaDiem"
@@ -266,11 +260,10 @@
                             android:layout_marginHorizontal="5dp"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/roboto_bold"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="@string/ghi_chu"
                             android:textColor="@color/color_title"
-                            android:textSize="@dimen/font16_sp"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/font17_sp"/>
 
                         <com.dinhtc.taskmaster.common.widgets.tagview.TagEditText
                             android:id="@+id/edtGhiChu"
@@ -298,15 +291,15 @@
                         android:layout_margin="13dp"
                         android:layout_marginBottom="20dp"
                         android:background="@color/md_blue_200"
-                        app:layout_cornerRadius="25dp"
+                        app:layout_cornerRadius="5dp"
                         app:layout_duration="500"
                         app:layout_scale="0.85">
                             <TextView
                                 android:text="Giao việc"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="@color/white"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/font16_sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:textSize="@dimen/font17_sp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:layout_width="wrap_content"

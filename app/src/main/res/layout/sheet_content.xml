@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Cuả tôi"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioNhom"
@@ -60,7 +60,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Nhóm"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioTatCaNguoi"
@@ -76,7 +76,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Tất cả"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +98,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Chưa xong"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioDaXong"
@@ -114,7 +114,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Đã xong"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioTatCaTask"
@@ -130,7 +130,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Tất cả"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -153,7 +153,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Đã thanh toán"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/chuaThanhToan"
@@ -169,7 +169,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Chưa thanh toán"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
             </LinearLayout>
 
@@ -193,7 +193,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Hôm nay"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/radioHomQua"
@@ -209,7 +209,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="Hôm qua"
-                    android:textSize="@dimen/font16_sp" />
+                    android:textSize="@dimen/font17_sp" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_c"
@@ -217,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Tất cả"
-                    android:textSize="@dimen/font16_sp"
+                    android:textSize="@dimen/font17_sp"
                     android:visibility="invisible" />
             </LinearLayout>
 
@@ -231,7 +231,7 @@
                 android:drawableEnd="@drawable/arrow_right_svgrepo_com"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="@dimen/font16_sp"
+                android:textSize="@dimen/font17_sp"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="30dp"
                 android:layout_width="wrap_content"

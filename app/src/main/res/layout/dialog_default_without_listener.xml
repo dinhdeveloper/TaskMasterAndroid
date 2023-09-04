@@ -44,7 +44,7 @@
         android:text="OK"
         android:textAllCaps="false"
         android:textColor="@color/color_datroi"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font17_sp"
         />
 
 </LinearLayout>

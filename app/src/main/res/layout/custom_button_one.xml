@@ -26,7 +26,7 @@
             android:padding="10dp"
             android:text="Lưu"
             android:textColor="@color/white"
-            android:textSize="@dimen/font16_sp" />
+            android:textSize="@dimen/font17_sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

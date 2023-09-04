@@ -18,10 +18,12 @@
 
 
     <dimen name="font15_sp">15sp</dimen>
-    <dimen name="font16_sp">17sp</dimen>
+    <dimen name="font16_sp">16sp</dimen>
     <dimen name="font17_sp">17sp</dimen>
+    <dimen name="font17._sp">17sp</dimen>
     <dimen name="font18_sp">18sp</dimen>
     <dimen name="font20_sp">20sp</dimen>
+    <dimen name="fontToolbar">20sp</dimen>
 
     <dimen name="dimen_0">0dp</dimen>
     <dimen name="dimen_4">4dp</dimen>

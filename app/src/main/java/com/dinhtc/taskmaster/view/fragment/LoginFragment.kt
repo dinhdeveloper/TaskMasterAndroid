@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.databinding.FragmentLoginBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
+import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
@@ -41,13 +42,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated() {
         context?.let { SharedPreferencesManager.init(it) }
-       // checkAutoLogin()
+        checkAutoLogin()
         actionView()
         jobIdNotify = arguments?.getString(MainActivity.ID_JOB_NOTIFY)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun actionView() {
+
+        viewBinding.layoutMain.setOnClickListener {
+            AndroidUtils.hideKeyboard(viewBinding.layoutMain)
+        }
+
         viewBinding.btnLogin.setOnClickListener {
             if (checkValidate()) {
                 viewModel.loginUser(

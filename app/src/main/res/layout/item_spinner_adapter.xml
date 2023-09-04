@@ -54,7 +54,7 @@
             android:ellipsize="end"
             android:text="@{data}"
             android:textColor="@color/black"
-            android:textSize="@dimen/font16_sp"
+            android:textSize="@dimen/font17_sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_check_parent"
             app:layout_constraintStart_toEndOf="@+id/iv_check_parent"
             app:layout_constraintEnd_toEndOf="parent"
