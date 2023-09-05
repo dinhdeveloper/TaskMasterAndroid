@@ -2,6 +2,7 @@ package com.dinhtc.taskmaster.bottomsheet
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ class BottomSheetAddFreight(
     private lateinit var edtKhoiLuongKH: TextInputEditText
     private lateinit var edtDonGia: MoneyEditText
     private lateinit var btnSubmit: ElasticLayout
+    private lateinit var tvLabelVL: MaterialTextView
 
     private var jobTypeIdSelected = -1
 
@@ -84,13 +86,16 @@ class BottomSheetAddFreight(
                 val addMaterialRequest = AddMaterialRequest(
                     mateId = jobTypeIdSelected,
                     jobId = jobsId,
-                    weight = edtKhoiLuong.text.toString().toLong(),
-                    weightToCus = edtKhoiLuongKH.text.toString().toLong(),
+                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else null)!!,
+                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else null)!!,
                     price = getMoneyRealValue(edtDonGia.text.toString())
                 )
                 listenerAddMaterial(addMaterialRequest)
             }
         }
+        val labelNV1 = "Vật liệu:<font color='#FF0000'><sup>*</sup></font>"
+        // Sử dụng Html.fromHtml để hiển thị văn bản HTML trong TextView
+        tvLabelVL.text = Html.fromHtml(labelNV1, Html.FROM_HTML_MODE_COMPACT)
     }
 
     private fun findViewByID(modalSheetView: View) {
@@ -100,6 +105,14 @@ class BottomSheetAddFreight(
         edtKhoiLuongKH = modalSheetView.findViewById(R.id.edtKhoiLuongKH)
         edtDonGia = modalSheetView.findViewById(R.id.edtDonGia)
         btnSubmit = modalSheetView.findViewById(R.id.btnSubmit)
+        tvLabelVL = modalSheetView.findViewById(R.id.tvLabelVL)
+    }
+
+    fun deleteDataInsert() {
+        itemSelectTask.text = null
+        edtKhoiLuong.text = null
+        edtKhoiLuongKH.text = null
+        edtDonGia.text = null
     }
 
     companion object {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +59,7 @@ class BottomSheetAddVideo(
     private lateinit var imgCloseImg: ImageView
     private lateinit var tvCount: TextView
     private lateinit var tvSm: TextView
+    private lateinit var tvLabelAnh: TextView
     private lateinit var viewBackground: View
     private lateinit var viewBackgroundVideo: View
     private lateinit var imgFront: UploadDocumentImage
@@ -104,6 +106,9 @@ class BottomSheetAddVideo(
     }
 
     private fun actionView() {
+        val labelNV1 = "1. Ảnh:<font color='#FF0000'><sup>*</sup></font>"
+        // Sử dụng Html.fromHtml để hiển thị văn bản HTML trong TextView
+        tvLabelAnh.text = Html.fromHtml(labelNV1, Html.FROM_HTML_MODE_COMPACT)
         imgClose.setOnClickListener {
             dismiss()
             onClosePopup.invoke()
@@ -130,6 +135,7 @@ class BottomSheetAddVideo(
         viewBackground = modalSheetView.findViewById(R.id.viewBackground)
         viewBackgroundVideo = modalSheetView.findViewById(R.id.viewBackgroundVideo)
         tvCount = modalSheetView.findViewById(R.id.tvCount)
+        tvLabelAnh = modalSheetView.findViewById(R.id.tvLabelAnh)
 
         imgVideo = modalSheetView.findViewById(R.id.imgVideo)
         imgCloseVideo = modalSheetView.findViewById(R.id.imgCloseVideo)

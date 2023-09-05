@@ -21,7 +21,7 @@ object LoadingScreen {
         try {
             dialog!!.show()
         } catch (e: Exception) {
-            dialog?.dismiss()
+            dialog = null
         }
     }
 

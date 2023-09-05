@@ -76,6 +76,7 @@
                 android:weightSum="3">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLabelDD"
                     android:fontFamily="@font/roboto_medium"
                     android:layout_gravity="center"
                     android:layout_width="0dp"
@@ -115,6 +116,7 @@
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLabelDC"
                     android:fontFamily="@font/roboto_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

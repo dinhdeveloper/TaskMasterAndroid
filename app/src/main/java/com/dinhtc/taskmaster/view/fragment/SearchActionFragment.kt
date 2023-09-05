@@ -148,7 +148,9 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
 
-            UiState.Loading -> {}
+            UiState.Loading -> {
+                LoadingScreen.displayLoadingWithText(context,"Đang tìm kiếm...",false)
+            }
         }
     }
 

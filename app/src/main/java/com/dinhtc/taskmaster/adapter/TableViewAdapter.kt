@@ -52,13 +52,13 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
     }
 
     private fun setContentBgAndColor(txtView: TextView, modal: SearchResponse?) {
-        if (modal?.priority?.equals("1") == true) {
+        if (modal?.priority?.equals(1) == true) {
             txtView.setBackgroundResource(R.drawable.table_cell_bg_status_one)
             txtView.setTextColor(Color.WHITE)
-        } else if (modal?.priority?.equals("2") == true){
+        } else if (modal?.priority?.equals(2) == true){
             txtView.setBackgroundResource(R.drawable.table_cell_bg_status_two)
             txtView.setTextColor(Color.WHITE)
-        } else if (modal?.priority?.equals("3") == true){
+        } else if (modal?.priority?.equals(3) == true){
             txtView.setBackgroundResource(R.drawable.table_cell_bg_status_three)
             txtView.setTextColor(Color.WHITE)
         } else {

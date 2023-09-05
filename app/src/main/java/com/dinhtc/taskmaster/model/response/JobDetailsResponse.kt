@@ -11,6 +11,7 @@ data class JobDetailsResponse(
     val priority: Int,
     val noteJob: String,
     val jobStateCode: String,
+    val amountPaidEmp: Long,
     val jobMedia : List<JobMediaDetailResponse>,
     val jobMaterial : List<JobMaterialDetailResponse>,
     val employeeJobs : List<JobEmployeeDetailResponse>

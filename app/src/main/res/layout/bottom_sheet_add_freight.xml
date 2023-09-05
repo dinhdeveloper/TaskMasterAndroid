@@ -76,13 +76,14 @@
                 android:weightSum="3">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLabelVL"
                     android:fontFamily="@font/roboto_medium"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="0dp"
                     android:paddingVertical="5dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/hang_hoa"
+                    android:text="Vật liệu:"
                     android:textColor="@color/color_title"
                     android:textSize="@dimen/font17_sp" />
 

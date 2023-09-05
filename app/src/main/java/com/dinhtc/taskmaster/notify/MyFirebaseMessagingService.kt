@@ -54,7 +54,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_MUTABLE
         )
 
-        createChannel(notificationTitle, notificationBody,pendingIntent)
+        createChannel(context = applicationContext, notificationTitle, notificationBody,pendingIntent)
     }
 
     fun createNotificationChannel(context: Context, channelId: String, channelName: String, channelDescription: String) {
@@ -74,28 +74,31 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     private fun createChannel(
+        context: Context,
         notificationTitle: String,
         notificationBody: String,
         pendingIntent: PendingIntent?
     ) {
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val notificationBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
-            .setSmallIcon(R.drawable.icons_notification_2)
+        val notificationBuilder = NotificationCompat.Builder(context, getString(R.string.default_notification_channel_id))
+            .setSmallIcon(R.drawable.icon_noti)
             .setStyle(NotificationCompat.BigTextStyle().setBigContentTitle(notificationTitle))
             .setContentTitle(notificationTitle)
             .setContentText(notificationBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
+            .setGroup(getString(R.string.your_notification_group_id))
+            .setPriority(NotificationCompat.PRIORITY_HIGH) // Cài đặt ưu tiên
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Tạo một kênh thông báo (Notification Channel) cho Android Oreo trở lên
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 getString(R.string.default_notification_channel_id),
-                "Channel Name",
+                getString(R.string.default_notification_channel_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             channel.enableLights(true)
@@ -103,15 +106,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             channel.enableVibration(true)
             notificationManager.createNotificationChannel(channel)
         }
+
         val id = System.currentTimeMillis().toInt()
         notificationManager.notify(id, notificationBuilder.build())
     }
+
+
 
     private fun sendNotificationFromNotification(notification: RemoteMessage.Notification?) {
         val notificationTitle = notification?.title ?: "Chúc quý khách 1 ngày tốt lành"
         val notificationBody = notification?.body ?: "Chúc quý khách 1 ngày tốt lành"
 
-        createChannel(notificationTitle, notificationBody,null)
+        createChannel(context = applicationContext, notificationTitle, notificationBody,null)
     }
 
 

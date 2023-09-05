@@ -1,5 +1,6 @@
 package com.dinhtc.taskmaster.view.fragment
 
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -30,6 +31,7 @@ import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
@@ -74,6 +76,15 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         onClickItem()
 
         observe(addTaskViewModel.combinedData, ::combinedDataLive)
+
+        viewBinding.apply {
+            val labelNV1 = "Nhân Viên 1:<font color='#FF0000'><sup>*</sup></font>"
+            val labelDD = "Địa điểm<font color='#FF0000'><sup>*</sup></font>"
+
+            // Sử dụng Html.fromHtml để hiển thị văn bản HTML trong TextView
+            tvLabelNV1.text = Html.fromHtml(labelNV1, Html.FROM_HTML_MODE_COMPACT)
+            tvDiaDiem.text = Html.fromHtml(labelDD, Html.FROM_HTML_MODE_COMPACT)
+        }
     }
 
     private fun onClickItem() {
@@ -102,20 +113,18 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
             }
 
             btnSubmit.setOnClickListener {
-                Log.d("SSSSSSSSSS_TEXT", "${viewBinding.edtGhiChu.inputText}")
                 if (checkValidate()) {
-                    if (nv2Selected != -1) {
-                        val addTaskRequest = AddTaskRequest(
-                            jobTypeIdSelected,
-                            nv1Selected,
-                            nv2Selected,
-                            SharedPreferencesManager.instance.getInt(
-                                SharedPreferencesManager.USER_ID,0),
-                            viewBinding.edtDiaDiem.ids,
-                            viewBinding.edtGhiChu.inputText
-                        )
-                        addTaskViewModel.addTask(addTaskRequest)
-                    }
+                    val addTaskRequest = AddTaskRequest(
+                        jobTypeIdSelected,
+                        1,
+                        nv1Selected,
+                        nv2Selected,
+                        SharedPreferencesManager.instance.getInt(
+                            SharedPreferencesManager.USER_ID,0),
+                        viewBinding.edtDiaDiem.ids,
+                        viewBinding.edtGhiChu.inputText
+                    )
+                    addTaskViewModel.addTask(addTaskRequest)
                 }
             }
         }
@@ -333,7 +342,9 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
+                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
+                    addTaskViewModel.getListCollectPoint()
+                }
                 addTaskViewModel.getListCollectPoint()
                 bottomSheetAdd?.dismiss()
             }
@@ -365,7 +376,9 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
 
-            UiState.Loading -> {}
+            UiState.Loading -> {
+                LoadingScreen.displayLoadingWithText(context,"Đang giao việc.",false)
+            }
         }
     }
 
@@ -389,46 +402,18 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
                             R.drawable.bg_item_detail_black
                         )
                     }
-                    return if (edtSelectNV2.text.toString().trim().isEmpty()) {
-                        edtSelectNV2.background =
+                    return if (edtDiaDiem.text.toString().trim().isEmpty()) {
+                        edtDiaDiem.background =
                             context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                         false
                     } else {
-                        edtSelectNV2.background = context?.let {
+                        edtDiaDiem.background = context?.let {
                             ContextCompat.getDrawable(
                                 it,
                                 R.drawable.bg_item_detail_black
                             )
                         }
-                        return if (edtDiaDiem.text.toString().trim().isEmpty()) {
-                            edtDiaDiem.background =
-                                context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
-                            false
-                        } else {
-                            edtDiaDiem.background = context?.let {
-                                ContextCompat.getDrawable(
-                                    it,
-                                    R.drawable.bg_item_detail_black
-                                )
-                            }
-                            return if (edtGhiChu.text.toString().trim().isEmpty()) {
-                                edtGhiChu.background = context?.let {
-                                    ContextCompat.getDrawable(
-                                        it,
-                                        R.drawable.bg_red_
-                                    )
-                                }
-                                false
-                            } else {
-                                edtGhiChu.background = context?.let {
-                                    ContextCompat.getDrawable(
-                                        it,
-                                        R.drawable.bg_item_detail_black
-                                    )
-                                }
-                                return true
-                            }
-                        }
+                        return true
                     }
                 }
             }

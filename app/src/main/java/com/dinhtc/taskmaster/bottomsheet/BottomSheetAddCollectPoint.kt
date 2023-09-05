@@ -2,6 +2,7 @@ package com.dinhtc.taskmaster.bottomsheet
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,8 @@ class BottomSheetAddCollectPoint (
     private lateinit var edtLienHe: EditText
     private lateinit var edtPhone: EditText
     private lateinit var btnSubmit: ElasticLayout
+    private lateinit var tvLabelDC: MaterialTextView
+    private lateinit var tvLabelDD: MaterialTextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -53,6 +56,14 @@ class BottomSheetAddCollectPoint (
     }
 
     private fun actionView() {
+        val labelDC = "Địa chỉ:<font color='#FF0000'><sup>*</sup></font>"
+        val labelDD = "Tên địa điểm:<font color='#FF0000'><sup>*</sup></font>"
+
+        // Sử dụng Html.fromHtml để hiển thị văn bản HTML trong TextView
+        tvLabelDC.text = Html.fromHtml(labelDC, Html.FROM_HTML_MODE_COMPACT)
+        tvLabelDD.text = Html.fromHtml(labelDD, Html.FROM_HTML_MODE_COMPACT)
+
+
         imgClose.setOnClickListener {
             dismiss()
         }
@@ -93,6 +104,8 @@ class BottomSheetAddCollectPoint (
         edtLienHe = modalSheetView.findViewById(R.id.edtLienHe)
         edtPhone = modalSheetView.findViewById(R.id.edtPhone)
         btnSubmit = modalSheetView.findViewById(R.id.btnSubmit)
+        tvLabelDC = modalSheetView.findViewById(R.id.tvLabelDC)
+        tvLabelDD = modalSheetView.findViewById(R.id.tvLabelDD)
     }
     companion object {
         const val TAG = "BottomSheetAddCollectPoint"
