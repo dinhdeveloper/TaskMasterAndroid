@@ -97,7 +97,7 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
                 emit(UiState.Error(response.data.toString()))
             }
         } catch (e: Exception) {
-            emit(UiState.Error("Error message: ${e.message}"))
+//            emit(UiState.Error("Error message: ${e.message}"))
         }
     }
 
@@ -134,28 +134,32 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
         val combinedList = mutableListOf<SuggestionNoteModel>()
 
         if (employeeResult is UiState.Success) {
-            val employeeData = employeeResult.data
-            for (data in employeeData.data.listItem){
-                val model = SuggestionNoteModel(
-                    suggestionIdCounter++,
-                    data.empId,
-                    data.name,
-                    data.numAddress.lowercase()
-                )
-                combinedList.add(model)
+            if (employeeResult.data.data != null){
+                val employeeData = employeeResult.data
+                for (data in employeeData.data.listItem){
+                    val model = SuggestionNoteModel(
+                        suggestionIdCounter++,
+                        data.empId,
+                        data.name,
+                        data.numAddress.lowercase()
+                    )
+                    combinedList.add(model)
+                }
             }
         }
 
         if (collectPointResult is UiState.Success) {
-            val collectPointData = collectPointResult.data
-            for (data in collectPointData.data.listItem){
-                val model = SuggestionNoteModel(
-                    suggestionIdCounter++,
-                    data.empId,
-                    data.name,
-                    data.numAddress.lowercase()
-                )
-                combinedList.add(model)
+            if (collectPointResult.data.data != null){
+                val collectPointData = collectPointResult.data
+                for (data in collectPointData.data.listItem){
+                    val model = SuggestionNoteModel(
+                        suggestionIdCounter++,
+                        data.empId,
+                        data.name,
+                        data.numAddress.lowercase()
+                    )
+                    combinedList.add(model)
+                }
             }
         }
 

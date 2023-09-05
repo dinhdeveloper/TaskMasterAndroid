@@ -5,7 +5,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.adapter.SuggestionAdapter
 import com.dinhtc.taskmaster.adapter.SuggestionNoteAdapter
