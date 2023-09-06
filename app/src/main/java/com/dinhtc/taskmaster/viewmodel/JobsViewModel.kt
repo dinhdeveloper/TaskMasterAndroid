@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
 import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
@@ -44,11 +45,11 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
     val updateStateJob : LiveData<UiState<UpdateJobsResponse>>
         get() = _updateStateJob
 
-    fun updateStateJob(jobsId: Int, status: Int, dateCreate: String) {
+    fun updateStateJob(dataUpdate: UpdateStateRequest) {
         viewModelScope.launch {
             _updateStateJob.value = UiState.Loading
             try {
-                val response = apiHelperImpl.updateStateJob(jobsId,status,dateCreate)
+                val response = apiHelperImpl.updateStateJob(dataUpdate)
                 if (response.result_code == 0) {
                     _updateStateJob.value = UiState.Success(response)
                 } else {

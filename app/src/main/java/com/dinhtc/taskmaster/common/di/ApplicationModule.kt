@@ -15,7 +15,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.conscrypt.BuildConfig.DEBUG
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -29,7 +28,7 @@ class ApplicationModule {
     fun provideBaseUrl() = "http://192.168.1.6:8080/api/" //192.168.1.6  192.168.1.110
     @Provides
     @Singleton
-    fun provideOkHttpClient(sharedPreferences: SharedPreferencesManager): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
 
         val loggingInterceptor = CustomLoggingInterceptor()
         return if (!DEBUG) {

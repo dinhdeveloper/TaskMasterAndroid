@@ -24,13 +24,6 @@ class TaskMasterApplication : Application() {
         SharedPreferencesManager.instance.putString(
             SharedPreferencesManager.DEVICE_ID, AndroidUtils.getAndroidDeviceId(applicationContext)
         )
-        // Tạo kênh thông báo
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel("channel_id", "Channel Name", NotificationManager.IMPORTANCE_DEFAULT)
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
-
         Firebase.messaging.token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {

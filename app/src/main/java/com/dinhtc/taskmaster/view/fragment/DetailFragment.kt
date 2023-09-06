@@ -12,16 +12,17 @@ import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.bottomsheet.BottomSheetAddFreight
 import com.dinhtc.taskmaster.bottomsheet.BottomSheetAddVideo
-import com.dinhtc.taskmaster.databinding.FragmentDetailBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
 import com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticAnimation
 import com.dinhtc.taskmaster.common.widgets.spinner.ItemViewLocation
 import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
+import com.dinhtc.taskmaster.databinding.FragmentDetailBinding
 import com.dinhtc.taskmaster.model.JobEmployeeDetailResponse
 import com.dinhtc.taskmaster.model.JobStateCode.*
 import com.dinhtc.taskmaster.model.RoleCode
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
 import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
 import com.dinhtc.taskmaster.model.response.ListMaterialResponse
@@ -34,21 +35,27 @@ import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
-import com.dinhtc.taskmaster.viewmodel.MaterialViewModel
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
+import com.dinhtc.taskmaster.viewmodel.MaterialViewModel
 import com.dinhtc.taskmaster.viewmodel.UploadMediaViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 
+
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
+    private var paymentMethod: Int = 0
+    private var paymentStateStatus: Int = 0
+    private var checkSelectedRadio: Boolean = false
     private val listEmployeeJobs = mutableListOf<JobEmployeeDetailResponse>()
     private var nv1Old: Int = -1
+    private var nv2Old: Int = -1
+    private var nv3Old: Int = -1
     private var uuTienIdSelected: Int = -1
-    private var amountPaidEmp: String? = null
-    private var totalMoney: String? = null
+    private var amountPaidEmp: Long? = 0
+    private var totalMoney: Long? = 0
 
     private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
@@ -57,6 +64,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var dataResponse: JobDetailsResponse? = null
     private var jobsId: Int = -1
     private var empId: Int = -1
+    val empAssignId = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID,-1)
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -106,10 +114,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun checkRole() {
         viewBinding.apply {
+
+            layoutChuyenKhoan.setOnCheckedChangeListener { group, checkedId ->
+                run {
+                    when (checkedId) {
+                        R.id.radioChuyenKhoan -> {
+                            checkSelectedRadio = true
+                            paymentMethod = 2 //bank
+                            paymentStateStatus = 1 // da thanh toan
+                        }
+                        R.id.radioChuaThanhToan -> {
+                            checkSelectedRadio = true
+                            paymentMethod = -1 // chua thanh toan
+                            paymentStateStatus = 0 //chua thanh toan
+                        }
+                    }
+                }
+            }
+
             when (SharedPreferencesManager.instance.getString(
                 SharedPreferencesManager.ROLE_CODE,
                 ""
-            ) ?: "") {
+            )) {
                 RoleCode.MASTER.name -> {
                     btnDaLamGon.isEnabled = true
                     btnDaLamGon.alpha = 1f
@@ -180,7 +206,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
 
     private fun onClickItem() {
+        var dateCreate = "dateCreate"
+
         viewBinding.apply {
+
             edtNVUng.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -195,11 +224,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 override fun afterTextChanged(s: Editable?) {
                     if (edtNVUng.money > 0) {
                         viewBinding.apply {
-                            radioChuyenKhoan.isSelected = true
+                            checkSelectedRadio = false
+                            radioChuyenKhoan.isSelected = false
                             radioChuaThanhToan.isSelected = false
 
                             radioChuaThanhToan.isEnabled = false
                             radioChuyenKhoan.isEnabled = false
+                            amountPaidEmp
                         }
                     } else {
                         viewBinding.apply {
@@ -242,14 +273,38 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     }
                 }
             }
-            var dateCreate = "dateCreate"
+
             btnDaLamGon.setOnClickListener {
-                jobsViewModel.updateStateJob(jobsId, DALAMGON, dateCreate)
+                val dataUpdate = UpdateStateRequest(
+                    jobsId = jobsId,
+                    stateJob = DALAMGON,
+                    paymentMethod = paymentMethod,
+                    paymentStateStatus = paymentStateStatus,
+                    amountPaidEmp = 0,
+                    amountTotal = 0,
+                    dateCreate = dateCreate
+                )
+                jobsViewModel.updateStateJob(dataUpdate)
             }
+
             btnDaCan.setOnClickListener {
+                getDataSelected()
                 if (dataResponse != null) {
                     if (dataResponse!!.jobMaterial.isNotEmpty() && dataResponse!!.jobMedia.isNotEmpty()) {
-                        jobsViewModel.updateStateJob(jobsId, DACAN, dateCreate)
+                        if (checkBank()) {
+                            val dataUpdate = UpdateStateRequest(
+                                jobsId = jobsId,
+                                stateJob = DACAN,
+                                paymentMethod = paymentMethod,
+                                paymentStateStatus = paymentStateStatus,
+                                amountPaidEmp = amountPaidEmp!!,
+                                amountTotal = totalMoney!!,
+                                dateCreate = dateCreate
+                            )
+                            jobsViewModel.updateStateJob(dataUpdate)
+                        } else {
+                            viewBinding.layoutChuyenKhoan.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+                        }
                     } else {
                         DialogFactory.showDialogDefaultNotCancel(context, "Thiếu Vật liệu/ Ảnh")
                     }
@@ -257,38 +312,71 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
 
             btnDaXong.setOnClickListener {
-                jobsViewModel.updateStateJob(jobsId, XONG, dateCreate)
+                getDataSelected()
+
+                val dataUpdate = UpdateStateRequest(
+                    jobsId = jobsId,
+                    stateJob = XONG,
+                    paymentMethod = paymentMethod,
+                    paymentStateStatus = paymentStateStatus,
+                    amountPaidEmp = amountPaidEmp!!,
+                    amountTotal = totalMoney!!,
+                    dateCreate = dateCreate
+                )
+                jobsViewModel.updateStateJob(dataUpdate)
             }
 
             btnSubmit.setOnClickListener {
                 if (viewBinding.tvPrice.text.toString().trim().isNotEmpty()) {
-                    totalMoney = viewBinding.tvPrice.text.toString().trim()
+                    totalMoney = AndroidUtils.getMoneyRealValue(viewBinding.tvPrice.text.toString().trim())
                 }
                 if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
-                    amountPaidEmp = viewBinding.edtNVUng.money.toString().trim()
+                    amountPaidEmp = viewBinding.edtNVUng.money.toString().trim().toLong()
                 }
+                val dataUpdate = DataUpdateJobRequest(
+                    jodId = jobsId,
+                    totalMoney = AndroidUtils.decodeMoneyStr(totalMoney.toString()),
+                    statusPayment = 1, //chuyển khoản là 0, chưa thanh toán là 1
+                    amountPaidEmp = amountPaidEmp,
+                    priority = uuTienIdSelected,
+                    empOldId = nv1Old,
+                    empNewId = nvSelectedNew,
+                    empAssignId = empAssignId,
+                    note = viewBinding.edtGhiChu.text.toString(),
+                )
+                jobsViewModel.updateJobDetails(dataUpdate)
+            }
+        }
+    }
 
-                Log.e("SSSSSSSSSSSSSS", "${AndroidUtils.decodeMoneyStr(totalMoney)}")
-                Log.d("SSSSSSSSSSSSSS", "$amountPaidEmp")
+    private fun checkBank(): Boolean {
+        return if (!checkSelectedRadio) {
+            viewBinding.edtNVUng.text.toString().trim().isNotEmpty()
+        }else {
+            true
+        }
+    }
 
-                if (checkValidateEmp()) {
-                    val dataUpdate = DataUpdateJobRequest(
-                        jodId = jobsId,
-                        totalMoney = AndroidUtils.decodeMoneyStr(totalMoney),
-                        statusPayment = 1, //chuyển khoản là 0, chưa thanh toán là 1
-                        amountPaidEmp = amountPaidEmp,
-                        priority = uuTienIdSelected,
-                        empOldId = nv1Old,
-                        empNewId = nvSelectedNew,
-                        note = viewBinding.edtGhiChu.text.toString(),
-                    )
-                    jobsViewModel.updateJobDetails(dataUpdate)
-                } else {
-                    DialogFactory.showDialogDefaultNotCancel(
-                        context,
-                        "Vui lòng chọn lại nhân viên giao việc."
-                    )
-                }
+    private fun getDataSelected() {
+        viewBinding.apply {
+            if (tvPrice.text.toString().trim().isNotEmpty()) {
+                totalMoney = AndroidUtils.getMoneyRealValue(tvPrice.text.toString().trim())
+            }
+            if (edtNVUng.money.toString().trim().isNotEmpty()) {
+                amountPaidEmp = edtNVUng.money.toString().trim().toLong()
+            }
+
+            if (radioChuyenKhoan.isChecked){
+                paymentMethod = 2 //bank
+                paymentStateStatus = 1 // da thanh toan
+            }
+            if (radioChuaThanhToan.isChecked){
+                paymentMethod = -1 // chua thanh toan
+                paymentStateStatus = 0 //chua thanh toan
+            }
+            if (edtNVUng.text.toString().trim().isNotBlank() && !checkSelectedRadio){
+                paymentMethod = 1 //cash
+                paymentStateStatus = 1 // da thanh toan
             }
         }
     }
@@ -371,15 +459,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 LoadingScreen.hideLoading()
                 val listEmpLiveData = uiState.data.data.listItem
                 for (data in listEmpLiveData) {
-                    dataListEmployee.add(
-                        ItemViewLocation(
-                            ProvinceData(
-                                data.empId,
-                                "${data.empId}",
-                                "${data.name}"
+                    if (nv1Old != -1 && nv1Old != data.empId ||
+                        nv2Old != -1 && nv2Old != data.empId ||
+                        nv3Old != -1 && nv3Old != data.empId ){
+                        dataListEmployee.add(
+                            ItemViewLocation(
+                                ProvinceData(
+                                    data.empId,
+                                    "${data.empId}",
+                                    "${data.name}"
+                                )
                             )
                         )
-                    )
+                    }
                 }
                 viewBinding.selectNV.setData(dataListEmployee)
             }
@@ -536,9 +628,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             tvStateDecs.text = dataResponse.stateDecs
             tvNamePoint.text = dataResponse.namePoint
             tvNameAddress.text = dataResponse.numAddress
-            edtSelectUuTien.text = "Ưu tiên ${dataResponse.priority}"
 
-            if (dataResponse?.employeeJobs?.isNotEmpty() == true) {
+            if (dataResponse.amountPaidEmp != 0L){
+                edtNVUng.visibility = View.GONE
+                tvNVUng.visibility = View.VISIBLE
+                tvNVUng.text = AndroidUtils.formatMoneyCard(dataResponse.amountPaidEmp.toString())
+            }else{
+                edtNVUng.visibility = View.VISIBLE
+                tvNVUng.visibility = View.GONE
+            }
+
+            if (dataResponse.priority != 0){
+                uuTienIdSelected = dataResponse.priority
+                edtSelectUuTien.visibility = View.GONE
+                tvUuTien.visibility = View.VISIBLE
+                tvUuTien.text = "Ưu tiên ${dataResponse.priority}"
+            }else{
+                edtSelectUuTien.text = "Ưu tiên ${dataResponse.priority}"
+                edtSelectUuTien.visibility = View.VISIBLE
+                tvUuTien.visibility = View.GONE
+            }
+
+            if (dataResponse.employeeJobs.isNotEmpty()) {
                 for (data in dataResponse.employeeJobs) {
                     listEmployeeJobs.add(data)
                 }
@@ -549,11 +660,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 if (dataResponse.employeeJobs.size == 2) {
                     tvNV1.text = dataResponse.employeeJobs[0].name
                     tvNV2.text = dataResponse.employeeJobs[1].name
+
+                    nv1Old = dataResponse.employeeJobs[0].empId
+                    nv2Old = dataResponse.employeeJobs[1].empId
                 }
                 if (dataResponse.employeeJobs.size == 3) {
                     tvNV1.text = dataResponse.employeeJobs[0].name
                     tvNV2.text = dataResponse.employeeJobs[1].name
                     tvNV3.text = dataResponse.employeeJobs[2].name
+
+                    nv1Old = dataResponse.employeeJobs[0].empId
+                    nv2Old = dataResponse.employeeJobs[1].empId
+                    nv3Old = dataResponse.employeeJobs[2].empId
                 }
             }
 
@@ -594,9 +712,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
                     btnDaCan.isEnabled = false
                     btnDaCan.alpha = 0.7f
-
-                    btnSubmit.isEnabled = false
-                    btnSubmit.alpha = 0.6f
                 }
 
                 15 -> {
@@ -608,9 +723,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
                     btnDaCan.isEnabled = true
                     btnDaCan.alpha = 1f
-
-                    btnSubmit.isEnabled = false
-                    btnSubmit.alpha = 0.6f
                 }
                 20, 25 -> {
                     btnDaLamGon.isEnabled = false
@@ -627,9 +739,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
                     btnDaXong.isEnabled = true
                     btnDaXong.alpha = 1f
-
-                    btnSubmit.isEnabled = true
-                    btnSubmit.alpha = 1f
                 }
                 30 -> {
                     btnDaLamGon.isEnabled = false
@@ -647,9 +756,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     btnDaXong.isEnabled = false
                     btnDaXong.alpha = 0.7f
 
-                    btnSubmit.isEnabled = false
-                    btnSubmit.alpha = 0.6f
-
                     btnDaLamGon.visibility = View.GONE
                     btnAnh.visibility = View.GONE
                     btnVatLieu.visibility = View.GONE
@@ -662,11 +768,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     tvUuTien.visibility = View.VISIBLE
                     tvUuTien.text = "Ưu tiên ${dataResponse.priority}"
 
-                    edtNVUng.visibility = View.GONE
-                    tvNVUng.visibility = View.VISIBLE
-                    if (dataResponse.amountPaidEmp != 0L) {
-                        tvNVUng.text = AndroidUtils.formatMoneyCard("${dataResponse.amountPaidEmp} VNĐ")
-                    }
+//                    edtNVUng.visibility = View.GONE
+//                    tvNVUng.visibility = View.VISIBLE
+//                    if (dataResponse.amountPaidEmp != 0L) {
+//                        tvNVUng.text = AndroidUtils.formatMoneyCard("${dataResponse.amountPaidEmp} VNĐ")
+//                    }
 
                     layoutChuyenViecToi.visibility = View.GONE
 

@@ -7,6 +7,7 @@ import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.request.LoginRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.utils.ApiResponse
 import okhttp3.MultipartBody
@@ -91,12 +92,8 @@ interface ApiService {
         @Path("empId") empId : Int
     ): ApiResponse<JobDetailsResponse>
 
-    @PUT("mobile/update/update_state_job/{jobId}/{newStateId}/{dateCreate}")
-    suspend fun updateStateJob(
-        @Path("jobId") jobId: Int,
-        @Path("newStateId") newStateId: Int,
-        @Path("dateCreate") dateCreate: String
-    ): ApiResponse<UpdateJobsResponse>
+    @PUT("mobile/update/update_state_job")
+    suspend fun updateStateJob(@Body dataUpdate: UpdateStateRequest): ApiResponse<UpdateJobsResponse>
 
     @POST("mobile/delete_media")
     suspend fun deleteMedia(@Body collectPoint: DeleteMediaRequest): ApiResponse<Any>

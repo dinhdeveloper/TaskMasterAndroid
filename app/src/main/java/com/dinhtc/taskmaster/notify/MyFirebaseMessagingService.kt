@@ -8,11 +8,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
-import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.dinhtc.taskmaster.R
-import com.dinhtc.taskmaster.model.ReceiverNotiData
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
 import com.dinhtc.taskmaster.utils.eventbus.EventBusAction
@@ -20,8 +18,14 @@ import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONObject
+import java.util.concurrent.atomic.AtomicInteger
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    private val autoInt = AtomicInteger(1)
+
+    private val autoId: Int
+        get() = autoInt.incrementAndGet()
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -57,22 +61,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         createChannel(context = applicationContext, notificationTitle, notificationBody,pendingIntent)
     }
 
-    fun createNotificationChannel(context: Context, channelId: String, channelName: String, channelDescription: String) {
-        // Kiểm tra phiên bản Android
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, channelName, importance)
-            channel.description = channelDescription
-
-            // Lấy quản lý thông báo
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-            // Tạo kênh thông báo
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-
     private fun createChannel(
         context: Context,
         notificationTitle: String,
@@ -83,13 +71,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val notificationBuilder = NotificationCompat.Builder(context, getString(R.string.default_notification_channel_id))
             .setSmallIcon(R.drawable.icon_noti)
-            .setStyle(NotificationCompat.BigTextStyle().setBigContentTitle(notificationTitle))
             .setContentTitle(notificationTitle)
             .setContentText(notificationBody)
-            .setAutoCancel(true)
+            .setStyle(NotificationCompat.BigTextStyle().setBigContentTitle(notificationTitle))
+            .setAutoCancel(false)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
-            .setGroup(getString(R.string.your_notification_group_id))
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setPriority(NotificationCompat.PRIORITY_HIGH) // Cài đặt ưu tiên
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -107,8 +95,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val id = System.currentTimeMillis().toInt()
-        notificationManager.notify(id, notificationBuilder.build())
+        notificationManager.notify(autoId, notificationBuilder.build())
     }
 
 
@@ -135,9 +122,5 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
-    }
-
-    private fun pushChangeIcon(){
-        AppEventBus.getInstance().publishEvent(EventBusAction.Action.CHANGE_LOGO)
     }
 }

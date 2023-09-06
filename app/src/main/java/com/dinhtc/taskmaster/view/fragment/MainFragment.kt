@@ -40,7 +40,6 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
         get() = R.layout.fragment_main
 
     override fun onViewCreated() {
-        AppEventBus.getInstance().registerEvent(this, EventBusAction.Action.CHANGE_LOGO, this)
         AppEventBus.getInstance().registerEvent(this, EventBusAction.Action.REFRESH_TOKEN_FB, this)
         askNotificationPermission()
 

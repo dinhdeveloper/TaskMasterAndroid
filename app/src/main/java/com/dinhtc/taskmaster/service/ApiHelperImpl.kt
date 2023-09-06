@@ -9,6 +9,7 @@ import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.model.request.LoginRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateRequest
 import com.dinhtc.taskmaster.utils.ApiResponse
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import okhttp3.MultipartBody
@@ -88,11 +89,9 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
     }
 
     override suspend fun updateStateJob(
-        jobsId: Int,
-        dalamgon: Int,
-        dateCreate: String
+        dataUpdate : UpdateStateRequest
     ): ApiResponse<UpdateJobsResponse> {
-        return apiService.updateStateJob(jobsId, dalamgon, dateCreate)
+        return apiService.updateStateJob(dataUpdate)
     }
 
     override suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any> {

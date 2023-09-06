@@ -35,16 +35,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
 
         val navController = findNavController(R.id.navhost)
 
-        val jobIdNoti = intent.getStringExtra("OPEN_FRAGMENT")
+        val jobIdNotify = intent.getStringExtra("OPEN_FRAGMENT")
         val rememberLogin = SharedPreferencesManager.instance.getBoolean(SharedPreferencesManager.IS_LOGGED_IN,false)
-        if (jobIdNoti != null) {
+        if (jobIdNotify != null) {
             if (rememberLogin){
-                navController.navigate(R.id.action_loginFragment_to_detailFragment,
-                    bundleOf(ID_JOB_NOTIFY to jobIdNoti )
+                navController.navigate(R.id.detailFragment,
+                    bundleOf(ID_JOB_NOTIFY to jobIdNotify )
                 )
             } else{
                 navController.navigate(R.id.loginFragment,
-                    bundleOf(ID_JOB_NOTIFY to jobIdNoti )
+                    bundleOf(ID_JOB_NOTIFY to jobIdNotify )
                 )
             }
         }
