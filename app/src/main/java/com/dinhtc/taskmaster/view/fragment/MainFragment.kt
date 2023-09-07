@@ -188,7 +188,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Vui lòng chờ...",
                     false
                 )
             }

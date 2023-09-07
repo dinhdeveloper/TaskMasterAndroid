@@ -1,6 +1,7 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
@@ -8,6 +9,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -27,6 +29,7 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USERNAME
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.UsersViewModel
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
@@ -46,7 +49,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         actionView()
         jobIdNotify = arguments?.getString(MainActivity.ID_JOB_NOTIFY)
     }
-
     @SuppressLint("ClickableViewAccessibility")
     private fun actionView() {
 
@@ -94,7 +96,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         UiState.Loading -> {
                             LoadingScreen.displayLoadingWithText(
                                 context,
-                                "Please wait...",
+                                "Đang đăng nhập...",
                                 false
                             )
                         }

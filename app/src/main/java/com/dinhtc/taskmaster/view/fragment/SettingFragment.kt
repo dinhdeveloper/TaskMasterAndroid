@@ -66,7 +66,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Đăng xuất...",
                     false
                 )
             }

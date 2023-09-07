@@ -209,7 +209,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Vui lòng chờ...",
                     false
                 )
             }
@@ -291,9 +291,8 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
                 mTagList.clear()
                 for (data in listCollectPointLiveData) {
                     val model =
-                        SuggestionModel(data.empId, data.name, (data.numAddress.lowercase()))
+                        SuggestionModel(data.collectPointId, data.name, (data.numAddress.lowercase()))
                     mTagList.add(model)
-                    mTagListNote.add(model)
                 }
                 if (mTagList.isNotEmpty()) {
                     viewBinding.edtDiaDiem.setTags(mTagList.toList())

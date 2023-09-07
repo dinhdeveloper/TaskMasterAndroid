@@ -12,6 +12,8 @@ data class JobDetailsResponse(
     val noteJob: String,
     val jobStateCode: String,
     val amountPaidEmp: Long,
+    val paymentMethod: Int,
+    val paymentStateId: Int,
     val jobMedia : List<JobMediaDetailResponse>,
     val jobMaterial : List<JobMaterialDetailResponse>,
     val employeeJobs : List<JobEmployeeDetailResponse>

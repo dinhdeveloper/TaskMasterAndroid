@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
 import com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
@@ -82,15 +83,17 @@ class BottomSheetAddFreight(
         }
 
         btnSubmit.setOnClickListener {
-            if (jobTypeIdSelected != -1){
+            if (jobTypeIdSelected != -1 && edtDonGia.text.toString().trim().isNotEmpty()){
                 val addMaterialRequest = AddMaterialRequest(
                     mateId = jobTypeIdSelected,
                     jobId = jobsId,
-                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else null)!!,
-                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else null)!!,
+                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else null),
+                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else null),
                     price = getMoneyRealValue(edtDonGia.text.toString())
                 )
                 listenerAddMaterial(addMaterialRequest)
+            }else {
+                edtDonGia.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
             }
         }
         val labelNV1 = "Vật liệu:<font color='#FF0000'><sup>*</sup></font>"
@@ -113,6 +116,7 @@ class BottomSheetAddFreight(
         edtKhoiLuong.text = null
         edtKhoiLuongKH.text = null
         edtDonGia.text = null
+        edtDonGia.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_item_detail_black) }
     }
 
     companion object {

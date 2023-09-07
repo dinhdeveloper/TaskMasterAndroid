@@ -122,11 +122,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             checkSelectedRadio = true
                             paymentMethod = 2 //bank
                             paymentStateStatus = 1 // da thanh toan
+                            viewBinding.layoutChuyenKhoan.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_while) }
                         }
                         R.id.radioChuaThanhToan -> {
                             checkSelectedRadio = true
                             paymentMethod = -1 // chua thanh toan
                             paymentStateStatus = 0 //chua thanh toan
+                            viewBinding.layoutChuyenKhoan.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_while) }
                         }
                     }
                 }
@@ -537,7 +539,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Vui lòng chờ...",
                     false
                 )
             }
@@ -572,7 +574,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Vui lòng chờ...",
                     false
                 )
             }
@@ -638,7 +640,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 tvNVUng.visibility = View.GONE
             }
 
-            if (dataResponse.priority != 0){
+            if (dataResponse.priority != 0 && dataResponse.jobStateId >= 30){
                 uuTienIdSelected = dataResponse.priority
                 edtSelectUuTien.visibility = View.GONE
                 tvUuTien.visibility = View.VISIBLE
@@ -648,6 +650,23 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 edtSelectUuTien.visibility = View.VISIBLE
                 tvUuTien.visibility = View.GONE
             }
+
+            if (dataResponse.jobStateId >= 30){
+                if (dataResponse.paymentMethod == 2 && dataResponse.paymentStateId == 1) {
+                    layoutChuyenKhoan.visibility = View.GONE
+                    layoutStatusPayment.visibility = View.VISIBLE
+                    tvStatusPayment.text = "Chuyển khoản"
+                } else if (dataResponse.paymentMethod == -1 && dataResponse.paymentStateId == 0) {
+                    layoutChuyenKhoan.visibility = View.GONE
+                    layoutStatusPayment.visibility = View.VISIBLE
+                    tvStatusPayment.text = "Chưa thanh toán"
+                } else if (dataResponse.paymentMethod == 1 && dataResponse.paymentStateId == 1) {
+                    layoutChuyenKhoan.visibility = View.GONE
+                    layoutStatusPayment.visibility = View.VISIBLE
+                    tvStatusPayment.text = "Nhân viên ứng"
+                }
+            }
+
 
             if (dataResponse.employeeJobs.isNotEmpty()) {
                 for (data in dataResponse.employeeJobs) {
@@ -808,6 +827,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
         }
+        checkRole()
     }
 
     private fun updateStateJobLive(uiState: UiState<UpdateJobsResponse>) {

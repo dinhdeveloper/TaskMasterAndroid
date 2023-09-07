@@ -278,7 +278,7 @@
                             android:background="@drawable/bg_edittext"
                             android:gravity="top|start"
                             android:hint="@string/hint_text"
-                            android:inputType="textMultiLine|textEmailAddress"
+                            android:inputType="textMultiLine"
                             android:lines="4"
                             android:minLines="4"
                             android:padding="5dp"

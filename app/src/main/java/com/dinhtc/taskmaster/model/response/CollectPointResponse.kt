@@ -1,6 +1,7 @@
 package com.dinhtc.taskmaster.model.response
 
 data class CollectPointResponse(
+    val collectPointId: Int,
     val bankAcct: String,
     val bankAcctName: String,
     val bankAcctNumber: String,
@@ -17,5 +18,6 @@ data class CollectPointResponse(
     val state: Boolean,
     val streetAddress: String,
     val useCusBank: String,
-    val ward: String
+    val ward: String,
+    val province: String
 )

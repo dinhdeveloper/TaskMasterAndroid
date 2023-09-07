@@ -6,6 +6,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dinhtc.taskmaster.R
+import com.dinhtc.taskmaster.adapter.SearchViewAdapter
 import com.dinhtc.taskmaster.adapter.StickyHeaderItemDecoration
 import com.dinhtc.taskmaster.adapter.TableViewAdapter
 import com.dinhtc.taskmaster.common.view.BaseFragment
@@ -49,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
 
     private fun setupAdapterLogistic(data: List<SearchResponse>?) {
         viewBinding.tvCount.text = "Danh sách công việc: ${dataSearch?.size}"
-        val tableViewAdapter = TableViewAdapter()
+        val tableViewAdapter = SearchViewAdapter()
         data?.let { tableViewAdapter.submitList(it) }
         viewBinding.imageEmpty.visibility = View.GONE
         viewBinding.recyclerViewMovieList.layoutManager = LinearLayoutManager(context)
@@ -59,7 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppEventBus.EventBusHa
         val stickyHeaderDecoration = StickyHeaderItemDecoration(tableViewAdapter)
         viewBinding.recyclerViewMovieList.addItemDecoration(stickyHeaderDecoration)
 
-        tableViewAdapter.setOnClickItem(object : TableViewAdapter.OnItemClickListener {
+        tableViewAdapter.setOnClickItem(object : SearchViewAdapter.OnItemClickListener {
             override fun onClickItem(logisticsModel: SearchResponse?) {
                 findNavController().navigate(
                     R.id.action_homeFragment_to_detailFragment,

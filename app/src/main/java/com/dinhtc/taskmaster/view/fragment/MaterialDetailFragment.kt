@@ -142,7 +142,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Vui lòng chờ...",
                     false
                 )
             }

@@ -1,28 +1,22 @@
 package com.dinhtc.taskmaster.adapter
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.model.response.SearchResponse
-import com.google.gson.Gson
-import java.text.Collator
-import java.util.Locale
 
-class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
+class SearchViewAdapter : RecyclerView.Adapter<SearchViewAdapter.RowViewHolder>(),
     StickyHeaderItemDecoration.StickyHeaderInterface {
 
     var onItemClickListener: OnItemClickListener? = null
     private var selectedPosition = -1
-    var imageList: List<SearchResponse>? = null
+    var mList: List<SearchResponse>? = null
 
     // Danh sách các item
     val imageListSort: MutableList<SearchResponse> = mutableListOf()
@@ -104,19 +98,12 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
     }
 
 
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    fun submitList(list: List<SearchResponse>){
-        differ.submitList(list)
-        notifyDataSetChanged()
+    fun submitList(imageList: List<SearchResponse>) {
+        if (imageList.isNotEmpty()){
+            this.mList = imageList
+            notifyDataSetChanged()
+        }
     }
-//    fun submitList(imageList: List<SearchResponse>) {
-//        if (imageList.isNotEmpty()){
-//            this.imageList = imageList
-//            imageListSort.addAll(imageList)
-//            notifyDataSetChanged()
-//        }
-//    }
 
     override fun onBindViewHolder(holder: RowViewHolder, @SuppressLint("RecyclerView") position: Int) {
         when (position) {
@@ -128,14 +115,13 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
             }
 
             else -> {
-                //val modal = imageList?.get(position - 1)
-                val modal = differ.currentList[position - 1]
+                val modal = mList?.get(position - 1)
                 holder.apply {
-//                    setContentBgAndColor(txtIdOrder, modal)
-//                    setContentBgAndColor(txtLocation, modal)
-//                    setContentBgAndColor(txtPerson, modal)
-//                    setContentBgAndColor(txtStatus, modal)
-//                    setContentBgAndColor(txtDate, modal)
+                    setContentBgAndColor(txtIdOrder, modal)
+                    setContentBgAndColor(txtLocation, modal)
+                    setContentBgAndColor(txtPerson, modal)
+                    setContentBgAndColor(txtStatus, modal)
+                    setContentBgAndColor(txtDate, modal)
 
                     itemView.context.run {
                         txtIdOrder.text = "${modal?.jobId}"
@@ -154,14 +140,9 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
     }
 
     override fun getItemCount(): Int {
-//        return if (imageList?.isNotEmpty() == true) {
-//            imageList!!.size + 1
-//        } else {
-//            1
-//        }
-        return if (differ.currentList.isNotEmpty()){
-            differ.currentList.size + 1
-        }else{
+        return if (mList?.isNotEmpty() == true) {
+            mList!!.size + 1
+        } else {
             1
         }
     }
@@ -206,6 +187,10 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
 
     private var sortById = true
     private var sortByLocation = true
+    private var sortNamePerson = true
+    private var sortByStatus = true
+    private var sortByDate = true
+
     private fun setLayoutHeader(
         txtIdOrder: TextView,
         txtLocation: TextView,
@@ -229,30 +214,59 @@ class TableViewAdapter : RecyclerView.Adapter<TableViewAdapter.RowViewHolder>(),
         txtLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.sort_svg_2)
         txtPerson.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.sort_svg_2)
         txtStatus.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.sort_svg_2)
-        txtDate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0,R.drawable.sort_svg_2)
+        txtDate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.sort_svg_2)
 
         txtIdOrder.setOnClickListener {
-            val sortedList = ArrayList(differ.currentList)
+            val sortedList = ArrayList(mList)
             if (sortById) {
                 sortedList.sortBy { it.jobId }
             } else {
                 sortedList.sortByDescending { it.jobId }
             }
             sortById = !sortById
-            differ.submitList(sortedList)
+            submitList(sortedList)
         }
 
         txtLocation.setOnClickListener {
-            val sortedList = ArrayList(differ.currentList)
+            val sortedList = ArrayList(mList)
             if (sortByLocation) {
-                sortedList.sortBy {
-                    it.collectPoint }
+                sortedList.sortBy { it.collectPoint }
             } else {
-                sortedList.sortByDescending {
-                    it.collectPoint }
+                sortedList.sortByDescending { it.collectPoint }
             }
             sortByLocation = !sortByLocation
-            differ.submitList(sortedList)
+            submitList(sortedList)
+        }
+        txtPerson.setOnClickListener {
+            val sortedList = ArrayList(mList)
+            if (sortNamePerson) {
+                sortedList.sortBy { it.emp }
+            } else {
+                sortedList.sortByDescending { it.emp }
+            }
+            sortNamePerson = !sortNamePerson
+            submitList(sortedList)
+        }
+        txtStatus.setOnClickListener {
+            val sortedList = ArrayList(mList)
+            if (sortByStatus) {
+                sortedList.sortBy { it.status }
+            } else {
+                sortedList.sortByDescending { it.status }
+            }
+            sortByStatus = !sortByStatus
+            submitList(sortedList)
+        }
+
+        txtDate.setOnClickListener {
+            val sortedList = ArrayList(mList)
+            if (sortByDate) {
+                sortedList.sortBy { it.date }
+            } else {
+                sortedList.sortByDescending { it.date }
+            }
+            sortByDate = !sortByDate
+            submitList(sortedList)
         }
 
     }

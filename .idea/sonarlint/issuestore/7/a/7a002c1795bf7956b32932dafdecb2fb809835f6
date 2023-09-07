@@ -1,6 +1,0 @@
-
-Tkotlin:S1172”"4Use "_" instead of this unused lambda parameter "v".(­ëÆã8ˆä”Æ¥1
-vkotlin:S37763"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(µƒû‰ûÿÿÿÿ8•ä”Æ¥1
-rkotlin:S117•"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(óÈëª8–ä”Æ¥1
-Nkotlin:S1066–".Merge this "if" statement with the nested one.(Õ÷Ø8™ä”Æ¥1
-akotlin:S6510¹"AMove "return" statements from all branches before "if" statement.(‘óÎ8šä”Æ¥1

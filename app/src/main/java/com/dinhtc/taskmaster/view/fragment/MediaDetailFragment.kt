@@ -187,7 +187,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
             UiState.Loading -> {
                 LoadingScreen.displayLoadingWithText(
                     requireContext(),
-                    "Please wait...",
+                    "Vui lòng chờ...",
                     false
                 )
             }
