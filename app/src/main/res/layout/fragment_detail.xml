@@ -7,286 +7,47 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_main_2">
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/layoutToolBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            layout="@layout/custom_toolbar"/>
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:background="@color/bg_main_2">
 
             <LinearLayout
-                android:id="@+id/tvTTDH"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_title"
-                android:elevation="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
-                <com.google.android.material.textview.MaterialTextView
+                <LinearLayout
+                    android:id="@+id/layoutViewOne"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_medium"
+                    android:background="@drawable/bg_one"
+                    android:elevation="@dimen/elevation"
                     android:gravity="center"
-                    android:text="@string/chi_tiet_cong_viec"
-                    android:textAllCaps="true"
-                    android:textColor="#00428E"
-                    android:textSize="@dimen/fontToolbar" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutViewOne"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_one"
-                android:elevation="10dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/roboto_medium"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Mã công việc:"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp"
-                        android:textStyle="normal" />
-
-                    <TextView
-                        android:id="@+id/tvIdJob"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="SADFGHJ" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/roboto_medium"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/tinh_trang"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp"/>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvStateDecs"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="Mới" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="@string/dia_diem"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNamePoint"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="@string/dia_chi"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNameAddress"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="@string/string_demo_2" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="@string/thanh_tien"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp"/>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvPrice"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:text="0 VNĐ"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RadioGroup
-                        android:id="@+id/layoutChuyenKhoan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <com.google.android.material.radiobutton.MaterialRadioButton
-                            android:id="@+id/radioChuyenKhoan"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Chuyển khoản"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textSize="@dimen/font17._sp" />
-
-                        <com.google.android.material.radiobutton.MaterialRadioButton
-                            android:id="@+id/radioChuaThanhToan"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Chưa th.toán"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textSize="@dimen/font17._sp" />
-                    </RadioGroup>
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp">
 
                     <LinearLayout
-                        android:id="@+id/layoutStatusPayment"
                         android:layout_width="match_parent"
-                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="horizontal"
-                        android:paddingVertical="8dp"
+                        android:paddingVertical="@dimen/elevation"
                         android:weightSum="3">
 
                         <com.google.android.material.textview.MaterialTextView
@@ -295,12 +56,52 @@
                             android:fontFamily="@font/roboto_medium"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="Thanh toán: "
+                            android:text="Mã công việc:"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/tvIdJob"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="start"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font17._sp"
+                            tools:text="SADFGHJ" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto_medium"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/tinh_trang"
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17._sp"/>
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvStatusPayment"
+                            android:id="@+id/tvStateDecs"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
@@ -312,499 +113,690 @@
                             tools:text="Mới" />
 
                     </LinearLayout>
-                </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="Ưu tiên: "
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17_sp" />
-
-                    <RelativeLayout
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-                        <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
-                            android:id="@+id/edtSelectUuTien"
-                            style="@style/TextViewAddressValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="end"
-                            android:hint="Chọn độ ưu tiên"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font17_sp" />
-
-                        <TextView
-                            android:id="@+id/tvUuTien"
-                            android:visibility="gone"
-                            android:background="@color/white"
-                            android:layout_centerInParent="true"
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="start|center"
-                            android:inputType="number"
-                            android:paddingHorizontal="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font17._sp"
-                            tools:text="Uu tiên 1"/>
-                    </RelativeLayout>
-
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-                <LinearLayout
-                    android:id="@+id/layoutNVUng"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="@string/nv_ung"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
-
-                    <RelativeLayout
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-                        <com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
-                            android:id="@+id/edtNVUng"
-                            style="@style/EditextCustom"
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="end"
-                            android:hint="Nhập số tiền muốn ứng"
-                            android:inputType="number"
-                            android:paddingHorizontal="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font17._sp" />
-
-                        <TextView
-                            android:id="@+id/tvNVUng"
-                            android:background="@color/white"
-                            android:visibility="gone"
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="start|center"
-                            android:inputType="number"
-                            android:paddingHorizontal="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font17._sp"
-                            tools:text="@string/app_name"/>
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:id="@+id/layoutChuyenViecToi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp"
-                    android:weightSum="5">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="@string/chuyen_viec_toi"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:layout_height="wrap_content">
-                        <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
-                            android:id="@+id/selectNV"
-                            style="@style/TextViewAddressValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="end"
-                            android:hint="Chọn nhân viên"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font17._sp" />
-
-                        <TextView
-                            android:id="@+id/tvSelectNV"
-                            android:background="@color/white"
-                            android:visibility="gone"
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="end"
-                            android:inputType="number"
-                            android:paddingHorizontal="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font17._sp" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="Nhân viên 1:"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNV1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="Mới" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="Nhân viên 2:"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNV2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="Mới" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center_vertical"
-                        android:text="Nhân viên 3:"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp"/>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNV3"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="start"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font17._sp"
-                        tools:text="Mới" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/color_line" />
-
-                <LinearLayout
-                    android:id="@+id/layoutGhiChu"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <com.google.android.material.textview.MaterialTextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="@string/ghi_chu_2"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvGhiChu"
-                            android:visibility="gone"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="@string/dia_diem"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNamePoint"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="start"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/black"
                             android:textSize="@dimen/font17._sp"
-                            tools:text="@string/appbar_scrolling_view_behavior" />
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtGhiChu"
+                            tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="@string/dia_chi"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNameAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="start"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font17._sp"
+                            tools:text="@string/string_demo_2" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="@string/thanh_tien"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="start"
+                            android:text="0 VNĐ"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font17._sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioGroup
+                            android:id="@+id/layoutChuyenKhoan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/bg_edittext"
-                            android:gravity="top|start"
-                            android:inputType="textMultiLine"
-                            android:lines="4"
-                            android:minLines="4"
-                            android:padding="5dp"
-                            android:scrollbarSize="2dp"
-                            android:scrollbars="vertical" />
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:id="@+id/radioChuyenKhoan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Chuyển khoản"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textSize="@dimen/font17_sp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:id="@+id/radioChuaThanhToan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Chưa th.toán"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textSize="@dimen/font17_sp" />
+                        </RadioGroup>
+
+                        <LinearLayout
+                            android:id="@+id/layoutStatusPayment"
+                            android:layout_width="match_parent"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingVertical="@dimen/space_text"
+                            android:weightSum="3">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/roboto_medium"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="Thanh toán: "
+                                android:textColor="@color/color_title"
+                                android:textSize="@dimen/font17._sp"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvStatusPayment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="start"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp"
+                                tools:text="Mới" />
+
+                        </LinearLayout>
                     </RelativeLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="5">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="Ưu tiên: "
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17_sp" />
+
+                        <RelativeLayout
+                            android:layout_weight="3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                                android:id="@+id/edtSelectUuTien"
+                                style="@style/TextViewAddressValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center"
+                                android:hint="Chọn độ ưu tiên"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17_sp" />
+
+                            <TextView
+                                android:id="@+id/tvUuTien"
+                                android:visibility="gone"
+                                android:background="@color/white"
+                                android:layout_centerInParent="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="start|center"
+                                android:inputType="number"
+                                android:paddingHorizontal="10dp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp"
+                                tools:text="Uu tiên 1"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+                    <LinearLayout
+                        android:id="@+id/layoutNVUng"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="5">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="@string/nv_ung"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <RelativeLayout
+                            android:layout_weight="3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
+                                android:id="@+id/edtNVUng"
+                                style="@style/EditextCustom"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="start|center_vertical"
+                                android:hint="Nhập số tiền muốn ứng"
+                                android:inputType="number"
+                                android:paddingHorizontal="10dp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp" />
+
+                            <TextView
+                                android:id="@+id/tvNVUng"
+                                android:background="@color/white"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="start|center"
+                                android:inputType="number"
+                                android:paddingHorizontal="10dp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp"
+                                tools:text="@string/app_name"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutChuyenViecToi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="5">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="@string/chuyen_viec_toi"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="3"
+                            android:layout_height="wrap_content">
+                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                                android:id="@+id/selectNV"
+                                style="@style/TextViewAddressValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center_vertical"
+                                android:hint="Chọn nhân viên"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp" />
+
+                            <TextView
+                                android:id="@+id/tvSelectNV"
+                                android:background="@color/white"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="end"
+                                android:inputType="number"
+                                android:paddingHorizontal="10dp"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="Nhân viên 1:"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNV1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="start"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font17._sp"
+                            tools:text="Mới" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="Nhân viên 2:"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNV2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="start"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font17._sp"
+                            tools:text="Mới" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/space_text"
+                        android:weightSum="3">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center_vertical"
+                            android:text="Nhân viên 3:"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNV3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="start"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font17._sp"
+                            tools:text="Mới" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/color_line" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutGhiChu"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/ghi_chu_2"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvGhiChu"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="start"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font17._sp"
+                                tools:text="@string/appbar_scrolling_view_behavior" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtGhiChu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/bg_edittext"
+                                android:gravity="top|start"
+                                android:inputType="textMultiLine"
+                                android:lines="2"
+                                android:minLines="2"
+                                android:padding="5dp"
+                                android:scrollbarSize="2dp"
+                                android:scrollbars="vertical" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="20dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/btnVatLieu"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shadow_2"
-                        android:elevation="2dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center"
-                        android:minWidth="100dp"
-                        android:padding="15dp"
-                        android:text="Vật liệu"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/btnAnh"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shadow_2"
-                        android:elevation="2dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center"
-                        android:minWidth="100dp"
-                        android:padding="15dp"
-                        android:text="Ảnh"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
+                        <TextView
+                            android:id="@+id/btnVatLieu"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shadow_2"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:minWidth="100dp"
+                            android:padding="15dp"
+                            android:text="Vật liệu"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <TextView
+                            android:id="@+id/btnAnh"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shadow_2"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:minWidth="100dp"
+                            android:padding="15dp"
+                            android:text="Ảnh"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="20dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/btnDaLamGon"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shadow_2"
-                        android:elevation="2dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center"
-                        android:minWidth="100dp"
-                        android:padding="15dp"
-                        android:text="@string/da_lam_gon"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/btnDaCan"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/shadow_2"
-                        android:elevation="2dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center"
-                        android:minWidth="100dp"
-                        android:padding="15dp"
-                        android:text="@string/da_can"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
+                        <TextView
+                            android:id="@+id/btnDaLamGon"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shadow_2"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:minWidth="100dp"
+                            android:padding="15dp"
+                            android:text="@string/da_lam_gon"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+
+                        <TextView
+                            android:id="@+id/btnDaCan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shadow_2"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:minWidth="100dp"
+                            android:padding="15dp"
+                            android:text="@string/da_can"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="20dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/btnDaXong"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/shadow_2"
-                        android:elevation="2dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center"
-                        android:minWidth="100dp"
-                        android:padding="15dp"
-                        android:text="@string/da_xong"
-                        android:textColor="@color/color_title"
-                        android:textSize="@dimen/font17._sp" />
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btnDaXong"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/shadow_2"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:minWidth="100dp"
+                            android:padding="15dp"
+                            android:text="@string/da_xong"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/md_blue_200"
+                    android:elevation="@dimen/elevation"
+                    app:layout_cornerRadius="5dp"
+                    app:layout_duration="500"
+                    app:layout_scale="0.85">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Lưu"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font17._sp"
+                        android:fontFamily="@font/roboto_medium" />
+                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+
             </LinearLayout>
-
-            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
-                android:id="@+id/btnSubmit"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="18dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/md_blue_200"
-                android:elevation="6dp"
-                app:layout_cornerRadius="5dp"
-                app:layout_duration="500"
-                app:layout_scale="0.85">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="Lưu"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font17._sp"
-                    android:fontFamily="@font/roboto_medium" />
-            </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

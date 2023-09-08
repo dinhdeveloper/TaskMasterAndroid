@@ -110,6 +110,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewBinding.edtSelectUuTien.setData(uuTienList)
         viewBinding.edtSelectUuTien.setOnItemSelectedListener(mOnSelectedUuTienListener)
         checkRole()
+
+        viewBinding.layoutToolBar.titleToolBar.text = "Chi tiết công việc"
     }
 
     private fun checkRole() {

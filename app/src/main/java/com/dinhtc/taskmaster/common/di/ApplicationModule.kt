@@ -3,6 +3,7 @@ package com.dinhtc.taskmaster.common.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.dinhtc.taskmaster.BuildConfig.API_URL
 import com.dinhtc.taskmaster.service.ApiHelper
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.service.ApiService
@@ -25,7 +26,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
     @Provides
-    fun provideBaseUrl() = "http://192.168.1.6:8080/api/" //192.168.1.6  192.168.1.110
+    fun provideBaseUrl() = API_URL //192.168.1.6  192.168.1.110
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {

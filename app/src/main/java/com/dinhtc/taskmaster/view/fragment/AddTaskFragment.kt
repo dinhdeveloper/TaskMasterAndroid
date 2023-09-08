@@ -85,6 +85,8 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
             tvLabelNV1.text = Html.fromHtml(labelNV1, Html.FROM_HTML_MODE_COMPACT)
             tvDiaDiem.text = Html.fromHtml(labelDD, Html.FROM_HTML_MODE_COMPACT)
         }
+
+        viewBinding.layoutToolBar.titleToolBar.text = "Giao việc"
     }
 
     private fun onClickItem() {

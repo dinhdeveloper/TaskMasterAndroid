@@ -35,4 +35,7 @@
     <dimen name="dimen_48">48dp</dimen>
     <dimen name="dimen_64">64dp</dimen>
     <dimen name="dimen_72">72dp</dimen>
+
+    <dimen name="space_text">5dp</dimen>
+    <dimen name="elevation">5dp</dimen>
 </resources>

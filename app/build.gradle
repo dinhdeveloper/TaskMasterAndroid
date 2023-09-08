@@ -28,14 +28,14 @@ android {
             dimension "environment"
             applicationId "com.dinhtc.taskmaster.dev"
             versionCode 1
-            buildConfigField "String", "API_URL", "\"http://your_dev_api_url/\""
+            buildConfigField "String", "API_URL", "\"http://61.28.238.242:8080/api/\""
             buildConfigField "String", "AUTHOR_FILE_PROVIDER", "\"com.dinhtc.taskmaster.dev.FileProvider\""
         }
         prod {
             dimension "environment"
             applicationId "com.dinhtc.taskmaster"
             versionCode 2
-            buildConfigField "String", "API_URL", "\"http://your_production_api_url/\""
+            buildConfigField "String", "API_URL", "\"http://61.28.238.242:8080/api/\""
             buildConfigField "String", "AUTHOR_FILE_PROVIDER", "\"com.dinhtc.taskmaster.FileProvider\""
         }
     }
