@@ -6,6 +6,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.adapter.SuggestionAdapter
 import com.dinhtc.taskmaster.adapter.SuggestionNoteAdapter
@@ -46,7 +47,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
     private var nv1Selected = -1
     private var nv2Selected = -1
-    private var jobTypeIdSelected = -1
+    private var jobTypeIdSelected = 1
     private var uuTienIdSelected = 2
     override val layoutResourceId: Int
         get() = R.layout.fragment_add_task
@@ -85,11 +86,18 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
             tvLabelNV1.text = Html.fromHtml(labelNV1, Html.FROM_HTML_MODE_COMPACT)
             tvDiaDiem.text = Html.fromHtml(labelDD, Html.FROM_HTML_MODE_COMPACT)
         }
-
-        viewBinding.layoutToolBar.titleToolBar.text = "Giao việc"
     }
 
     private fun onClickItem() {
+        viewBinding.layoutToolBar.apply {
+            titleToolBar.text = "Giao việc"
+            imgBackParent.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            imgHome.setOnClickListener {
+                findNavController().popBackStack(R.id.mainFragment,false)
+            }
+        }
         viewBinding.apply {
             when (SharedPreferencesManager.instance.getString(SharedPreferencesManager.ROLE_CODE, "") ?: "") {
                 RoleCode.ADMIN.name, RoleCode.LEADER.name, RoleCode.MASTER.name -> {
@@ -343,10 +351,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}"){
-                    addTaskViewModel.getListCollectPoint()
-                }
-                addTaskViewModel.getListCollectPoint()
+                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
                 bottomSheetAdd?.dismiss()
             }
 
@@ -385,37 +390,29 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
     private fun checkValidate(): Boolean {
         viewBinding.apply {
-            return if (edtSelectTask.text.toString().trim().isEmpty()) {
-                edtSelectTask.background =
+           return if (edtSelectNV1.text.toString().trim().isEmpty()) {
+                edtSelectNV1.background =
                     context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                 false
             } else {
-                edtSelectTask.background =
-                    context?.let { ContextCompat.getDrawable(it, R.drawable.bg_item_detail_black) }
-                return if (edtSelectNV1.text.toString().trim().isEmpty()) {
-                    edtSelectNV1.background =
+                edtSelectNV1.background = context?.let {
+                    ContextCompat.getDrawable(
+                        it,
+                        R.drawable.bg_item_detail_black
+                    )
+                }
+                return if (edtDiaDiem.text.toString().trim().isEmpty()) {
+                    edtDiaDiem.background =
                         context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                     false
                 } else {
-                    edtSelectNV1.background = context?.let {
+                    edtDiaDiem.background = context?.let {
                         ContextCompat.getDrawable(
                             it,
                             R.drawable.bg_item_detail_black
                         )
                     }
-                    return if (edtDiaDiem.text.toString().trim().isEmpty()) {
-                        edtDiaDiem.background =
-                            context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
-                        false
-                    } else {
-                        edtDiaDiem.background = context?.let {
-                            ContextCompat.getDrawable(
-                                it,
-                                R.drawable.bg_item_detail_black
-                            )
-                        }
-                        return true
-                    }
+                    return true
                 }
             }
         }

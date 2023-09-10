@@ -1,8 +1,0 @@
-
->kotlin:S1128"Remove this unused import.(ØâÎÄúÿÿÿÿ8Íû¢¦1
-9kotlin:S1128"Remove this unused import.(Äü¤‡8‚Íû¢¦1
-<kotlin:S125d"Remove this commented out code.(ÿ•$8Ê£ˆ£¦1
-wkotlin:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(çÕÓğşÿÿÿÿ8õ¨ı¢¦1
-Nkotlin:S1066ˆ".Merge this "if" statement with the nested one.(Ó­öô8ˆÍû¢¦1
-Nkotlin:S1066—".Merge this "if" statement with the nested one.(—‹ò©8ø¨ı¢¦1
-<kotlin:S6314·"Unused coroutines Flow.(¢çÒüÿÿÿÿ8‰Íû¢¦1

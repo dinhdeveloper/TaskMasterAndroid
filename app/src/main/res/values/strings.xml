@@ -21,7 +21,7 @@
     <string name="string_demo">Trong mã màu hex, mỗi chữ số hoặc ký tự thể hiện một giá trị trong hệ thập lục phân</string>
     <string name="string_demo_2">860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM</string>
     <string name="money_demo">100.000.000 VNĐ</string>
-    <string name="hint_text">Nhập ghi chú, nhấn @ để kèm địa điểm</string>
+    <string name="hint_text">Nhập ghi chú</string>
 
     <string name="imagepicker_multiselect_done">Hoàn tất</string>
     <string name="imagepicker_multiselect_not_enough_singular">Bạn phải chọn ít nhất 1 hình ảnh</string>

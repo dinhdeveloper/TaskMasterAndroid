@@ -1,7 +1,6 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
@@ -9,14 +8,13 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
-import com.dinhtc.taskmaster.databinding.FragmentLoginBinding
 import com.dinhtc.taskmaster.common.view.BaseFragment
+import com.dinhtc.taskmaster.databinding.FragmentLoginBinding
 import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
@@ -29,7 +27,7 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USERNAME
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.UsersViewModel
-import com.google.android.material.textfield.TextInputEditText
+import com.dinhtc.taskmaster.BuildConfig.VERSION_NAME
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
@@ -51,6 +49,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
     @SuppressLint("ClickableViewAccessibility")
     private fun actionView() {
+
+        val versionName: String = VERSION_NAME
+        viewBinding.tvVersion.text = "App version: $versionName"
 
         viewBinding.layoutMain.setOnClickListener {
             AndroidUtils.hideKeyboard(viewBinding.layoutMain)
@@ -229,21 +230,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-
-    // Đăng xuất người dùng
-    private fun logout() {
-        // Xóa thông tin đăng nhập từ SharedPreferences
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USERNAME)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.IS_LOGGED_IN)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.LAST_LOGIN_TINE)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_LOGIN)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_FIREBASE)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.ROLE_CODE)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
-        SharedPreferencesManager.instance.remove(SharedPreferencesManager.PASS_W)
-        // Chuyển đến màn hình đăng nhập
-    }
-
     private fun checkAutoLogin() {
         val isLoggedIn = SharedPreferencesManager.instance.getBoolean(IS_LOGGED_IN, false)
         val lastLoginTime = SharedPreferencesManager.instance.getLong(LAST_LOGIN_TINE, 0)
@@ -261,7 +247,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 )
             } else {
                 // Đăng xuất người dùng
-                logout()
+                AndroidUtils.logout()
             }
         }
     }

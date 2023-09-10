@@ -1,12 +1,15 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.graphics.Typeface
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
@@ -35,6 +38,8 @@ import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
+import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.BUNDLE_KEY
+import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.REQUEST_KEY
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
 import com.dinhtc.taskmaster.viewmodel.MaterialViewModel
@@ -64,7 +69,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var dataResponse: JobDetailsResponse? = null
     private var jobsId: Int = -1
     private var empId: Int = -1
-    val empAssignId = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID,-1)
+    val empAssignId = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID, -1)
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -86,9 +91,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         jobsId = if (jobIdNotify?.isNotEmpty() == true) {
             jobIdNotify.toInt()
         } else {
-            arguments?.getInt(HomeFragment.ID_JOB)!!
+            arguments?.getInt(HomeFragment.ID_JOB) ?: -1
         }
-        empId = arguments?.getInt(HomeFragment.ID_JOB)!!
+        empId = arguments?.getInt(HomeFragment.ID_JOB) ?: -1
 
         jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
         addTaskViewModel.getListJobType()
@@ -110,8 +115,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewBinding.edtSelectUuTien.setData(uuTienList)
         viewBinding.edtSelectUuTien.setOnItemSelectedListener(mOnSelectedUuTienListener)
         checkRole()
-
-        viewBinding.layoutToolBar.titleToolBar.text = "Chi tiết công việc"
     }
 
     private fun checkRole() {
@@ -124,13 +127,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             checkSelectedRadio = true
                             paymentMethod = 2 //bank
                             paymentStateStatus = 1 // da thanh toan
-                            viewBinding.layoutChuyenKhoan.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_while) }
+                            viewBinding.layoutChuyenKhoan.background =
+                                context?.let { ContextCompat.getDrawable(it, R.drawable.bg_while) }
                         }
+
                         R.id.radioChuaThanhToan -> {
                             checkSelectedRadio = true
                             paymentMethod = -1 // chua thanh toan
                             paymentStateStatus = 0 //chua thanh toan
-                            viewBinding.layoutChuyenKhoan.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_while) }
+                            viewBinding.layoutChuyenKhoan.background =
+                                context?.let { ContextCompat.getDrawable(it, R.drawable.bg_while) }
                         }
                     }
                 }
@@ -210,6 +216,27 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
 
     private fun onClickItem() {
+        viewBinding.layoutToolBar.apply {
+            titleToolBar.text = "Chi tiết công việc"
+            imgBackParent.setOnClickListener {
+                findNavController().popBackStack()
+                if (activity is MainActivity){
+                    (activity as MainActivity).checkNavFragmentDetail = true
+                    (activity as MainActivity).removeStateSearch()
+                }
+
+                val bundle = Bundle()
+                bundle.putString(BUNDLE_KEY,UPDATE_SEARCH)
+                parentFragmentManager.setFragmentResult(REQUEST_KEY, bundle)
+            }
+            imgHome.setOnClickListener {
+                findNavController().popBackStack(R.id.mainFragment, false)
+                if (activity is MainActivity){
+                    (activity as MainActivity).checkNavFragmentDetail = false
+                }
+            }
+        }
+
         var dateCreate = "dateCreate"
 
         viewBinding.apply {
@@ -247,6 +274,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             })
 
             btnVatLieu.setOnClickListener {
+                ElasticAnimation(btnVatLieu).setScaleX(0.75f).setScaleY(0.75f).setDuration(
+                    500
+                ).doAction()
                 if (dataResponse != null) {
                     if (dataResponse!!.jobMaterial.isNotEmpty()) {
                         if (activity is MainActivity) {
@@ -307,7 +337,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                             jobsViewModel.updateStateJob(dataUpdate)
                         } else {
-                            viewBinding.layoutChuyenKhoan.background = context?.let { ContextCompat.getDrawable(it,R.drawable.bg_red_) }
+                            viewBinding.layoutChuyenKhoan.background =
+                                context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                         }
                     } else {
                         DialogFactory.showDialogDefaultNotCancel(context, "Thiếu Vật liệu/ Ảnh")
@@ -332,7 +363,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             btnSubmit.setOnClickListener {
                 if (viewBinding.tvPrice.text.toString().trim().isNotEmpty()) {
-                    totalMoney = AndroidUtils.getMoneyRealValue(viewBinding.tvPrice.text.toString().trim())
+                    totalMoney =
+                        AndroidUtils.getMoneyRealValue(viewBinding.tvPrice.text.toString().trim())
                 }
                 if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
                     amountPaidEmp = viewBinding.edtNVUng.money.toString().trim().toLong()
@@ -356,7 +388,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun checkBank(): Boolean {
         return if (!checkSelectedRadio) {
             viewBinding.edtNVUng.text.toString().trim().isNotEmpty()
-        }else {
+        } else {
             true
         }
     }
@@ -370,15 +402,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 amountPaidEmp = edtNVUng.money.toString().trim().toLong()
             }
 
-            if (radioChuyenKhoan.isChecked){
+            if (radioChuyenKhoan.isChecked) {
                 paymentMethod = 2 //bank
                 paymentStateStatus = 1 // da thanh toan
             }
-            if (radioChuaThanhToan.isChecked){
+            if (radioChuaThanhToan.isChecked) {
                 paymentMethod = -1 // chua thanh toan
                 paymentStateStatus = 0 //chua thanh toan
             }
-            if (edtNVUng.text.toString().trim().isNotBlank() && !checkSelectedRadio){
+            if (edtNVUng.text.toString().trim().isNotBlank() && !checkSelectedRadio) {
                 paymentMethod = 1 //cash
                 paymentStateStatus = 1 // da thanh toan
             }
@@ -465,7 +497,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 for (data in listEmpLiveData) {
                     if (nv1Old != -1 && nv1Old != data.empId ||
                         nv2Old != -1 && nv2Old != data.empId ||
-                        nv3Old != -1 && nv3Old != data.empId ){
+                        nv3Old != -1 && nv3Old != data.empId
+                    ) {
                         dataListEmployee.add(
                             ItemViewLocation(
                                 ProvinceData(
@@ -633,27 +666,27 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             tvNamePoint.text = dataResponse.namePoint
             tvNameAddress.text = dataResponse.numAddress
 
-            if (dataResponse.amountPaidEmp != 0L){
+            if (dataResponse.amountPaidEmp != 0L) {
                 edtNVUng.visibility = View.GONE
                 tvNVUng.visibility = View.VISIBLE
                 tvNVUng.text = AndroidUtils.formatMoneyCard(dataResponse.amountPaidEmp.toString())
-            }else{
+            } else {
                 edtNVUng.visibility = View.VISIBLE
                 tvNVUng.visibility = View.GONE
             }
 
-            if (dataResponse.priority != 0 && dataResponse.jobStateId >= 30){
+            if (dataResponse.priority != 0 && dataResponse.jobStateId >= 30) {
                 uuTienIdSelected = dataResponse.priority
                 edtSelectUuTien.visibility = View.GONE
                 tvUuTien.visibility = View.VISIBLE
                 tvUuTien.text = "Ưu tiên ${dataResponse.priority}"
-            }else{
+            } else {
                 edtSelectUuTien.text = "Ưu tiên ${dataResponse.priority}"
                 edtSelectUuTien.visibility = View.VISIBLE
                 tvUuTien.visibility = View.GONE
             }
 
-            if (dataResponse.jobStateId >= 30){
+            if (dataResponse.jobStateId >= 30) {
                 if (dataResponse.paymentMethod == 2 && dataResponse.paymentStateId == 1) {
                     layoutChuyenKhoan.visibility = View.GONE
                     layoutStatusPayment.visibility = View.VISIBLE
@@ -745,6 +778,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     btnDaCan.isEnabled = true
                     btnDaCan.alpha = 1f
                 }
+
                 20, 25 -> {
                     btnDaLamGon.isEnabled = false
                     btnDaLamGon.alpha = 0.7f
@@ -761,6 +795,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     btnDaXong.isEnabled = true
                     btnDaXong.alpha = 1f
                 }
+
                 30 -> {
                     btnDaLamGon.isEnabled = false
                     btnDaLamGon.alpha = 0.7f
@@ -801,7 +836,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     edtGhiChu.visibility = View.GONE
                     tvGhiChu.text = dataResponse.noteJob
                 }
-                else ->{
+
+                else -> {
                     btnDaLamGon.isEnabled = true
                     btnDaLamGon.alpha = 1f
 
@@ -907,5 +943,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
         val BUNDLE_MEDIA = "BUNDLE_MEDIA"
         val BUNDLE_MATERIAL = "BUNDLE_MATERIAL"
+
+        val UPDATE_SEARCH = "UPDATE_SEARCH"
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -40,11 +41,11 @@ import java.util.Locale
 @AndroidEntryPoint
 class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
 
+    private var listDataSearchLiveData: ListJobSearchResponse? = null
     private var paymentStatus: Int = 0
     private var empStatus: Int = 1
     private var statusStatus: Int = 1
 
-    private val jobsViewModel: JobsViewModel by viewModels()
     private val addTaskViewModel: AddTaskViewModel by viewModels()
     private val dataListCollectPoint = ArrayList<ItemViewLocation<ProvinceData>>()
 
@@ -77,7 +78,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
 
         addTaskViewModel.getListCollectPoint()
         observe(addTaskViewModel.dataListCollectPoint, ::onGetListCollectPoint)
-        observe(jobsViewModel.dataSearch, ::dataSearchLive)
+        observe(addTaskViewModel.dataSearch, ::dataSearchLive)
     }
 
     private val mOnSelectedCollectPointListener =
@@ -134,7 +135,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                val listDataSearchLiveData = uiState.data.data
+                listDataSearchLiveData = uiState.data.data
                 val bundle = Bundle()
                 bundle.putSerializable(BUNDLE_KEY,listDataSearchLiveData)
                 parentFragmentManager.setFragmentResult(REQUEST_KEY, bundle)
@@ -155,6 +156,16 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
     }
 
     private fun actionView() {
+        viewBinding.layoutToolBar.apply {
+            titleToolBar.text = "Tìm kiếm"
+            titleToolBar.setPadding(20,0,0,0)
+            imgBackParent.visibility = View.GONE
+            imgHome.setImageResource(R.drawable.icon_close_while)
+            imgHome.setOnClickListener {
+               // findNavController().popBackStack()
+                findNavController().navigate(R.id.action_searchActionFragment_to_homeFragment)
+            }
+        }
         viewBinding.apply {
             btnSelectDate.setOnClickListener {
                 val dialog = Dialog(requireContext())
@@ -192,7 +203,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
                     collectPoint = collectPoint
                 )
 
-                jobsViewModel.search(searchRequest)
+                addTaskViewModel.search(searchRequest)
             }
         }
     }

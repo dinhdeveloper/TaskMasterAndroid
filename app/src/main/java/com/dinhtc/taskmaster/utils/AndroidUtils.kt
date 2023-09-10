@@ -9,12 +9,33 @@ import android.text.Spanned
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.dinhtc.taskmaster.common.widgets.dialog.FullScreenDialogFragment
 import org.apache.commons.lang3.StringEscapeUtils
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import kotlin.math.roundToInt
 
 object AndroidUtils {
+
+    fun logout() {
+        // Xóa thông tin đăng nhập từ SharedPreferences
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USERNAME)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.IS_LOGGED_IN)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.LAST_LOGIN_TINE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_LOGIN)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.TOKEN_FIREBASE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.ROLE_CODE)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.PASS_W)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.DEVICE_ID)
+        //REMOVE SEARCH
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_PERSON)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_TASK)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_PAYMENT)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.FIRST_DATE)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.SECOND_DATE)
+        // Chuyển đến màn hình đăng nhập
+    }
 
     fun getAndroidDeviceId(context: Context): String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 

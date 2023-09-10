@@ -97,7 +97,6 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
 
         }
     }
-
     private fun updateTokenFirebaseLiveData(uiState: UiState<Any>){
         when (uiState) {
             is UiState.Success -> {
@@ -109,7 +108,13 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 val errorMessage = uiState.message
                 Log.e("SSSSSSSSSSS", errorMessage)
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+                if (errorMessage == "401"){
+                    DialogFactory.showDialogDefaultNotCancelAndClick(context,"Phiên đăng nhập đã hết hạn"){
+                        AndroidUtils.logout()
+                    }
+                }else{
+                    DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+                }
             }
 
             UiState.Loading -> {}

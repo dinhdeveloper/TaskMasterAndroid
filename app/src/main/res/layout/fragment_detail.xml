@@ -40,7 +40,8 @@
                     android:elevation="@dimen/elevation"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingHorizontal="10dp">
+                    android:paddingVertical="5dp"
+                    android:paddingHorizontal="15dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -255,6 +256,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Chuyển khoản"
+                                android:textColor="@color/black"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textSize="@dimen/font17_sp" />
 
@@ -264,6 +266,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Chưa th.toán"
+                                android:textColor="@color/black"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textSize="@dimen/font17_sp" />
                         </RadioGroup>
@@ -338,6 +341,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="start|center"
+                                android:paddingHorizontal="10dp"
                                 android:hint="Chọn độ ưu tiên"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/font17_sp" />
@@ -459,6 +463,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="start|center_vertical"
                                 android:hint="Chọn nhân viên"
+                                android:paddingHorizontal="10dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/font17._sp" />
@@ -635,8 +640,8 @@
                                 android:background="@drawable/bg_edittext"
                                 android:gravity="top|start"
                                 android:inputType="textMultiLine"
-                                android:lines="2"
-                                android:minLines="2"
+                                android:lines="3"
+                                android:minLines="3"
                                 android:padding="5dp"
                                 android:scrollbarSize="2dp"
                                 android:scrollbars="vertical" />
@@ -655,7 +660,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:orientation="horizontal"
                         android:weightSum="2">
@@ -703,8 +707,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginVertical="5dp"
+                        android:layout_marginVertical="10dp"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
@@ -742,22 +745,25 @@
                     </LinearLayout>
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
                         <TextView
                             android:id="@+id/btnDaXong"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/shadow_2"
                             android:elevation="2dp"
@@ -768,32 +774,24 @@
                             android:text="@string/da_xong"
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17._sp" />
+
+                        <TextView
+                            android:id="@+id/btnSubmit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shadow_2"
+                            android:elevation="2dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:minWidth="100dp"
+                            android:padding="15dp"
+                            android:text="Lưu"
+                            android:textColor="@color/color_title"
+                            android:textSize="@dimen/font17._sp" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
-                    android:id="@+id/btnSubmit"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@color/md_blue_200"
-                    android:elevation="@dimen/elevation"
-                    app:layout_cornerRadius="5dp"
-                    app:layout_duration="500"
-                    app:layout_scale="0.85">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Lưu"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font17._sp"
-                        android:fontFamily="@font/roboto_medium" />
-                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

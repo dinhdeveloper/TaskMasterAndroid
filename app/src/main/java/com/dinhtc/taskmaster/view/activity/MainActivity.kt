@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.view.BaseActivity
+import com.dinhtc.taskmaster.common.widgets.dialog.FullScreenDialogFragment
 import com.dinhtc.taskmaster.databinding.ActivityMainBinding
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(){
     var sharedViewModel: SharedViewModel? = null
+    var checkNavFragmentDetail: Boolean = false
 
     override val layoutResourceId: Int
         get() = R.layout.activity_main
@@ -62,11 +64,33 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
                //clear back stack
                        true
            }
+
+           navController.currentDestination?.id == R.id.detailFragment &&
+                   prevDestinationId == R.id.homeFragment -> {
+               checkNavFragmentDetail = true
+               navController.navigateUp()
+           }
+
+           navController.currentDestination?.id == R.id.homeFragment &&
+                   prevDestinationId == R.id.mainFragment -> {
+               checkNavFragmentDetail = false
+               removeStateSearch()
+               navController.navigateUp()
+           }
+
             else -> navController.navigateUp()
         }
 
 
         //return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    fun removeStateSearch() {
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_PERSON)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_TASK)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_PAYMENT)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.FIRST_DATE)
+        SharedPreferencesManager.instance.remove(FullScreenDialogFragment.SECOND_DATE)
     }
 
     private fun checkConnection() {

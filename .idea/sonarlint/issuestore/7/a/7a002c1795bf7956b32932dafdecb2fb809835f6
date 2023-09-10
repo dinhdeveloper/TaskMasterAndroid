@@ -1,9 +1,0 @@
-
-Tkotlin:S1172–"4Use "_" instead of this unused lambda parameter "v".(­ëÆã8–¯šï¦1
-8kotlin:S1128"Remove this unused import.(ù©Ü!8ùâï¦1
-9kotlin:S1128"Remove this unused import.(Úÿ †8ùâï¦1
-9kotlin:S1128 "Remove this unused import.(Îşš8ö³›ï¦1
-vkotlin:S37765"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(µƒû‰ûÿÿÿÿ8¡¯šï¦1
-rkotlin:S117—"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(óÈëª8¢¯šï¦1
-Nkotlin:S1066˜".Merge this "if" statement with the nested one.(Õ÷Ø8¥¯šï¦1
-akotlin:S6510»"AMove "return" statements from all branches before "if" statement.(‘óÎ8¥¯šï¦1

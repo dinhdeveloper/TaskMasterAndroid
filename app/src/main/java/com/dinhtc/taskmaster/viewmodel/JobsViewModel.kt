@@ -81,24 +81,4 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
             }
         }
     }
-
-    private val _dataSearch = MutableLiveData<UiState<ListJobSearchResponse>>()
-    val dataSearch : LiveData<UiState<ListJobSearchResponse>>
-        get() = _dataSearch
-
-    fun search(searchRequest: SearchRequest) {
-        viewModelScope.launch {
-            _dataSearch.value = UiState.Loading
-            try {
-                val response = apiHelperImpl.search(searchRequest)
-                if (response.result_code == 0) {
-                    _dataSearch.value = UiState.Success(response)
-                } else {
-                    _dataSearch.value = UiState.Error(response.data.toString())
-                }
-            } catch (e: Exception) {
-                _dataSearch.value = UiState.Error("Error message: ${e.message}")
-            }
-        }
-    }
 }

@@ -241,11 +241,26 @@ class BottomSheetAddVideo(
         if (uriList != null) {
             val imageParts = mutableListOf<MultipartBody.Part>()
             for (imageUri in uriList) {
-                val file = File(context?.let { getRealPathFromURI(it, imageUri) })
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                val file = context?.let {
+                    getRealPathFromURI(it, imageUri) }?.let {
+                    File(
+                        it
+                    )
+                }
+                val requestFile = file?.let {
+                    RequestBody.create("image/*".toMediaTypeOrNull(),
+                        it
+                    )
+                }
                 val imagePart =
-                    MultipartBody.Part.createFormData("url_image", file.name, requestFile)
-                imageParts.add(imagePart)
+                    requestFile?.let {
+                        MultipartBody.Part.createFormData("url_image", file?.name,
+                            it
+                        )
+                    }
+                if (imagePart != null) {
+                    imageParts.add(imagePart)
+                }
             }
             listenerMultiPathImage(imageParts)
         }

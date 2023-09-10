@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="65dp"
+    android:minHeight="65dp"
+    android:layout_height="wrap_content"
     android:id="@+id/itemRoot"
     android:weightSum="11"
     android:orientation="horizontal">
@@ -17,7 +18,7 @@
         android:gravity="center"
         android:padding="3dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font15_sp"
         android:fontFamily="@font/roboto_regular"
         tools:text="Đơn gom" />
 
@@ -33,7 +34,7 @@
         android:maxLines="2"
         android:padding="3dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font15_sp"
         android:fontFamily="@font/roboto_regular"
         tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM" />
 
@@ -47,7 +48,7 @@
         android:gravity="center_vertical"
         android:padding="3dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font15_sp"
         android:fontFamily="@font/roboto_regular"
         tools:text="Người" />
 
@@ -60,7 +61,7 @@
         android:background="@drawable/table_content_cell_bg"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font15_sp"
         android:fontFamily="@font/roboto_regular"
         tools:text="Tình trạng" />
 
@@ -73,7 +74,7 @@
         android:background="@drawable/table_content_cell_bg"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/font16_sp"
+        android:textSize="@dimen/font15_sp"
         android:fontFamily="@font/roboto_regular"
         tools:text="Ưu tiên" />
 

@@ -14,6 +14,7 @@ import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.convertJsonToObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 
@@ -35,7 +36,7 @@ class SharedViewModel @Inject constructor(private val apiHelperImpl: ApiHelperIm
                     _updateTokenFirebase.value = UiState.Error(response.data.toString())
                 }
             } catch (e: Exception) {
-                _updateTokenFirebase.value = UiState.Error("Error message: ${e.message}")
+                _updateTokenFirebase.value = UiState.Error("${(e as HttpException).response()?.code()}")
             }
         }
     }

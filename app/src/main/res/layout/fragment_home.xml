@@ -9,54 +9,36 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/supply">
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layoutToolBar"
+            layout="@layout/custom_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
             <LinearLayout
-                android:id="@+id/tvTTDH"
-                android:layout_margin="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_title"
-                android:elevation="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_medium"
-                    android:gravity="center"
-                    android:text="TÌM KIẾM"
-                    android:textAllCaps="true"
-                    android:textColor="#00428E"
-                    android:textSize="@dimen/fontToolbar" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/tvTTDH"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:elevation="10dp"
-                android:padding="10dp"
+                android:layout_height="match_parent"
                 >
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="15dp"
+                    android:paddingVertical="10dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="@dimen/font18_sp"
@@ -78,19 +60,22 @@
                         app:layoutManagerType="linear"
                         android:layout_marginBottom="15dp" />
 
-                    <ImageView
+                    <TextView
                         android:id="@+id/imageEmpty"
-                        tools:visibility="visible"
+                        android:text="Danh sách trống"
+                        android:textSize="@dimen/font18_sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:src="@drawable/search_empty"
-                        android:layout_width="300dp"
-                        android:layout_height="300dp"/>
+                        tools:visibility="visible" />
                 </RelativeLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticFloatingActionButton
             android:id="@+id/floatingAction"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

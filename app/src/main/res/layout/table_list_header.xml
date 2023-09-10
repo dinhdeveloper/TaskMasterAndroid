@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="85dp"
+    android:layout_height="80dp"
     android:id="@+id/itemRoot"
     android:weightSum="11"
     android:orientation="horizontal">
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:padding="3dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/font17_sp"
+        android:textSize="@dimen/font16_sp"
         tools:text="Đơn gom" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:maxLines="2"
         android:padding="3dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/font17_sp"
+        android:textSize="@dimen/font16_sp"
         tools:text="860/29 Xô Viết Nghệ Tĩnh, phường 25, quận Bình Thạnh, TPHCM" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:gravity="center"
         android:padding="3dp"
         android:textColor="@color/black"
-        android:textSize="@dimen/font17_sp"
+        android:textSize="@dimen/font16_sp"
         tools:text="Người" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:background="@drawable/table_content_cell_bg"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/font17_sp"
+        android:textSize="@dimen/font16_sp"
         tools:text="Tình trạng" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:background="@drawable/table_content_cell_bg"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/font17_sp"
+        android:textSize="@dimen/font16_sp"
         tools:text="Ưu tiên" />
 
 </LinearLayout>

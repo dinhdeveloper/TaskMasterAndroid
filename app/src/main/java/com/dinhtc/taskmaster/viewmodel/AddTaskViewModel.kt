@@ -9,13 +9,16 @@ import com.dinhtc.taskmaster.model.SuggestionModel
 import com.dinhtc.taskmaster.model.SuggestionNoteModel
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.SearchRequest
 import com.dinhtc.taskmaster.model.response.ListCollectPointResponse
 import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
+import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.model.response.ListJobTypeResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -180,8 +183,13 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
             try {
                 val response = apiHelperImpl.addCollectPoint(data)
                 if (response.result_code == 0) {
-                    getListCollectPoint()
                     _dataAddCollectPoint.value = UiState.Success(response)
+                    getListCollectPoint().collect { combinedList ->
+                        _dataListCollectPoint.value = combinedList
+                    }
+                    combineAndCreateList().collect { combinedList ->
+                        _combinedData.value = combinedList
+                    }
                 } else {
                     _dataAddCollectPoint.value = UiState.Error(response.data.toString())
                 }
@@ -226,6 +234,25 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
                 }
             } catch (e: Exception) {
                 _dataEmployeeByJobId.value = UiState.Error("Error message: ${e.message}")
+            }
+        }
+    }
+
+    private val _dataSearch = MutableLiveData<UiState<ListJobSearchResponse>>()
+    val dataSearch : LiveData<UiState<ListJobSearchResponse>>
+        get() = _dataSearch
+    fun search(searchRequest: SearchRequest) {
+        viewModelScope.launch {
+            _dataSearch.value = UiState.Loading
+            try {
+                val response = apiHelperImpl.search(searchRequest)
+                if (response.result_code == 0) {
+                    _dataSearch.value = UiState.Success(response)
+                } else {
+                    _dataSearch.value = UiState.Error(response.data.toString())
+                }
+            } catch (e: Exception) {
+                _dataSearch.value = UiState.Error("Error message: ${e.message}")
             }
         }
     }
