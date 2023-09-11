@@ -61,6 +61,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var uuTienIdSelected: Int = -1
     private var amountPaidEmp: Long? = 0
     private var totalMoney: Long? = 0
+    private var showDialog = true
 
     private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
@@ -285,6 +286,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_materialDetailFragment)
+                        showDialog = false
                     } else {
                         if (dataListJob.isNotEmpty()) {
                             showDialogAddVatLieu()
@@ -310,6 +312,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             btnDaLamGon.setOnClickListener {
                 val dataUpdate = UpdateStateRequest(
+                    empUpdate = empAssignId,
                     jobsId = jobsId,
                     stateJob = DALAMGON,
                     paymentMethod = paymentMethod,
@@ -327,6 +330,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     if (dataResponse!!.jobMaterial.isNotEmpty() && dataResponse!!.jobMedia.isNotEmpty()) {
                         if (checkBank()) {
                             val dataUpdate = UpdateStateRequest(
+                                empUpdate = empAssignId,
                                 jobsId = jobsId,
                                 stateJob = DACAN,
                                 paymentMethod = paymentMethod,
@@ -350,6 +354,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 getDataSelected()
 
                 val dataUpdate = UpdateStateRequest(
+                    empUpdate = empAssignId,
                     jobsId = jobsId,
                     stateJob = XONG,
                     paymentMethod = paymentMethod,
@@ -475,7 +480,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun showDialogAddVatLieu() {
         bottomSheetAddVatLieu = context?.let {
             BottomSheetAddFreight(it, dataListJob, jobsId) { dataAdd ->
-
                 materialViewModel.addMaterial(dataAdd)
             }
         }
@@ -620,7 +624,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
+                if (showDialog){
+                    DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
+                }
                 jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                 bottomSheetAddVatLieu?.deleteDataInsert()
             }
@@ -908,6 +914,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     false
                 )
             }
+            else -> {}
         }
     }
 
@@ -927,6 +934,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
 
             UiState.Loading -> {}
+            else -> {}
         }
     }
 

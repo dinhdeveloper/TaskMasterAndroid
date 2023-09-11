@@ -1,6 +1,7 @@
 package com.dinhtc.taskmaster.model.request
 
 data class UpdateStateRequest (
+    var empUpdate: Int,
     var jobsId : Int,
     var stateJob : Int,
     var paymentMethod : Int,

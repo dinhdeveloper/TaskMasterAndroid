@@ -83,13 +83,16 @@ class BottomSheetAddFreight(
         }
 
         btnSubmit.setOnClickListener {
-            if (jobTypeIdSelected != -1 && edtDonGia.text.toString().trim().isNotEmpty()){
+            val priceMoney = if (edtDonGia.text.toString().trim().isNotEmpty())
+                                getMoneyRealValue(edtDonGia.text.toString())
+                            else null
+            if (jobTypeIdSelected != -1){
                 val addMaterialRequest = AddMaterialRequest(
                     mateId = jobTypeIdSelected,
                     jobId = jobsId,
                     weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else null),
                     weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else null),
-                    price = getMoneyRealValue(edtDonGia.text.toString())
+                    price = priceMoney
                 )
                 listenerAddMaterial(addMaterialRequest)
             }else {
