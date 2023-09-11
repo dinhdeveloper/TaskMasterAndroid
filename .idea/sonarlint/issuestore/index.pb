@@ -269,8 +269,6 @@ r
 Bapp/src/main/java/com/dinhtc/taskmaster/viewmodel/JobsViewModel.kt,8\8\881ca48feca0599f70c75f94cbfbe059322de5f1
 {
 Kapp/src/main/java/com/dinhtc/taskmaster/model/request/UpdateStateRequest.kt,7\2\72148b73b387c1ef004b4ca7e44fa5f48bafea29
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 |
 Lapp/src/main/java/com/dinhtc/taskmaster/bottomsheet/BottomSheetAddFreight.kt,d\c\dcce83fc1204a6b0c61944392470a2dfd60403d8
 v
