@@ -127,6 +127,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         var status = searchRequest.status
         var paymentStatus = searchRequest.paymentStatus
         var jobId = searchRequest.jobId
+        var empRequest = searchRequest.empRequest
         var collectPoint = searchRequest.collectPoint
 
         return apiService.search(
@@ -137,6 +138,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
             status,
             paymentStatus,
             jobId,
+            empRequest,
             collectPoint
         )
     }

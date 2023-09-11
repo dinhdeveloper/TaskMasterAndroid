@@ -8,5 +8,6 @@ data class SearchRequest(
     var status: Int? = 1,
     var paymentStatus: Int? = 0,
     var jobId: Int? = 0,
+    var empRequest: Int? = 0,
     var collectPoint: String? = null
 )

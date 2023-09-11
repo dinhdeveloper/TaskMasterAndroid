@@ -116,6 +116,7 @@ interface ApiService {
         @Query("status") status: Int?,
         @Query("paymentStatus") paymentStatus: Int?,
         @Query("jobId") jobId: Int?,
+        @Query("empRequest") empRequest: Int?,
         @Query("collectPoint") collectPoint: String?
     ): ApiResponse<ListJobSearchResponse>
 

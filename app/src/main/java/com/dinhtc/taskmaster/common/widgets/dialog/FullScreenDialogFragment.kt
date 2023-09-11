@@ -43,6 +43,7 @@ class FullScreenDialogFragment(
     private var collectPointSelected: Int = -1
 
     var empId = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID, 0).toString().toInt()
+    var empRequest = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID, 0).toString().toInt()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,7 +120,7 @@ class FullScreenDialogFragment(
             btnSearch.setOnClickListener {
                 viewBinding?.apply {
                     if (edtMaNV.text.toString().trim().isNotEmpty() || edtMaNV.text.toString().trim().isNotBlank()){
-                        empId = edtMaNV.text.toString().trim().toInt()
+                        empRequest = edtMaNV.text.toString().trim().toInt()
                     }
                     if (edtMaCV.text.toString().trim().isNotEmpty() || edtMaCV.text.toString().trim().isNotBlank()){
                         jobId = edtMaCV.text.toString().trim().toInt()
@@ -137,6 +138,7 @@ class FullScreenDialogFragment(
                     status = statusStatus,
                     paymentStatus = paymentStatus,
                     jobId = if (jobId == 0) null else jobId,
+                    empRequest = empRequest,
                     collectPoint = if (collectPoint.equals("Tất cả")) null else collectPoint
                 )
 
@@ -304,7 +306,7 @@ class FullScreenDialogFragment(
         viewBinding?.apply {
             empStatus = 2
             SharedPreferencesManager.instance.putInt(RADIO_PERSON,2)
-            viewBinding?.edtMaNV?.isEnabled = false
+            viewBinding?.edtMaNV?.isEnabled = true
             viewBinding?.edtMaNV?.text = null
 
             radioCuaToi.background = context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.bg_item_detail) }

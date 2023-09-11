@@ -8,8 +8,6 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dinhtc.taskmaster.R
@@ -22,7 +20,6 @@ import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
 import com.dinhtc.taskmaster.databinding.FragmentDetailBinding
 import com.dinhtc.taskmaster.model.JobEmployeeDetailResponse
-import com.dinhtc.taskmaster.model.JobStateCode.*
 import com.dinhtc.taskmaster.model.RoleCode
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.UpdateStateRequest
@@ -61,7 +58,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var uuTienIdSelected: Int = -1
     private var amountPaidEmp: Long? = 0
     private var totalMoney: Long? = 0
-    private var showDialog = true
+    private var showDialogMaterial = true
+    private var showDialogMedia= true
 
     private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
@@ -103,7 +101,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
 
         observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
-        observe(uploadMediaViewModel.dataUpLoadImage, ::responseUploadMultiImage)
+        observe(uploadMediaViewModel.dataUpLoadImage, ::addUploadMultiImage)
         observe(materialViewModel.dataListMaterial, ::onGetListMaterialLive)
         observe(materialViewModel.datAddMaterial, ::addMaterialLive)
         observe(jobsViewModel.updateStateJob, ::updateStateJobLive)
@@ -286,7 +284,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_materialDetailFragment)
-                        showDialog = false
+                        showDialogMaterial = false
                     } else {
                         if (dataListJob.isNotEmpty()) {
                             showDialogAddVatLieu()
@@ -304,6 +302,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_mediaDetailFragment)
+                        showDialogMedia = false
                     } else {
                         showDialogAddImage()
                     }
@@ -558,13 +557,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
-    private fun responseUploadMultiImage(uiState: UiState<Any>) {
+    private fun addUploadMultiImage(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}") {
-                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
-                    bottomSheetAddImage?.dismiss()
+                if (showDialogMedia){
+                    DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}") {
+                        jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
+                        bottomSheetAddImage?.dismiss()
+                    }
                 }
             }
 
@@ -624,7 +625,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                if (showDialog){
+                if (showDialogMaterial){
                     DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
                 }
                 jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
@@ -871,7 +872,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
         }
-        checkRole()
     }
 
     private fun updateStateJobLive(uiState: UiState<UpdateJobsResponse>) {
