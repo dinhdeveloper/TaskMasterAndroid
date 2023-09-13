@@ -47,4 +47,5 @@ interface ApiHelper {
     suspend fun getListEmployeeByJobId(jdJob: Int): ApiResponse<ListEmployeeResponse>
     suspend fun updateJobDetails(dataUpdate: DataUpdateJobRequest): ApiResponse<Any>
     suspend fun search(searchRequest: SearchRequest): ApiResponse<ListJobSearchResponse>
+    suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng>
 }

@@ -1,6 +1,8 @@
 package com.dinhtc.taskmaster.view.fragment
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +20,7 @@ import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
+import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.FULL_NAME
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USER_ID
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.eventbus.AppEventBus
@@ -85,7 +88,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 findNavController().navigate(R.id.action_mainFragment_to_addTaskFragment)
             }
             btnNotify.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_notifyListFragment)
+                findNavController().navigate(R.id.action_mainFragment_to_mapFragment)
             }
             btnSetting.setOnClickListener {
                 var bundle = Bundle()
@@ -111,6 +114,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 if (errorMessage == "401"){
                     DialogFactory.showDialogDefaultNotCancelAndClick(context,"Phiên đăng nhập đã hết hạn"){
                         AndroidUtils.logout()
+                        findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
                     }
                 }else{
                     DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
@@ -123,25 +127,45 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
 
     private fun askNotificationPermission() {
         // This is only necessary for API Level > 33 (TIRAMISU)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.POST_NOTIFICATIONS) } ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                // FCM SDK (and your app) can post notifications.
-                Log.e("API_R", "GỬI LẠI TOKEN")
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//
+//        } else {
+//            // Handle the case for lower API levels here
+//        }
 
-            } else {
-                // Directly ask for the permission
-                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        val permissionsToRequest = mutableListOf<String>()
+        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.POST_NOTIFICATIONS) } !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+                permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
             }
+        }
+
+        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) } !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+
+        if (permissionsToRequest.isEmpty()) {
+            // All permissions are already granted, you can proceed with your logic here
+            Log.e("API_R", "GỬI LẠI TOKEN")
+        } else {
+            // Request the permissions that are not granted
+            requestPermissionLauncher.launch(permissionsToRequest.toTypedArray())
         }
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { isGranted: Boolean ->
-        if (isGranted) {
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions: Map<String, Boolean> ->
+        val allPermissionsGranted = permissions.all { it.value }
+        if (allPermissionsGranted && permissions["android.permission.POST_NOTIFICATIONS"] == true) {
+            // All permissions are granted, you can proceed with your logic here
             AppEventBus.getInstance().publishEvent(EventBusAction.Action.REFRESH_TOKEN_FB)
+        } else {
+            // Handle the case when some or all permissions are not granted
         }
     }
 
@@ -169,6 +193,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 data = uiState.data.data as UserProfileResponse
                 viewBinding.tvName.text = data?.name
                 data?.empId?.toInt()?.let { SharedPreferencesManager.instance.putInt(USER_ID, it) }
+                data?.name?.let { SharedPreferencesManager.instance.putString(FULL_NAME, it) }
 
                 when (SharedPreferencesManager.instance.getString(
                     SharedPreferencesManager.ROLE_CODE, "") ?: "") {

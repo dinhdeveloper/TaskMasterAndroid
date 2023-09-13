@@ -8,6 +8,7 @@ import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
 import com.dinhtc.taskmaster.model.request.UpdateStateRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
+import com.dinhtc.taskmaster.model.response.ListCollectPointLatLng
 import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
@@ -78,6 +79,26 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
                 }
             } catch (e: Exception) {
                 _updateJobDetails.value = UiState.Error("Error message: ${e.message}")
+            }
+        }
+    }
+
+    private val _getCollectPointLatLng = MutableLiveData<UiState<ListCollectPointLatLng>>()
+    val getCollectPointLatLng : LiveData<UiState<ListCollectPointLatLng>>
+        get() = _getCollectPointLatLng
+
+    fun getCollectPointLatLng() {
+        viewModelScope.launch {
+            _getCollectPointLatLng.value = UiState.Loading
+            try {
+                val response = apiHelperImpl.getCollectPointLatLng()
+                if (response.result_code == 0) {
+                    _getCollectPointLatLng.value = UiState.Success(response)
+                } else {
+                    _getCollectPointLatLng.value = UiState.Error(response.data.toString())
+                }
+            } catch (e: Exception) {
+                _getCollectPointLatLng.value = UiState.Error("Error message: ${e.message}")
             }
         }
     }

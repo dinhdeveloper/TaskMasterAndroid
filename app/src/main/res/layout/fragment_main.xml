@@ -187,7 +187,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/noti_svgrepo_com" />
+                            android:src="@drawable/pin_location" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -195,7 +195,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="Thông Báo"
+                            android:text="Vị trí"
                             android:textColor="@color/white"
                             android:textSize="@dimen/font18_sp"
                             android:fontFamily="@font/roboto_medium"/>

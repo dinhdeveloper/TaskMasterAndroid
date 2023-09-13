@@ -57,6 +57,7 @@ class SharedPreferencesManager(context: Context) {
         const val TOKEN_FIREBASE = "TOKEN_FIREBASE"
         const val USERNAME = "USERNAME"
         const val USER_ID = "USER_ID"
+        const val FULL_NAME = "FULL_NAME"
 
         private const val FILE_NAME = "advsarg"
         const val PASS_W = "PASS_W"

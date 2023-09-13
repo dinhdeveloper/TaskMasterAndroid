@@ -120,5 +120,7 @@ interface ApiService {
         @Query("collectPoint") collectPoint: String?
     ): ApiResponse<ListJobSearchResponse>
 
+    @GET("mobile/collect_point/latlng")
+    suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng>
 
 }

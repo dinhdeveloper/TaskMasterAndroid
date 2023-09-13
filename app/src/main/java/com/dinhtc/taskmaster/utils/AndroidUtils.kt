@@ -1,21 +1,48 @@
 package com.dinhtc.taskmaster.utils
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Build
 import android.provider.Settings
 import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.widgets.dialog.FullScreenDialogFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import org.apache.commons.lang3.StringEscapeUtils
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import kotlin.math.roundToInt
 
 object AndroidUtils {
+
+    fun bitmapDescriptorFromVector(context: Context?, vectorResId: Int): BitmapDescriptor {
+        val vectorDrawable = context?.let { ContextCompat.getDrawable(it, vectorResId) }
+        vectorDrawable!!.setBounds(
+            0,
+            0,
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight
+        )
+        val bitmap =
+            Bitmap.createBitmap(
+                vectorDrawable.intrinsicWidth,
+                vectorDrawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+        val canvas = Canvas(bitmap)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
 
     fun logout() {
         // Xóa thông tin đăng nhập từ SharedPreferences
@@ -28,6 +55,7 @@ object AndroidUtils {
         SharedPreferencesManager.instance.remove(SharedPreferencesManager.USER_ID)
         SharedPreferencesManager.instance.remove(SharedPreferencesManager.PASS_W)
         SharedPreferencesManager.instance.remove(SharedPreferencesManager.DEVICE_ID)
+        SharedPreferencesManager.instance.remove(SharedPreferencesManager.FULL_NAME)
         //REMOVE SEARCH
         SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_PERSON)
         SharedPreferencesManager.instance.remove(FullScreenDialogFragment.RADIO_TASK)
@@ -37,7 +65,8 @@ object AndroidUtils {
         // Chuyển đến màn hình đăng nhập
     }
 
-    fun getAndroidDeviceId(context: Context): String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+    fun getAndroidDeviceId(context: Context): String =
+        Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 
     fun getDeviceName(): String {
         val manufacturer = Build.MANUFACTURER
@@ -65,9 +94,11 @@ object AndroidUtils {
             str == null -> {
                 SpannableString("")
             }
+
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> {
                 Html.fromHtml(StringEscapeUtils.unescapeHtml4(str), Html.FROM_HTML_MODE_LEGACY)
             }
+
             else -> {
                 Html.fromHtml(StringEscapeUtils.unescapeHtml4(str))
             }
@@ -93,7 +124,8 @@ object AndroidUtils {
         var s = ""
         try {
             s = myFormatter.format(money?.toDouble() ?: 0)
-        } catch (ignore: java.lang.Exception) {}
+        } catch (ignore: java.lang.Exception) {
+        }
 
         return "$s VNĐ"
     }
@@ -111,13 +143,14 @@ object AndroidUtils {
     @JvmStatic
     fun decodeMoneyStr(str: String?): String {
         return str?.trim()?.replace("VNĐ", "")?.replace("VND", "")
-            ?.replace(".", "")?.replace(",", "")?.replace(" ","") ?: ""
+            ?.replace(".", "")?.replace(",", "")?.replace(" ", "") ?: ""
     }
 
     fun showKeyboard(view: View? = null) {
         try {
             view?.let {
-                val inputMethodManager = it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputMethodManager =
+                    it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.showSoftInput(it, InputMethodManager.SHOW_FORCED)
             }
         } catch (e: Exception) {
@@ -128,7 +161,8 @@ object AndroidUtils {
     @JvmStatic
     fun hideKeyboard(view: View?) {
         view?.let {
-            val imm = it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }

@@ -143,4 +143,8 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         )
     }
 
+    override suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng> {
+       return apiService.getCollectPointLatLng()
+    }
+
 }
