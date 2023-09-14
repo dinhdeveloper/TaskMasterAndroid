@@ -134,7 +134,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "onGetListMaterialLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -160,7 +160,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "addMaterialLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -183,7 +183,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataJobDetailLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -204,7 +204,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataDeleteMaterialLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

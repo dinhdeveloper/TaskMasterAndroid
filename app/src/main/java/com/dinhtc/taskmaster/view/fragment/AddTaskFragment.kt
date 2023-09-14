@@ -29,6 +29,7 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
 import com.dinhtc.taskmaster.view.activity.MainActivity
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_ERROR
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -211,7 +212,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(TAG_ERROR, "onGetListJobType: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -251,7 +252,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(TAG_ERROR, "onGetListEmployee: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -284,7 +285,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(TAG_ERROR, "onGetListEmployeeByNotId: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -323,7 +324,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(TAG_ERROR, "onGetListCollectPoint: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -357,7 +358,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(TAG_ERROR, "onAddCollectPoint: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -377,7 +378,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(TAG_ERROR, "onAddTask: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

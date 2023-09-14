@@ -1,5 +1,6 @@
 package com.dinhtc.taskmaster.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,12 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
 import com.dinhtc.taskmaster.model.request.UpdateStateRequest
+import com.dinhtc.taskmaster.model.response.CollectPointLatLng
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
 import com.dinhtc.taskmaster.model.response.ListCollectPointLatLng
 import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -92,6 +95,22 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
             _getCollectPointLatLng.value = UiState.Loading
             try {
                 val response = apiHelperImpl.getCollectPointLatLng()
+//               getCollectPointLatLng val gson = Gson()
+//                val response2 = Gson().toJson(response.data)
+//                val data = gson.fromJson(response2, ListCollectPointLatLng::class.java)
+//
+//                val groupedData = data.listItem.groupBy { it.latitude to it.longitude }
+//                    .map { (key, value) ->
+//                        val fullName = value.joinToString { it.fullName }
+//                        CollectPointLatLng(
+//                            jobId = value.first().jobId,
+//                            latitude = key.first,
+//                            longitude = key.second,
+//                            cpName = value.first().cpName,  // Lấy giá trị đầu tiên của cpName trong nhóm
+//                            fullName = fullName,
+//                            jobStateDesc = value.first().jobStateDesc  // Lấy giá trị đầu tiên của jobStateDesc trong nhóm
+//                        )
+//                    }
                 if (response.result_code == 0) {
                     _getCollectPointLatLng.value = UiState.Success(response)
                 } else {

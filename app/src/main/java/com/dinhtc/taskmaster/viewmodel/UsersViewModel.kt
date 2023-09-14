@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dinhtc.taskmaster.model.response.LoginResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,11 +36,15 @@ class UsersViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImp
     fun logoutUser() {
         viewModelScope.launch {
             _dataLogout.value = UiState.Loading
-            val response = apiHelperImpl.logOut()
-            if (response.result_code == 0) {
-                _dataLogout.value = UiState.Success(response)
-            } else {
-                _dataLogout.value = UiState.Error(response.data.toString())
+            try {
+                val response = apiHelperImpl.logOut()
+                if (response.result_code == 0) {
+                    _dataLogout.value = UiState.Success(response)
+                } else {
+                    _dataLogout.value = UiState.Error(response.data.toString())
+                }
+            } catch (e: Exception) {
+                _dataLogout.value = UiState.Error("${(e as HttpException).response()?.code()}")
             }
         }
     }

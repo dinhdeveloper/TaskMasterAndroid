@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
@@ -16,6 +17,7 @@ import com.dinhtc.taskmaster.common.widgets.spinner.LocationSpinner
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceData
 import com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
+import com.dinhtc.taskmaster.utils.AndroidUtils.formatMoneyCard
 import com.dinhtc.taskmaster.utils.AndroidUtils.getMoneyRealValue
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -35,7 +37,7 @@ class BottomSheetAddFreight(
     private lateinit var itemSelectTask: ProvinceSpinner
     private lateinit var edtKhoiLuong: TextInputEditText
     private lateinit var edtKhoiLuongKH: TextInputEditText
-    private lateinit var edtDonGia: MoneyEditText
+    private lateinit var edtDonGia: TextView
     private lateinit var btnSubmit: ElasticLayout
     private lateinit var tvLabelVL: MaterialTextView
 
@@ -74,6 +76,7 @@ class BottomSheetAddFreight(
                 item: ItemViewLocation<ProvinceData>?
             ) {
                 jobTypeIdSelected = item?.data?.id!!
+                edtDonGia.text = formatMoneyCard("${item.data?.code}")
             }
         }
 
@@ -90,8 +93,8 @@ class BottomSheetAddFreight(
                 val addMaterialRequest = AddMaterialRequest(
                     mateId = jobTypeIdSelected,
                     jobId = jobsId,
-                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else null),
-                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else null),
+                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else 1),
+                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else 1),
                     price = priceMoney
                 )
                 listenerAddMaterial(addMaterialRequest)

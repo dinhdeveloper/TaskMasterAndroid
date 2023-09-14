@@ -138,5 +138,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
     companion object {
         val TAG_LOG = "API_NOTE: "
         val ID_JOB_NOTIFY = "ID_JOB_NOTIFY"
+        val TAG_ERROR = "TAG_ERROR_"
     }
 }

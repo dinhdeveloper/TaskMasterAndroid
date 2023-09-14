@@ -94,7 +94,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "onGetListCollectPoint: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -162,7 +162,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataSearchLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

@@ -28,6 +28,7 @@ import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.UsersViewModel
 import com.dinhtc.taskmaster.BuildConfig.VERSION_NAME
+import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_ERROR
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
@@ -89,7 +90,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                         is UiState.Error -> {
                             val errorMessage = uiState.message
-                            Log.e("SSSSSSSSSSS", errorMessage)
+                            Log.e(TAG_ERROR, "Login: +$errorMessage")
                             LoadingScreen.hideLoading()
                             DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
                         }

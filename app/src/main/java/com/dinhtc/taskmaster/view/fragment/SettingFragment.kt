@@ -16,6 +16,7 @@ import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,10 +59,15 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
             }
 
             is UiState.Error -> {
-                val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+                val errorMessage = uiState.message
+                if (errorMessage == "401"){
+                    AndroidUtils.logout()
+                    findNavController().navigate(R.id.action_settingFragment_to_loginFragment)
+                }else{
+                    DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+                }
+                Log.e(MainActivity.TAG_ERROR, "dataLogoutLive: $errorMessage")
             }
 
             UiState.Loading -> {

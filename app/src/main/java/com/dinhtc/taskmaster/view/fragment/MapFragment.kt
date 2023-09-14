@@ -168,18 +168,33 @@ class MapFragment : BaseFragment<FragmentMapsBinding>(), OnMapReadyCallback {
     }
 
     private fun addMarker(latLng: LatLng) {
-
-      val item =  context?.let {
-          convertLayoutToBitmap(it,R.layout.custom_layout_map)
-      }
-        // Thêm Marker 1
+        // Thêm Marker
         if (dataResponse?.isNotEmpty() == true){
             for (data in dataResponse!!){
-                val marker = MarkerOptions()
-                    .position(LatLng(data.latitude.toDouble(),data.longitude.toDouble()))
-                    .icon(item?.let { BitmapDescriptorFactory.fromBitmap(it) })
-                markers.add(marker)
+                if (data.latitude.isNotEmpty() && data.longitude.isNotEmpty()){
+                    // Tạo Bitmap riêng cho mỗi marker dựa trên thông tin của data
+                    val item = context?.let {
+                        convertLayoutToBitmap(it, R.layout.custom_layout_map, data)
+                    }
+
+                    val marker = MarkerOptions()
+                        .position(LatLng(data.latitude.toDouble(), data.longitude.toDouble()))
+                        .icon(item?.let { BitmapDescriptorFactory.fromBitmap(it) })
+                    markers.add(marker)
+                }
             }
+        }
+
+        val dataMyLocation = CollectPointLatLng(
+            cpName = "Vị trí của tôi",
+            fullName = SharedPreferencesManager.instance.getString(SharedPreferencesManager.FULL_NAME,null),
+            jobId = -1,
+            jobStateDesc = null.toString(),
+            latitude = latLng.latitude.toString(),
+            longitude =latLng.latitude.toString(),
+        )
+        val item = context?.let {
+            convertLayoutToBitmap(it, R.layout.custom_layout_map, dataMyLocation)
         }
 
         val markerMyLocation = MarkerOptions()
@@ -187,6 +202,7 @@ class MapFragment : BaseFragment<FragmentMapsBinding>(), OnMapReadyCallback {
             .icon(item?.let { BitmapDescriptorFactory.fromBitmap(it) })
         markers.add(markerMyLocation)
 
+        // Thêm các marker vào bản đồ
         for (markerOption in markers) {
             val marker = mMap.addMarker(markerOption)
             marker?.showInfoWindow()
@@ -196,8 +212,6 @@ class MapFragment : BaseFragment<FragmentMapsBinding>(), OnMapReadyCallback {
         val builder = LatLngBounds.Builder()
         for (markerOption in markers) {
             builder.include(markerOption.position)
-            // Đặt title cho marker
-            mMap.addMarker(markerOption)
         }
 
         // Tạo một LatLngBounds object
@@ -214,14 +228,7 @@ class MapFragment : BaseFragment<FragmentMapsBinding>(), OnMapReadyCallback {
         mMap.animateCamera(cameraUpdateZoom)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (intent != null){
-            activity?.stopService(intent)
-        }
-    }
-
-    private fun convertLayoutToBitmap(context: Context, layoutId: Int): Bitmap {
+    private fun convertLayoutToBitmap(context: Context, layoutId: Int, data: CollectPointLatLng): Bitmap {
         // Inflate the XML layout to create a View object
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(layoutId, null)
@@ -230,12 +237,24 @@ class MapFragment : BaseFragment<FragmentMapsBinding>(), OnMapReadyCallback {
         val tvStatusJob = view.findViewById<TextView>(R.id.tvStatusJob)
         val tvEmpJob = view.findViewById<TextView>(R.id.tvEmpJob)
 
-        if (dataResponse?.isNotEmpty() == true){
-            for (data in dataResponse!!){
-                tvLocation.text = data.cpName
-                tvStatusJob.text = data.jobStateDesc
-                tvEmpJob.text = data.fullName
-            }
+        // Sử dụng thông tin từ data để cập nhật TextViews
+        if (data.cpName != null){
+            tvLocation.visibility = View.VISIBLE
+            tvLocation.text = data.cpName
+        }else{
+            tvLocation.visibility = View.GONE
+        }
+        if (data.jobStateDesc != null && data.jobStateDesc != "null"){
+            tvStatusJob.visibility = View.VISIBLE
+            tvStatusJob.text = data.jobStateDesc
+        }else{
+            tvStatusJob.visibility = View.GONE
+        }
+        if (data.fullName != null){
+            tvEmpJob.visibility = View.VISIBLE
+            tvEmpJob.text = data.fullName
+        }else{
+            tvEmpJob.visibility = View.GONE
         }
 
         // Measure the View with UNSPECIFIED width and height
@@ -258,6 +277,13 @@ class MapFragment : BaseFragment<FragmentMapsBinding>(), OnMapReadyCallback {
         return bitmap
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (intent != null){
+            activity?.stopService(intent)
+        }
+    }
     companion object {
         private const val REQUEST_LOCATION_PERMISSION = 1
     }

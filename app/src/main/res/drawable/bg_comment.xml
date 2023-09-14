@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- red shape -->
+    <!-- red shape with alpha -->
     <item
         android:bottom="0dp"
         android:gravity="center_horizontal|bottom"
@@ -12,7 +12,7 @@
             android:pivotY="17%"
             android:toDegrees="45">
             <shape android:shape="rectangle">
-                <solid android:color="@android:color/holo_red_dark" />
+                <solid android:color="@color/transparent_4" /> <!-- Red with 50% alpha -->
                 <size
                     android:width="10dp"
                     android:height="10dp" />
@@ -25,14 +25,14 @@
         android:top="0dp">
         <shape>
             <corners android:radius="1dp" />
-            <solid android:color="@android:color/holo_red_dark" />
+            <solid android:color="@color/transparent_4" /> <!-- Red with 50% alpha -->
             <size
                 android:width="50dp"
                 android:height="20dp" />
         </shape>
     </item>
 
-    <!-- black shape -->
+    <!-- black shape with alpha -->
     <item
         android:bottom="0dp"
         android:gravity="center_horizontal|bottom"
@@ -44,7 +44,7 @@
             android:pivotY="15%"
             android:toDegrees="45">
             <shape android:shape="rectangle">
-                <solid android:color="@color/white" />
+                <solid android:color="#00000000" /> <!-- Black with 50% alpha -->
                 <size
                     android:width="10dp"
                     android:height="10dp" />
@@ -59,7 +59,7 @@
         android:top="0.5dp">
         <shape>
             <corners android:radius="1dp" />
-            <solid android:color="@color/white" />
+            <solid android:color="@color/transparent_4" /> <!-- Black with 50% alpha -->
             <size
                 android:width="50dp"
                 android:height="20dp" />

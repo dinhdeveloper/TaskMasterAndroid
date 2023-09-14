@@ -367,8 +367,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             btnSubmit.setOnClickListener {
                 if (viewBinding.tvPrice.text.toString().trim().isNotEmpty()) {
-                    totalMoney =
-                        AndroidUtils.getMoneyRealValue(viewBinding.tvPrice.text.toString().trim())
+                    totalMoney = AndroidUtils.getMoneyRealValue(viewBinding.tvPrice.text.toString().trim())
                 }
                 if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
                     amountPaidEmp = viewBinding.edtNVUng.money.toString().trim().toLong()
@@ -518,7 +517,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "onGetListEmployee: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -548,7 +547,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataEmployeeByJobId: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -571,7 +570,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "addUploadMultiImage: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -596,7 +595,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                         ItemViewLocation(
                             ProvinceData(
                                 data.mate_id,
-                                "${data.mate_id}",
+                                "${data.unitPrice}",
                                 "${data.name}"
                             )
                         )
@@ -606,7 +605,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "onGetListMaterialLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -634,7 +633,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "addMaterialLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -657,7 +656,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataJobDetailLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -739,7 +738,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             var moneyTemp: Long = 0
             if (dataResponse.jobMaterial.isNotEmpty()) {
                 for (data in dataResponse.jobMaterial) {
-                    moneyTemp += data.price
+                    moneyTemp += (data.price * data.weight)
                 }
                 Log.e(TAG_LOG, "$moneyTemp")
                 tvPrice.text = AndroidUtils.formatMoneyCard("$moneyTemp")
@@ -902,7 +901,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "updateStateJobLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -928,7 +927,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "updateJobDetailsLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

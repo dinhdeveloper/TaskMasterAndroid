@@ -179,7 +179,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "responseUploadMultiImage: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -220,7 +220,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataJobDetailLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

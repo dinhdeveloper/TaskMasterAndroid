@@ -109,7 +109,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "updateTokenFirebaseLiveData: $errorMessage")
                 LoadingScreen.hideLoading()
                 if (errorMessage == "401"){
                     DialogFactory.showDialogDefaultNotCancelAndClick(context,"Phiên đăng nhập đã hết hạn"){
@@ -210,7 +210,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "getUserProfileLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

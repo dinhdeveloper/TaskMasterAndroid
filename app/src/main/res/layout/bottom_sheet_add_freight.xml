@@ -201,7 +201,7 @@
                     android:textColor="@color/color_title"
                     android:textSize="@dimen/font17_sp" />
 
-                <com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
+                <TextView
                     android:id="@+id/edtDonGia"
                     style="@style/EditextCustom"
                     android:inputType="number"

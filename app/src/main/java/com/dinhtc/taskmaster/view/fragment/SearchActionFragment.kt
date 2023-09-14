@@ -28,6 +28,7 @@ import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager.Companion.USER_ID
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.BUNDLE_KEY
 import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.REQUEST_KEY
 import com.dinhtc.taskmaster.viewmodel.AddTaskViewModel
@@ -122,7 +123,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "onGetListCollectPoint: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }
@@ -144,7 +145,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
 
             is UiState.Error -> {
                 val errorMessage = uiState.message
-                Log.e("SSSSSSSSSSS", errorMessage)
+                Log.e(MainActivity.TAG_ERROR, "dataSearchLive: $errorMessage")
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
             }

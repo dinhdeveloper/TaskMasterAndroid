@@ -14,8 +14,10 @@ import com.dinhtc.taskmaster.model.response.ListJobTypeResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
 @HiltViewModel
 class CollectPointViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl) : ViewModel() {
@@ -224,6 +226,37 @@ class CollectPointViewModel @Inject constructor(private val apiHelperImpl: ApiHe
                 }
             } catch (e: Exception) {
                 _dataJobType.value = UiState.Error("Error message: ${e.message}")
+            }
+        }
+    }
+
+
+    fun fetchEmployeeAndCollectPoint() {
+        viewModelScope.launch {
+            val deferredEmployee = async { apiHelperImpl.getListEmployee() }
+            val deferredCollectPoint = async { apiHelperImpl.getListCollectPoint() }
+
+            try {
+                val employeeResponse = deferredEmployee.await()
+                val collectPointResponse = deferredCollectPoint.await()
+
+                if (employeeResponse.result_code == 0 && collectPointResponse.result_code == 0) {
+                    // Cả hai API đều thành công
+                    _dataEmployee.value = UiState.Success(employeeResponse)
+                    _dataListCollectPoint.value = UiState.Success(collectPointResponse)
+                } else {
+                    // Một trong hai hoặc cả hai API thất bại
+                    if (employeeResponse.result_code != 0) {
+                        _dataEmployee.value = UiState.Error(employeeResponse.data.toString())
+                    }
+                    if (collectPointResponse.result_code != 0) {
+                        _dataListCollectPoint.value = UiState.Error(collectPointResponse.data.toString())
+                    }
+                }
+            } catch (e: Exception) {
+                // Xử lý lỗi nếu có
+                _dataEmployee.value = UiState.Error("Error message: ${e.message}")
+                _dataListCollectPoint.value = UiState.Error("Error message: ${e.message}")
             }
         }
     }

@@ -112,4 +112,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="CustomView">
+        <attr name="customBackgroundColor" format="color" />
+        <attr name="customStrokeColor" format="color" />
+        <attr name="customStrokeWidth" format="dimension" />
+        <attr name="customCornerRadius" format="dimension" />
+        <attr name="customElevation" format="dimension" />
+    </declare-styleable>
 </resources>
