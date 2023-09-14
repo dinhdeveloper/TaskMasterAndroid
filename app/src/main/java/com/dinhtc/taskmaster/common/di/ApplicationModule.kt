@@ -33,13 +33,8 @@ class ApplicationModule {
 
         val loggingInterceptor = CustomLoggingInterceptor()
         return if (!DEBUG) {
-            val generalInterceptor = GeneralHeaderInterceptor()
-            val specialInterceptor = SpecialHeaderInterceptor("special_value") // Only add if needed
-
             OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor(generalInterceptor)
-                .addInterceptor(specialInterceptor) // Only add if needed
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(6000, TimeUnit.SECONDS)
                 .writeTimeout(6000, TimeUnit.SECONDS)

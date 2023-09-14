@@ -125,10 +125,6 @@ z
 Japp/src/main/java/com/dinhtc/taskmaster/model/response/MaterialResponse.kt,8\d\8db9b8f07a7ca0a5e9e16f9fb315aa2ed0f22cba
 w
 Gapp/src/main/java/com/dinhtc/taskmaster/service/AuthTokenInterceptor.kt,5\3\5310381b5152faa7c914b54c25e0bf7a20ef428c
-{
-Kapp/src/main/java/com/dinhtc/taskmaster/service/CustomLoggingInterceptor.kt,a\5\a5e17ed50d98585f447647124af4eecf351915b6
-{
-Kapp/src/main/java/com/dinhtc/taskmaster/service/GeneralHeaderInterceptor.kt,5\2\523d2ee38fc61a2fbdee90d416db16de527fb1fd
 ’
 bapp/src/main/java/com/dinhtc/taskmaster/common/widgets/elasticviews/ElasticFloatingActionButton.kt,a\4\a4bfda5e669df8b5b83d9017fee58b513f0112e7
 r
@@ -211,8 +207,6 @@ m
 =app/src/main/java/com/dinhtc/taskmaster/utils/AndroidUtils.kt,8\2\8216f8235ab841eaf941178ed27c914b968fa59c
 s
 Capp/src/main/java/com/dinhtc/taskmaster/common/view/BaseFragment.kt,3\5\35e1db7839a5c5d8239dc177e509457902cc26ae
-{
-Kapp/src/main/java/com/dinhtc/taskmaster/service/SpecialHeaderInterceptor.kt,d\f\df3c9b058f3c3e14629bff7b51e2ed680dca9d9b
 n
 >app/src/main/java/com/dinhtc/taskmaster/adapter/YourAdapter.kt,b\0\b078d371624d816c9f792abeac29e022bb15e7f9
 l
@@ -287,8 +281,6 @@ t
 Dapp/src/main/java/com/dinhtc/taskmaster/viewmodel/SharedViewModel.kt,8\0\807436210df3ef453d857c2421df743e91202f0c
 p
 @app/src/main/java/com/dinhtc/taskmaster/service/ApiHelperImpl.kt,f\7\f784c23f47ff92ad967455454aec2ef0f8032b12
-m
-=app/src/main/java/com/dinhtc/taskmaster/service/ApiService.kt,3\9\3915d7a1c28ccb9325babdb1d1bc21e26b72501e
 ‰
 Yapp/src/main/java/com/dinhtc/taskmaster/common/widgets/dialog/FullScreenDialogFragment.kt,0\a\0a4a05efe130fc60a578e024c4e8a67ed0840c2d
 ‡
