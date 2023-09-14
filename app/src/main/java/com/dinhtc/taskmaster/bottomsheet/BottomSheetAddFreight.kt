@@ -93,8 +93,8 @@ class BottomSheetAddFreight(
                 val addMaterialRequest = AddMaterialRequest(
                     mateId = jobTypeIdSelected,
                     jobId = jobsId,
-                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else 1),
-                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else 1),
+                    weight = (if (edtKhoiLuong.text.toString().isNotEmpty()) edtKhoiLuong.text.toString().toLong() else 0),
+                    weightToCus = (if (edtKhoiLuongKH.text.toString().isNotEmpty()) edtKhoiLuongKH.text.toString().toLong() else 0),
                     price = priceMoney
                 )
                 listenerAddMaterial(addMaterialRequest)

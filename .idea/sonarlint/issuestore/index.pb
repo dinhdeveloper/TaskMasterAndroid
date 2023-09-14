@@ -181,8 +181,6 @@ h
 8app/src/main/java/com/dinhtc/taskmaster/utils/UiState.kt,c\1\c1e9eae36e8b33f12ce93cfbc112b45000f44375
 
 Oapp/src/main/java/com/dinhtc/taskmaster/model/response/ListJobSearchResponse.kt,1\0\10f67d1e8d54f3fc21fb3b80b8fd769e29b1bb6f
-Å
-Qapp/src/main/java/com/dinhtc/taskmaster/bottomsheet/BottomSheetAddCollectPoint.kt,9\a\9a593205a41aa9943872eebe4015e10fb41816fb
 z
 Japp/src/main/java/com/dinhtc/taskmaster/bottomsheet/BottomSheetAddVideo.kt,7\4\74be5473f46541ca92706118b670ee1b402c7d0f
 Ä
