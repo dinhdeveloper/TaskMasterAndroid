@@ -92,7 +92,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         } else {
             arguments?.getInt(HomeFragment.ID_JOB) ?: -1
         }
-        empId = arguments?.getInt(HomeFragment.ID_JOB) ?: -1
+        empId = arguments?.getInt(HomeFragment.ID_EMP) ?: -1
 
         jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
         addTaskViewModel.getListJobType()
@@ -649,7 +649,22 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 dataResponse = uiState.data.data
                 dataResponse.let {
                     updateUI(dataResponse!!)
-                    changeStatusUI(dataResponse!!)
+                    //changeStatusUI(dataResponse!!)
+
+                    if (dataResponse!!.jobStateId >=30){
+                        viewBinding.edtSelectUuTien.visibility = View.GONE
+                        viewBinding.tvUuTien.visibility = View.VISIBLE
+                        viewBinding.tvUuTien.text = "Ưu tiên ${dataResponse!!.priority}"
+                        viewBinding.layoutChuyenViecToi.visibility = View.GONE
+                        viewBinding.tvGhiChu.visibility = View.VISIBLE
+                        viewBinding.edtGhiChu.visibility = View.GONE
+                        viewBinding.tvGhiChu.text = dataResponse!!.noteJob
+                        if (dataResponse!!.amountPaidEmp != 0L) {
+                            viewBinding.edtNVUng.visibility = View.GONE
+                            viewBinding.tvNVUng.visibility = View.VISIBLE
+                            viewBinding.tvNVUng.text = AndroidUtils.formatMoneyCard("${dataResponse!!.amountPaidEmp}","VNĐ")
+                        }
+                    }
                 }
 
             }

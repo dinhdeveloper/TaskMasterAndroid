@@ -134,7 +134,7 @@ class FullScreenDialogFragment(
                     startDate = SharedPreferencesManager.instance.getString(FIRST_DATE,null),
                     endDate = SharedPreferencesManager.instance.getString(SECOND_DATE,null),
                     empStatus = empStatus,
-                    empId =  if (empId == 0) null else empId,
+                    empId =  if (empId == 0) 0 else empId,
                     status = statusStatus,
                     paymentStatus = paymentStatus,
                     jobId = if (jobId == 0) null else jobId,

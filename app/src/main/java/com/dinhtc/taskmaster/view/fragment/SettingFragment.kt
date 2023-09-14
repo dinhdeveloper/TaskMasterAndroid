@@ -34,9 +34,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
             dataUserProfile as UserProfileResponse
             var address = "${dataUserProfile.numAddress}, ${dataUserProfile.streetAddress}, ${dataUserProfile.ward}, ${dataUserProfile.dist}, ${dataUserProfile.province}"
             viewBinding.apply {
-                tvName.text = dataUserProfile.name
-                tvAge.text = "Tuổi: ${dataUserProfile.age.toInt()}"
-                tvGender.text = "Giới tính: ${dataUserProfile.gender}"
+                tvName.text = if (dataUserProfile.name?.isNotEmpty() == true) dataUserProfile.name else ""
+                tvAge.text = if (dataUserProfile.age != null) "Tuổi: ${dataUserProfile.age.toInt()}" else "Tuổi"
+                tvGender.text = if (dataUserProfile.gender?.isNotEmpty() == true) "Giới tính: ${dataUserProfile.gender}" else "Giới tính"
                 tvNameAddress.text = address
                 tvTeamName.text = "Nhóm: ${dataUserProfile.teamName}"
             }

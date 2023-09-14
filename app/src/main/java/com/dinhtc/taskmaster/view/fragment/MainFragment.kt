@@ -88,14 +88,20 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 findNavController().navigate(R.id.action_mainFragment_to_addTaskFragment)
             }
             btnNotify.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_mapFragment)
+                //findNavController().navigate(R.id.action_mainFragment_to_mapFragment)
             }
             btnSetting.setOnClickListener {
-                var bundle = Bundle()
-                bundle.putSerializable(KEY_USER_PROFILE ,data)
-                findNavController().navigate(R.id.action_mainFragment_to_settingFragment,
-                    bundle
-                )
+                try {
+                    if (data != null){
+                        var bundle = Bundle()
+                        bundle.putSerializable(KEY_USER_PROFILE ,data)
+                        findNavController().navigate(R.id.action_mainFragment_to_settingFragment,
+                            bundle
+                        )
+                    }
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
             }
 
         }
@@ -142,11 +148,11 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
             }
         }
 
-        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) } !=
-            PackageManager.PERMISSION_GRANTED
-        ) {
-            permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
+//        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) } !=
+//            PackageManager.PERMISSION_GRANTED
+//        ) {
+//            permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
+//        }
 
         if (permissionsToRequest.isEmpty()) {
             // All permissions are already granted, you can proceed with your logic here
@@ -192,7 +198,9 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
                 LoadingScreen.hideLoading()
                 data = uiState.data.data as UserProfileResponse
                 viewBinding.tvName.text = data?.name
-                data?.empId?.toInt()?.let { SharedPreferencesManager.instance.putInt(USER_ID, it) }
+                data?.empId?.toInt()?.let {
+                    SharedPreferencesManager.instance.putInt(USER_ID, it)
+                }
                 data?.name?.let { SharedPreferencesManager.instance.putString(FULL_NAME, it) }
 
                 when (SharedPreferencesManager.instance.getString(

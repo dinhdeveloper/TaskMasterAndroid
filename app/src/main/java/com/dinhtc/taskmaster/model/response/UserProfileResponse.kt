@@ -4,20 +4,20 @@ import java.io.Serializable
 
 data class UserProfileResponse(
     val age: Double,
-    val dist: String,
+    val dist: String? = "",
     val empId: Double,
-    val gender: String,
+    val gender: String? = "",
     val leaderId: Double,
-    val name: String,
-    val numAddress: String,
-    val phone: String,
-    val province: String,
-    val roleCode: String,
+    val name: String? = "",
+    val numAddress: String? = "",
+    val phone: String? = "",
+    val province: String? = "",
+    val roleCode: String? = "",
     val roleId: Double,
-    val roleName: String,
-    val streetAddress: String,
+    val roleName: String? = "",
+    val streetAddress: String? = "",
     val teamId: Double,
-    val teamName: String,
-    val territory: String,
-    val ward: String
+    val teamName: String? = "",
+    val territory: String? = "",
+    val ward: String? = ""
 ): Serializable

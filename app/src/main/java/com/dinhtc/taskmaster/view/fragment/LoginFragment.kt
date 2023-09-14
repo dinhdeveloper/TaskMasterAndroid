@@ -44,7 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated() {
         context?.let { SharedPreferencesManager.init(it) }
-        checkAutoLogin()
+        //checkAutoLogin()
         actionView()
         jobIdNotify = arguments?.getString(MainActivity.ID_JOB_NOTIFY)
     }
@@ -220,14 +220,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         SharedPreferencesManager.instance.putString(PASS_W, edtPassword)
         SharedPreferencesManager.instance.putBoolean(IS_LOGGED_IN, true)
         SharedPreferencesManager.instance.putLong(LAST_LOGIN_TINE, System.currentTimeMillis())
-        if (jobIdNotify != null){
-            findNavController().navigate(R.id.action_loginFragment_to_detailFragment,
-            bundleOf(MainActivity.ID_JOB_NOTIFY to jobIdNotify)
-            )
-            LoadingScreen.hideLoading()
-        }else{
-            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
-            LoadingScreen.hideLoading()
+        try {
+            if (jobIdNotify != null){
+                findNavController().navigate(R.id.action_loginFragment_to_detailFragment,
+                    bundleOf(MainActivity.ID_JOB_NOTIFY to jobIdNotify)
+                )
+                LoadingScreen.hideLoading()
+            }else{
+                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                LoadingScreen.hideLoading()
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
         }
     }
 
