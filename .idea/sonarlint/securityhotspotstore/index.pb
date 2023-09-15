@@ -259,8 +259,6 @@ Lapp/src/main/java/com/dinhtc/taskmaster/bottomsheet/BottomSheetAddFreight.kt,d
 Lapp/src/main/java/com/dinhtc/taskmaster/model/response/JobDetailsResponse.kt,a\2\a22f0fdfaa359e50216f52766784b3b7c7fe6bd1
 v
 Fapp/src/main/java/com/dinhtc/taskmaster/model/request/SearchRequest.kt,3\d\3dbab09a8f78eb005cc9aaf4dcc482055d805799
-u
-Eapp/src/main/java/com/dinhtc/taskmaster/view/fragment/HomeFragment.kt,a\5\a55b40304852fd8e6cbdb8634bffd44e257abf3b
 t
 Dapp/src/main/java/com/dinhtc/taskmaster/viewmodel/SharedViewModel.kt,8\0\807436210df3ef453d857c2421df743e91202f0c
 ‡
@@ -273,8 +271,6 @@ v
 Fapp/src/main/java/com/dinhtc/taskmaster/view/fragment/LoginFragment.kt,7\a\7a002c1795bf7956b32932dafdecb2fb809835f6
 F
 app/proguard-rules.pro,9\e\9e08934d811afe28fbc77aaa3c0d747b94348db9
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 {
 Kapp/src/main/java/com/dinhtc/taskmaster/service/SpecialHeaderInterceptor.kt,d\f\df3c9b058f3c3e14629bff7b51e2ed680dca9d9b
 {
@@ -285,3 +281,21 @@ t
 Dapp/src/main/java/com/dinhtc/taskmaster/view/fragment/MapFragment.kt,4\b\4ba2d3f73a35ed066bca310382f53c220f2477ef
 m
 =app/src/main/java/com/dinhtc/taskmaster/utils/AndroidUtils.kt,8\2\8216f8235ab841eaf941178ed27c914b968fa59c
+y
+Iapp/src/main/java/com/dinhtc/taskmaster/utils/SharedPreferencesManager.kt,4\1\415f50b00aad2fbdde76a7daac522fab8dd36d28
+|
+Lapp/src/main/java/com/dinhtc/taskmaster/notify/MyFirebaseMessagingService.kt,c\a\caad164d027110d1b025ac2b091338ea08f6aa9e
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+‰
+Yapp/src/main/java/com/dinhtc/taskmaster/common/widgets/dialog/FullScreenDialogFragment.kt,0\a\0a4a05efe130fc60a578e024c4e8a67ed0840c2d
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+u
+Eapp/src/main/java/com/dinhtc/taskmaster/view/fragment/HomeFragment.kt,a\5\a55b40304852fd8e6cbdb8634bffd44e257abf3b
+r
+Bapp/src/main/java/com/dinhtc/taskmaster/viewmodel/JobsViewModel.kt,8\8\881ca48feca0599f70c75f94cbfbe059322de5f1
+p
+@app/src/main/java/com/dinhtc/taskmaster/service/ApiHelperImpl.kt,f\7\f784c23f47ff92ad967455454aec2ef0f8032b12
+m
+=app/src/main/java/com/dinhtc/taskmaster/service/ApiService.kt,3\9\3915d7a1c28ccb9325babdb1d1bc21e26b72501e

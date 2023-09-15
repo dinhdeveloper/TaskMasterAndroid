@@ -340,11 +340,29 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                             jobsViewModel.updateStateJob(dataUpdate)
                         } else {
-                            scrollView.post {
-                                scrollView.smoothScrollTo(0, layoutChuyenKhoan.top)
+                            // trường hợp không chuyển khoản và đã thanh toán bằng tiền mặt
+                            if (edtNVUng.text.toString().trim().isNotEmpty()){
+                                val dataUpdate = UpdateStateRequest(
+                                    empUpdate = empAssignId,
+                                    jobsId = jobsId,
+                                    stateJob = DACAN,
+                                    paymentMethod = paymentMethod,
+                                    paymentStateStatus = paymentStateStatus,
+                                    amountPaidEmp = amountPaidEmp!!,
+                                    amountTotal = totalMoney!!,
+                                    dateCreate = dateCreate
+                                )
+                                jobsViewModel.updateStateJob(dataUpdate)
+                            }else{
+                                // trường hợp không chuyển khoản và chưa thanh toán bằng tiền mặt
+                                scrollView.post {
+                                    scrollView.smoothScrollTo(0, layoutChuyenKhoan.top)
+                                }
+                                viewBinding.layoutChuyenKhoan.background =
+                                    context?.let {
+                                        ContextCompat.getDrawable(it, R.drawable.bg_red_)
+                                    }
                             }
-                            viewBinding.layoutChuyenKhoan.background =
-                                context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                         }
                     } else {
                         DialogFactory.showDialogDefaultNotCancel(context, "Thiếu Vật liệu/ Ảnh")
