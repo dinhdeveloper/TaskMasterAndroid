@@ -48,8 +48,8 @@ import okhttp3.MultipartBody
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
-    private var paymentMethod: Int = 0
-    private var paymentStateStatus: Int = 0
+    private var paymentMethod: Int = 3
+    private var paymentStateStatus: Int = 3
     private var checkSelectedRadio: Boolean = false
     private val listEmployeeJobs = mutableListOf<JobEmployeeDetailResponse>()
     private var nv1Old: Int = -1
@@ -340,6 +340,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                             jobsViewModel.updateStateJob(dataUpdate)
                         } else {
+                            scrollView.post {
+                                scrollView.smoothScrollTo(0, layoutChuyenKhoan.top)
+                            }
                             viewBinding.layoutChuyenKhoan.background =
                                 context?.let { ContextCompat.getDrawable(it, R.drawable.bg_red_) }
                         }
@@ -375,7 +378,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 val dataUpdate = DataUpdateJobRequest(
                     jodId = jobsId,
                     totalMoney = AndroidUtils.decodeMoneyStr(totalMoney.toString()),
-                    statusPayment = 1, //chuyển khoản là 0, chưa thanh toán là 1
+                    paymentMethod = paymentMethod,
+                    paymentStateId = paymentStateStatus,
                     amountPaidEmp = amountPaidEmp,
                     priority = uuTienIdSelected,
                     empOldId = nv1Old,
@@ -384,6 +388,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     note = viewBinding.edtGhiChu.text.toString(),
                 )
                 jobsViewModel.updateJobDetails(dataUpdate)
+
+//                paymentMethod = 2 //bank
+//                paymentStateStatus = 1 // da thanh toan
             }
         }
     }

@@ -96,4 +96,8 @@
     <color name="grey_two">#A5A5A5</color>
     <color name="blue_three">#000000</color>
     <color name="blue_four">#D2E4FF</color>
+
+    <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorTransparent1">#7F000000</color>
+    <color name="colorTransparent2">#30000000</color>
 </resources>

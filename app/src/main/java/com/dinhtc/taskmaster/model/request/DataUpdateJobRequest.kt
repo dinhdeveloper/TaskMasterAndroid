@@ -3,7 +3,8 @@ package com.dinhtc.taskmaster.model.request
 data class DataUpdateJobRequest(
     private var jodId: Int?,
     private var totalMoney: String?,
-    private var statusPayment: Int,
+    private var paymentMethod: Int,
+    private var paymentStateId: Int,
     private var amountPaidEmp: Long?,
     private var priority: Int,
     private var empOldId: Int,

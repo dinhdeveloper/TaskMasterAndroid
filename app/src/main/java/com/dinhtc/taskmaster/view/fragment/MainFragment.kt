@@ -2,11 +2,13 @@ package com.dinhtc.taskmaster.view.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -30,11 +32,12 @@ import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.SharedViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusHandler  {
+class MainFragment  : BaseFragment<FragmentMainBinding>() {
 
     private val sharedViewModel: SharedViewModel by viewModels()
     private var data : UserProfileResponse? = null
@@ -43,31 +46,9 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
         get() = R.layout.fragment_main
 
     override fun onViewCreated() {
-        AppEventBus.getInstance().registerEvent(this, EventBusAction.Action.REFRESH_TOKEN_FB, this)
         askNotificationPermission()
 
         observe(sharedViewModel.updateTokenFirebase, ::updateTokenFirebaseLiveData)
-
-        Firebase.messaging.token.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("MyFirebaseMsgService", "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // Get new FCM registration token
-                val token = task.result
-                Log.e("TOKEN_FCM: ","$token")
-                SharedPreferencesManager.instance.putString(SharedPreferencesManager.TOKEN_FIREBASE, token)
-                sharedViewModel.updateTokenFirebase(
-                    SharedPreferencesManager.instance.getString(
-                        SharedPreferencesManager.TOKEN_FIREBASE, null),
-                    activity?.applicationContext?.let { deviceId ->
-                        AndroidUtils.getAndroidDeviceId(deviceId) },
-                    AndroidUtils.getDeviceName()
-                )
-            },
-        )
 
         onClickItem()
 
@@ -132,66 +113,64 @@ class MainFragment  : BaseFragment<FragmentMainBinding>(), AppEventBus.EventBusH
     }
 
     private fun askNotificationPermission() {
-        // This is only necessary for API Level > 33 (TIRAMISU)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//
-//        } else {
-//            // Handle the case for lower API levels here
-//        }
-
-        val permissionsToRequest = mutableListOf<String>()
-        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.POST_NOTIFICATIONS) } !=
+        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.POST_NOTIFICATIONS) } ==
             PackageManager.PERMISSION_GRANTED
         ) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        }
-
-//        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) } !=
-//            PackageManager.PERMISSION_GRANTED
-//        ) {
-//            permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
-//        }
-
-        if (permissionsToRequest.isEmpty()) {
-            // All permissions are already granted, you can proceed with your logic here
+            // FCM SDK (and your app) can post notifications.
             Log.e("API_R", "GỬI LẠI TOKEN")
+            getFCMToken()
+
         } else {
-            // Request the permissions that are not granted
-            requestPermissionLauncher.launch(permissionsToRequest.toTypedArray())
+            // Directly ask for the permission
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions: Map<String, Boolean> ->
-        val allPermissionsGranted = permissions.all { it.value }
-        if (allPermissionsGranted && permissions["android.permission.POST_NOTIFICATIONS"] == true) {
-            // All permissions are granted, you can proceed with your logic here
-            AppEventBus.getInstance().publishEvent(EventBusAction.Action.REFRESH_TOKEN_FB)
-        } else {
-            // Handle the case when some or all permissions are not granted
+        ActivityResultContracts.RequestPermission(),
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            getFCMToken()
         }
     }
 
-    private var count = 1
-    override fun handleEvent(result: EventBusAction) {
-        if (result.action == EventBusAction.Action.REFRESH_TOKEN_FB){
-            if (count == 1){
-                sharedViewModel.updateTokenFirebase(
-                    SharedPreferencesManager.instance.getString(
-                        SharedPreferencesManager.TOKEN_FIREBASE, null),
-                    activity?.applicationContext?.let { deviceId ->
-                        AndroidUtils.getAndroidDeviceId(deviceId) },
-                    AndroidUtils.getDeviceName()
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                if (token != null){
+                    sharedViewModel.updateTokenFirebase(
+                        token,
+                        activity?.applicationContext?.let { deviceId ->
+                            AndroidUtils.getAndroidDeviceId(deviceId) },
+                        AndroidUtils.getDeviceName()
                     )
-                count ++
+                }else{
+                    handleFCMTokenError()
+                }
+            } else {
+                handleFCMTokenError()
             }
-
         }
     }
 
+    private fun handleFCMTokenError() {
+        // Đã xảy ra lỗi khi lấy token, xử lý theo cách phù hợp
+        // Ví dụ: Hiển thị thông báo hoặc hướng dẫn người dùng bật quyền thông báo
+
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Yêu cầu quyền thông báo")
+        builder.setMessage("Ứng dụng cần quyền thông báo để hoạt động chính xác. Hãy bật quyền thông báo trong cài đặt của thiết bị.")
+        builder.setPositiveButton("OK") { _, _ ->
+            askNotificationPermission()
+        }
+        builder.setNegativeButton("Hủy") { _, _ ->
+            // Xử lý khi người dùng từ chối cấp quyền
+        }
+        builder.show()
+    }
     private fun getUserProfileLive(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
