@@ -256,4 +256,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        LoadingScreen.hideLoading()
+    }
 }

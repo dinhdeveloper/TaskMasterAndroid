@@ -422,7 +422,7 @@ class AddTaskFragment : BaseFragment<FragmentAddTaskBinding>() {
     private fun clearDataAddTask() {
         nv1Selected = -1
         nv2Selected = -1
-        jobTypeIdSelected = -1
+        jobTypeIdSelected = 1
         uuTienIdSelected = 2
         viewBinding.apply {
             edtSelectTask.text = null

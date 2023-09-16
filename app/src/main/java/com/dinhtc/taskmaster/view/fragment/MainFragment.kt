@@ -3,6 +3,8 @@ package com.dinhtc.taskmaster.view.fragment
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -10,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -147,11 +150,7 @@ class MainFragment  : BaseFragment<FragmentMainBinding>() {
                             AndroidUtils.getAndroidDeviceId(deviceId) },
                         AndroidUtils.getDeviceName()
                     )
-                }else{
-                    handleFCMTokenError()
                 }
-            } else {
-                handleFCMTokenError()
             }
         }
     }

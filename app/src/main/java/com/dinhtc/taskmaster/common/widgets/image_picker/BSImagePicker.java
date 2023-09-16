@@ -1,5 +1,6 @@
 package com.dinhtc.taskmaster.common.widgets.image_picker;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -164,11 +165,14 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadConfigFromBuilder();
-        if (Utils.areBothPermissionsGranted(getContext())) {
+        if (Utils.isReadStorageGranted(getContext())) {
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, BSImagePicker.this);
         } else {
-            Utils.checkAndRequestPermissions(getContext(), getActivity(),
-                    PERMISSION_READ_STORAGE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Utils.checkPermission(BSImagePicker.this, Manifest.permission.READ_MEDIA_IMAGES, PERMISSION_READ_STORAGE);
+            } else {
+                Utils.checkPermission(BSImagePicker.this, Manifest.permission.READ_EXTERNAL_STORAGE, PERMISSION_READ_STORAGE);
+            }
         }
         if (savedInstanceState != null) {
             currentPhotoUri = savedInstanceState.getParcelable("currentPhotoUri");
@@ -286,11 +290,14 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
     public void onResume() {
         super.onResume();
         loadConfigFromBuilder();
-        if (Utils.areBothPermissionsGranted(getContext())) {
+        if (Utils.isReadStorageGranted(getContext())) {
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, BSImagePicker.this);
         } else {
-            Utils.checkAndRequestPermissions(getContext(), getActivity(),
-                    PERMISSION_READ_STORAGE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Utils.checkPermission(BSImagePicker.this, Manifest.permission.READ_MEDIA_IMAGES, PERMISSION_READ_STORAGE);
+            } else {
+                Utils.checkPermission(BSImagePicker.this, Manifest.permission.READ_EXTERNAL_STORAGE, PERMISSION_READ_STORAGE);
+            }
         }
     }
 
@@ -307,20 +314,19 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
                 break;
             case PERMISSION_CAMERA:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (Utils.areBothPermissionsGranted(getContext())) {
+                    if (Utils.isWriteStorageGranted(getContext())) {
                         launchCamera();
                     } else {
-                        //Utils.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_WRITE_STORAGE);
-                        Utils.checkAndRequestPermissions(getContext(), getActivity(), PERMISSION_READ_STORAGE);
+                        checkPermissionWriteStorage();
+//                        Utils.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_WRITE_STORAGE);
                     }
                 }
             case PERMISSION_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (Utils.areBothPermissionsGranted(getContext())) {
+                    if (Utils.isCameraGranted(getContext())) {
                         launchCamera();
                     } else {
-                        //Utils.checkPermission(this, Manifest.permission.CAMERA, PERMISSION_CAMERA);
-                        Utils.checkAndRequestPermissions(getContext(), getActivity(), PERMISSION_READ_STORAGE);
+                        Utils.checkPermission(this, Manifest.permission.CAMERA, PERMISSION_CAMERA);
                     }
                 }
             default:
@@ -373,61 +379,40 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
 //                }
                 break;
             case REQUEST_SELECT_FROM_GALLERY:
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     if (data != null) {
                         if (data.getClipData() != null) {
-                            // Đối với Android 10 trở lên, khi chọn nhiều hình ảnh
                             int count = data.getClipData().getItemCount();
-                            if (count > 5){
-                                DialogFactory.createMessageDialogWithYesNo(
-                                        getContext(),
-                                        "Bạn chỉ được chọn tối đa 5 hình ảnh.",
-                                        "Chọn Lại",
-                                        "Hủy",
-                                        () -> {
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                                // Dùng AndroidX Activity Result API
-                                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                                intent.setType("image/*");
-                                                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                                                startActivityForResult(intent, REQUEST_SELECT_FROM_GALLERY); // Thực hiện chọn lại
-                                            } else {
-                                                // Dùng phương thức truyền thống cho các phiên bản cũ hơn
-                                                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                                startActivityForResult(intent, REQUEST_SELECT_FROM_GALLERY); // Thực hiện chọn lại
-                                            }
-                                            return null;
-                                        },
-                                        () -> {
-                                            return null;
-                                        }
-                                );
-                            }else {
-                                List<Uri> uriList = new ArrayList<>();
-                                for (int i = 0; i < count; i++) {
-                                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                            List<Uri> uriList = new ArrayList<>();
+                            for (int i = 0; i < count; i++) {
+                                Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                                if (imageUri != null) {
                                     uriList.add(imageUri);
-                                    // Xử lý ảnh ở đây
-                                    if (onMultiImageSelectedListener != null) {
-                                        onMultiImageSelectedListener.onMultiImageSelected(uriList, tag);
-                                        dismiss();
-                                    }
                                 }
                             }
 
+                            if (!uriList.isEmpty()) {
+                                // Xử lý ảnh ở đây
+                                if (onMultiImageSelectedListener != null) {
+                                    onMultiImageSelectedListener.onMultiImageSelected(uriList, tag);
+                                }
+                                dismiss();
+                            }
                         } else if (data.getData() != null) {
-                            // Đối với các phiên bản Android cũ hơn, khi chỉ chọn một ảnh
-                            List<Uri> uriList = new ArrayList<>();
                             Uri imageUri = data.getData();
-                            // Xử lý ảnh ở đây
-                            uriList.add(imageUri);
-                            if (onMultiImageSelectedListener != null) {
-                                onMultiImageSelectedListener.onMultiImageSelected(uriList, tag);
+                            if (imageUri != null) {
+                                List<Uri> uriList = new ArrayList<>();
+                                uriList.add(imageUri);
+                                // Xử lý ảnh ở đây
+                                if (onMultiImageSelectedListener != null) {
+                                    onMultiImageSelectedListener.onMultiImageSelected(uriList, tag);
+                                }
                                 dismiss();
                             }
                         }
                     }
                 }
+
 //                if (resultCode == RESULT_OK) {
 //                    if (onSingleImageSelectedListener != null) {
 //                        onSingleImageSelectedListener.onSingleImageSelected(data.getData(), tag);
@@ -599,16 +584,13 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
             adapter.setCameraTileOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Utils.areBothPermissionsGranted(getContext())) {
+                    if (Utils.isCameraGranted(getContext()) && Utils.isWriteStorageGranted(getContext())) {
                         launchCamera();
                     } else {
-                        if (Utils.areBothPermissionsGranted(getContext())) {
-                            Utils.checkAndRequestPermissions(getContext(), getActivity(), PERMISSION_READ_STORAGE);
-
-                            //Utils.checkPermission(BSImagePicker.this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_WRITE_STORAGE);
+                        if (Utils.isCameraGranted(getContext())) {
+                            checkPermissionWriteStorage();
                         } else {
-                            //Utils.checkPermission(BSImagePicker.this, Manifest.permission.CAMERA, PERMISSION_CAMERA);
-                            Utils.checkAndRequestPermissions(getContext(), getActivity(), PERMISSION_READ_STORAGE);
+                            Utils.checkPermission(BSImagePicker.this, Manifest.permission.CAMERA, PERMISSION_CAMERA);
                         }
                     }
                 }
@@ -963,6 +945,14 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
                 }
                 startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO);
             }
+        }
+    }
+
+    private void checkPermissionWriteStorage(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Utils.checkPermission(BSImagePicker.this, Manifest.permission.READ_MEDIA_IMAGES, PERMISSION_WRITE_STORAGE);
+        } else {
+            Utils.checkPermission(BSImagePicker.this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PERMISSION_WRITE_STORAGE);
         }
     }
 

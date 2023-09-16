@@ -2,10 +2,13 @@
 W
 java:S1118":Add a private constructor to hide the implicit public one.(¼Øûì8êÀÏú£1
 W
-java:S1874":Remove this use of "requestPermissions"; it is deprecated.(Óï„€8ıÀÏú£1
-8
-java:S3626+"Remove this redundant jump.(ûÁİ…8ıÀÏú£1
-\
-java:S1874M":Remove this use of "requestPermissions"; it is deprecated.(÷¾ûÈùÿÿÿÿ8ÁÏú£1
-X
-java:S1068"6Remove this unused "checkPermissionAll" private field.(Ÿ¾÷éıÿÿÿÿ8„ÁÏú£1
+java:S1874":Remove this use of "requestPermissions"; it is deprecated.(Óï„€8…çê©1
+]	java:S125."<This block of commented-out lines of code should be removed.(İ‰ øÿÿÿÿ8†çê©1
+N
+java:S1128"1Remove this unused import 'android.app.Activity'.(‡ÊÍÆ8ˆçê©1
+Z
+java:S1128"=Remove this unused import 'androidx.core.app.ActivityCompat'.(ş¤—²8ˆçê©1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ˆçê©1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ˆçê©1

@@ -2,12 +2,16 @@ package com.dinhtc.taskmaster.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.media.MediaMetadataRetriever
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.dinhtc.taskmaster.databinding.CustomItemImageViewBinding
 import com.dinhtc.taskmaster.model.response.JobMediaDetailResponse
 import java.io.File
@@ -66,23 +70,36 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
         holder.binding.imvView.layoutParams = layoutParams
 
         val item = differ.currentList[position]
-        val file = File(item.url)
 
-        if (item.url.endsWith(".jpg", true) || item.url.endsWith(".png", true) || item.url.endsWith(".jpeg", true)) {
+        if (item.urlHard.endsWith(".jpg", true) || item.urlHard.endsWith(".png", true) || item.urlHard.endsWith(".jpeg", true)) {
             Glide.with(mContext)
-                .load(file)
+                .load(item.urlHard)
                 .into(holder.binding.imvView)
+            holder.binding.imgPlay.visibility = View.GONE
+        }else{
+            Glide.with(mContext)
+                .load(item.urlHard)
+                .diskCacheStrategy(DiskCacheStrategy.ALL) // Lưu vào cache
+                .into(holder.binding.imvView)
+            holder.binding.imgPlay.visibility = View.VISIBLE
         }
-//        else if (mediaPath.endsWith(".mp4", true)) {
+        //        else if (mediaPath.endsWith(".mp4", true)) {
 //            // Hiển thị video bằng VideoView
 //            holder.binding.imvView.setVideoPath(file.absolutePath)
 //            holder.binding.videoView.start()
 //        }
 
+
         holder.binding.closeItem.setOnClickListener {
             clickListener?.onItemClick(position,item)
         }
 
+    }
+
+    private fun createVideoThumbnail(videoUrl: String): Bitmap? {
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(videoUrl)
+        return retriever.getFrameAtTime()
     }
 
     override fun getItemCount(): Int {

@@ -1,5 +1,6 @@
 package com.dinhtc.taskmaster.bottomsheet
 
+import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -29,6 +30,8 @@ import java.io.File
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -298,21 +301,35 @@ class BottomSheetAddVideo(
     }
 
     private fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
-        val cursor = context.contentResolver.query(contentUri, null, null, null, null)
-        cursor?.use {
-            it.moveToFirst()
-            val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            return it.getString(columnIndex)
+        val contentResolver = context.contentResolver
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = contentResolver.query(contentUri, projection, null, null, null)
+        if (cursor != null){
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                    return it.getString(columnIndex)
+                }
+            }
+        }else{
+            return Uri.parse(contentUri.toString()).path
         }
         return null
     }
 
+
+
     fun prepareVideoPart(videoUri: Uri): MultipartBody.Part? {
         val contentResolver = context?.contentResolver
-        contentResolver?.openInputStream(videoUri)?.use { inputStream ->
-            val videoFile = File(context?.let { getRealPathFromURIVideo(it, videoUri) })
-            val requestFile = RequestBody.create("video/*".toMediaTypeOrNull(), videoFile)
-            return MultipartBody.Part.createFormData("url_video", videoFile.name, requestFile)
+        try {
+            contentResolver?.openInputStream(videoUri)?.use { inputStream ->
+                val videoFile = File(videoUri.path)
+                val requestFile = RequestBody.create("video/*".toMediaTypeOrNull(), videoFile)
+                return MultipartBody.Part.createFormData("url_video", videoFile.name, requestFile)
+            }
+        } catch (e: IOException) {
+            // Xử lý lỗi khi mở inputStream
+            e.printStackTrace()
         }
         return null
     }

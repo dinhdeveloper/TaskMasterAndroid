@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.adapter.ImageViewAdapter
@@ -96,6 +97,15 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
     }
 
     private fun onClickItem() {
+        viewBinding.layoutToolBar.apply {
+            titleToolBar.text = "Danh sách công việc"
+            imgBackParent.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            imgHome.setOnClickListener {
+                findNavController().popBackStack(R.id.mainFragment,false)
+            }
+        }
         viewBinding.apply {
             floatingAction.setOnClickListener {
                 showDialogAddImage()

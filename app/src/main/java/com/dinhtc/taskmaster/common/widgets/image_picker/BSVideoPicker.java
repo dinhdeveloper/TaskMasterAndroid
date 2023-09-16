@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.util.Config.DEBUG;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -113,10 +114,14 @@ public class BSVideoPicker extends BottomSheetDialogFragment implements LoaderMa
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadConfigFromBuilder();
-        if (Utils.areBothPermissionsGranted(getContext())) {
+        if (Utils.isReadStorageGranted(getContext())) {
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, BSVideoPicker.this);
         } else {
-            Utils.checkAndRequestPermissions(getContext(), getActivity(), PERMISSION_READ_STORAGE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Utils.checkPermission(BSVideoPicker.this, Manifest.permission.READ_MEDIA_IMAGES, PERMISSION_READ_STORAGE);
+            } else {
+                Utils.checkPermission(BSVideoPicker.this, Manifest.permission.READ_EXTERNAL_STORAGE, PERMISSION_READ_STORAGE);
+            }
         }
         if (savedInstanceState != null) {
             currentVideoUri = savedInstanceState.getParcelable("currentVideoUri");
@@ -200,11 +205,14 @@ public class BSVideoPicker extends BottomSheetDialogFragment implements LoaderMa
     public void onResume() {
         super.onResume();
         loadConfigFromBuilder();
-        if (Utils.areBothPermissionsGranted(getContext())) {
+        if (Utils.isReadStorageGranted(getContext())) {
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, BSVideoPicker.this);
         } else {
-            Utils.checkAndRequestPermissions(getContext(), getActivity(),
-                    PERMISSION_READ_STORAGE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Utils.checkPermission(BSVideoPicker.this, Manifest.permission.READ_MEDIA_IMAGES, PERMISSION_READ_STORAGE);
+            } else {
+                Utils.checkPermission(BSVideoPicker.this, Manifest.permission.READ_EXTERNAL_STORAGE, PERMISSION_READ_STORAGE);
+            }
         }
     }
 
@@ -214,11 +222,10 @@ public class BSVideoPicker extends BottomSheetDialogFragment implements LoaderMa
         switch (requestCode) {
             case PERMISSION_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (Utils.areBothPermissionsGranted(getContext())) {
+                    if (Utils.isCameraGranted(getContext())) {
                         launchCameraForVideo();
                     } else {
-                        //Utils.checkPermission(this, Manifest.permission.CAMERA, PERMISSION_CAMERA);
-                        Utils.checkAndRequestPermissions(getContext(), getActivity(), PERMISSION_READ_STORAGE);
+                        Utils.checkPermission(this, Manifest.permission.CAMERA, PERMISSION_READ_STORAGE);
                     }
                 }
             default:
@@ -401,21 +408,21 @@ public class BSVideoPicker extends BottomSheetDialogFragment implements LoaderMa
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         if (cursor != null) {
             List<Uri> uriList = new ArrayList<>();
-            int index = 0;
-            while (cursor.moveToNext() && index < maximumDisplayingVideo) {
-                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
-                Uri videoUri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id);
-                try {
+            try {
+                int index = 0;
+                while (cursor.moveToNext() && index < maximumDisplayingVideo) {
+                    int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
+                    Uri videoUri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id);
                     if (isVideoLengthValid(videoUri)) {
                         uriList.add(videoUri);  // Add the valid video URI to the list
                     }
-                } catch (RuntimeException | IOException e) {
-                    e.printStackTrace();
+                    index++;
                 }
-                index++;
+            } catch (RuntimeException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();  // Close the cursor when done with it
             }
-            cursor.close();  // Close the cursor when done with it
-
             adapter.setVideoList(uriList);
 
             if (uriList.isEmpty() && !showCameraTile && !showGalleryTile) {

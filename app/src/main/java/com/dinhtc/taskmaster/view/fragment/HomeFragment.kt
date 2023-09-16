@@ -122,6 +122,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewBinding.recyclerViewMovieList.layoutManager = LinearLayoutManager(context)
         viewBinding.recyclerViewMovieList.setHasFixedSize(true)
         viewBinding.recyclerViewMovieList.adapter = tableViewAdapter
+        tableViewAdapter.notifyDataSetChanged()
 
         val stickyHeaderDecoration = StickyHeaderItemDecoration(tableViewAdapter)
         viewBinding.recyclerViewMovieList.addItemDecoration(stickyHeaderDecoration)
