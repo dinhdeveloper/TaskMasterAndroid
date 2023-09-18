@@ -50,7 +50,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra("OPEN_FRAGMENT", notificationData)
-
+        intent.putExtra("INFO_FRAGMENT", notificationType)
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
