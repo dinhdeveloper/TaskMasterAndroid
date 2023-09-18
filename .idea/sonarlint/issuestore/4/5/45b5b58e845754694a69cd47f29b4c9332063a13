@@ -1,0 +1,8 @@
+
+Mkotlin:S108ñ")Either remove or fill this block of code.(·Ğõïüÿÿÿÿ8Üó¥œ¢1
+Mkotlin:S108ˆ")Either remove or fill this block of code.(·Ğõïüÿÿÿÿ8Üó¥œ¢1
+>kotlin:S6531Ø"Remove this useless cast.(áìñûÿÿÿÿ8ßó¥œ¢1
+9kotlin:S1128"Remove this unused import.(ÖìÔ¨8é‘Èµª1
+=kotlin:S125Y"Remove this commented out code.(ö§Ú°8Ë­Çµª1
+Hkotlin:S1874®"#Deprecated code should not be used.(çéúÜÿÿÿÿÿ8äó¥œ¢1
+]kotlin:S6511ˆ"=Merge chained "if" statements into a single "when" statement.(íÇøİ8èó¥œ¢1
