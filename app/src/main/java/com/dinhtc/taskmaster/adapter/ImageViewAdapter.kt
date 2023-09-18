@@ -62,12 +62,12 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
 
-        val screenWidth = mContext.resources.displayMetrics.widthPixels
-        val imageWidth = screenWidth / 2 // Chia cho 2 để có chiều rộng của ImageView
-        val layoutParams = holder.binding.imvView.layoutParams
-        layoutParams.width = imageWidth
-        layoutParams.height = imageWidth // Đảm bảo ImageView là hình vuông
-        holder.binding.imvView.layoutParams = layoutParams
+//        val screenWidth = mContext.resources.displayMetrics.widthPixels
+//        val imageWidth = screenWidth / 2 // Chia cho 2 để có chiều rộng của ImageView
+//        val layoutParams = holder.binding.imvView.layoutParams
+//        layoutParams.width = imageWidth
+//        layoutParams.height = imageWidth // Đảm bảo ImageView là hình vuông
+//        holder.binding.imvView.layoutParams = layoutParams
 
         val item = differ.currentList[position]
 

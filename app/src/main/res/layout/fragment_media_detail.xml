@@ -22,7 +22,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,9 +29,10 @@
             app:animationDuration="600"
             app:layoutAnimation="@anim/layout_animation_from_bottom"
             app:layoutManagerOrientation="vertical"
-            app:gridLayoutManagerColumns="2"
             app:layoutManagerReverse="false"
-            app:layoutManagerType="grid" />
+            app:layoutManagerType="linear"
+            tools:itemCount="5"
+            tools:listitem="@layout/custom_item_image_view"/>
 
         <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticFloatingActionButton
             android:id="@+id/floatingAction"

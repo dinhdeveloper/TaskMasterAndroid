@@ -18,25 +18,9 @@ import dagger.hilt.android.HiltAndroidApp
 class TaskMasterApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-
         SharedPreferencesManager.init(this)
-
         SharedPreferencesManager.instance.putString(
             SharedPreferencesManager.DEVICE_ID, AndroidUtils.getAndroidDeviceId(applicationContext)
-        )
-        Firebase.messaging.token.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("MyFirebaseMsgService", "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // Get new FCM registration token
-                val token = task.result
-                // Log and toast
-                val msg = getString(R.string.msg_token_fmt, token)
-                Log.d("MyFirebaseMsgService", msg)
-            },
         )
     }
 }

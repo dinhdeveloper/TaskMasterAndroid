@@ -6,6 +6,8 @@ import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.adapter.ImageViewAdapter
 import com.dinhtc.taskmaster.bottomsheet.BottomSheetAddVideo
@@ -84,7 +86,8 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
 
             viewBinding.recyclerView.apply {
                 adapter = noDataAdapter
-                val layoutManager = GridLayoutManager(context, 2)
+                //val layoutManager = GridLayoutManager(context, 2)
+                val layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
                 setLayoutManager(layoutManager)
                 setHasFixedSize(true)
             }

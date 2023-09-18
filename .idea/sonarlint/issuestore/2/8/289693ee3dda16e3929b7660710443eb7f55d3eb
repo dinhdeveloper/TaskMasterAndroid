@@ -1,0 +1,27 @@
+
+F
+java:S1604Ç"(Make this anonymous inner class a lambda(ú“Úå8ä•Ø˜œ1
+o
+java:S3776h"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(žù«Œ8“–Ø˜œ1
+f
+java:S3358t"DExtract this nested ternary operation into an independent statement.(¬’Øèøÿÿÿÿ8”–Ø˜œ1
+W
+java:S5993Œ"9Change the visibility of this constructor to "protected".(‚â•”8•–Ø˜œ1
+ž
+java:S1186œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¶¬Ål8––Ø˜œ1
+ž
+java:S1186¨"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¶¬Ål8––Ø˜œ1
+ž
+java:S1186µ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¶¬Ål8š–Ø˜œ1
+B
+java:S1659½"$Declare "ivTick" on a separate line.(Ç§»Ù8Ò¢‰šœ1
+u
+java:S3776¿"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(ßþÒ†ûÿÿÿÿ8ýð×šœ1
+X
+java:S1874Ê":Remove this use of "getAdapterPosition"; it is deprecated.(ƒé‰²8˜–Ø˜œ1
+X
+java:S1874Í":Remove this use of "getAdapterPosition"; it is deprecated.(ˆö’­8™–Ø˜œ1
+X
+java:S1874Õ":Remove this use of "getAdapterPosition"; it is deprecated.(ˆö’­8™–Ø˜œ1
+ž
+java:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¶¬Ål8ÿð×šœ1
