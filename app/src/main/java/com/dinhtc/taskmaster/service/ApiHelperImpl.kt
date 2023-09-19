@@ -3,13 +3,14 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.CompactedAndDoneRequest
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.model.request.LoginRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
-import com.dinhtc.taskmaster.model.request.UpdateStateRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateWeightedRequest
 import com.dinhtc.taskmaster.utils.ApiResponse
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import okhttp3.MultipartBody
@@ -88,10 +89,10 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         return apiService.getJobDetails(jobId, empId)
     }
 
-    override suspend fun updateStateJob(
-        dataUpdate : UpdateStateRequest
+    override suspend fun updateStateWeightedJob(
+        dataUpdate : UpdateStateWeightedRequest
     ): ApiResponse<UpdateJobsResponse> {
-        return apiService.updateStateJob(dataUpdate)
+        return apiService.updateStateWeightedJob(dataUpdate)
     }
 
     override suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any> {
@@ -145,6 +146,10 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
 
     override suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng> {
        return apiService.getCollectPointLatLng()
+    }
+
+    override suspend fun updateStateJobCompactedAndDone(dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<UpdateJobsResponse> {
+        return apiService.updateStateJobCompactedAndDone(dataLamGonAndDaXong)
     }
 
 }

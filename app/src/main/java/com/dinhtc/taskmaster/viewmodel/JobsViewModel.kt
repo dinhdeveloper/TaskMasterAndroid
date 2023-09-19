@@ -1,21 +1,17 @@
 package com.dinhtc.taskmaster.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dinhtc.taskmaster.model.request.CompactedAndDoneRequest
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
-import com.dinhtc.taskmaster.model.request.SearchRequest
-import com.dinhtc.taskmaster.model.request.UpdateStateRequest
-import com.dinhtc.taskmaster.model.response.CollectPointLatLng
+import com.dinhtc.taskmaster.model.request.UpdateStateWeightedRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
 import com.dinhtc.taskmaster.model.response.ListCollectPointLatLng
-import com.dinhtc.taskmaster.model.response.ListJobSearchResponse
 import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,22 +41,22 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
     }
 
 
-    private val _updateStateJob = MutableLiveData<UiState<UpdateJobsResponse>>()
-    val updateStateJob : LiveData<UiState<UpdateJobsResponse>>
-        get() = _updateStateJob
+    private val _updateStateJobWeighted = MutableLiveData<UiState<UpdateJobsResponse>>()
+    val updateStateJobWeighted : LiveData<UiState<UpdateJobsResponse>>
+        get() = _updateStateJobWeighted
 
-    fun updateStateJob(dataUpdate: UpdateStateRequest) {
+    fun updateStateWeightedJob(dataUpdate: UpdateStateWeightedRequest) {
         viewModelScope.launch {
-            _updateStateJob.value = UiState.Loading
+            _updateStateJobWeighted.value = UiState.Loading
             try {
-                val response = apiHelperImpl.updateStateJob(dataUpdate)
+                val response = apiHelperImpl.updateStateWeightedJob(dataUpdate)
                 if (response.result_code == 0) {
-                    _updateStateJob.value = UiState.Success(response)
+                    _updateStateJobWeighted.value = UiState.Success(response)
                 } else {
-                    _updateStateJob.value = UiState.Error(response.data.toString())
+                    _updateStateJobWeighted.value = UiState.Error(response.data.toString())
                 }
             } catch (e: Exception) {
-                _updateStateJob.value = UiState.Error("Error message: ${e.message}")
+                _updateStateJobWeighted.value = UiState.Error("Error message: ${e.message}")
             }
         }
     }
@@ -118,6 +114,27 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
                 }
             } catch (e: Exception) {
                 _getCollectPointLatLng.value = UiState.Error("Error message: ${e.message}")
+            }
+        }
+    }
+
+
+    private val _updateStateJobCompactedAndDone = MutableLiveData<UiState<UpdateJobsResponse>>()
+    val updateStateJobCompactedAndDone : LiveData<UiState<UpdateJobsResponse>>
+        get() = _updateStateJobCompactedAndDone
+
+    fun updateStateJobCompactedAndDone(dataLamGonAndDaXong: CompactedAndDoneRequest) {
+        viewModelScope.launch {
+            _updateStateJobCompactedAndDone.value = UiState.Loading
+            try {
+                val response = apiHelperImpl.updateStateJobCompactedAndDone(dataLamGonAndDaXong)
+                if (response.result_code == 0) {
+                    _updateStateJobCompactedAndDone.value = UiState.Success(response)
+                } else {
+                    _updateStateJobCompactedAndDone.value = UiState.Error(response.data.toString())
+                }
+            } catch (e: Exception) {
+                _updateStateJobCompactedAndDone.value = UiState.Error("Error message: ${e.message}")
             }
         }
     }

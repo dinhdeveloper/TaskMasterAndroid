@@ -50,12 +50,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
                     bundleOf(ID_JOB_NOTIFY to jobIdNotify )
                 )
             }
-        }else {
-            if (rememberLogin){
-                navController.navigate(R.id.mainFragment)
-            } else{
-                navController.navigate(R.id.loginFragment)
-            }
         }
     }
 

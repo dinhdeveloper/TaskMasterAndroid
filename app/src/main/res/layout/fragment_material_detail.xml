@@ -9,37 +9,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_margin="15dp"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/tvTTDH"
-            android:layout_marginHorizontal="5dp"
-            android:elevation="15dp"
-            android:background="@drawable/bg_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <include
+            android:id="@+id/layoutToolBar"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:layout_height="wrap_content"
-                android:text="CHI TIẾT VẬT LIỆU"
-                android:textColor="#00428E"
-                android:textSize="@dimen/fontToolbar"
-                android:fontFamily="@font/roboto_medium" />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            layout="@layout/custom_toolbar"/>
 
         <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvTTDH"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

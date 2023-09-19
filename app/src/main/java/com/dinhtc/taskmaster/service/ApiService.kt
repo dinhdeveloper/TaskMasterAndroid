@@ -3,11 +3,12 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.CompactedAndDoneRequest
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.request.LoginRequest
-import com.dinhtc.taskmaster.model.request.UpdateStateRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateWeightedRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.utils.ApiResponse
 import okhttp3.MultipartBody
@@ -92,8 +93,8 @@ interface ApiService {
         @Path("empId") empId : Int
     ): ApiResponse<JobDetailsResponse>
 
-    @PUT("mobile/update/update_state_job")
-    suspend fun updateStateJob(@Body dataUpdate: UpdateStateRequest): ApiResponse<UpdateJobsResponse>
+    @PUT("mobile/update/update_state_job_weighted")
+    suspend fun updateStateWeightedJob(@Body dataUpdate: UpdateStateWeightedRequest): ApiResponse<UpdateJobsResponse>
 
     @POST("mobile/delete_media")
     suspend fun deleteMedia(@Body collectPoint: DeleteMediaRequest): ApiResponse<Any>
@@ -122,5 +123,6 @@ interface ApiService {
 
     @GET("mobile/collect_point/latlng")
     suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng>
-
+    @PUT("mobile/update/update_state_job_compacted_done")
+    suspend fun updateStateJobCompactedAndDone(@Body dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<UpdateJobsResponse>
 }

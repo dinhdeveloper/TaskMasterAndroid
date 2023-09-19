@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.adapter.MaterialAdapter
@@ -91,6 +92,15 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
     }
 
     private fun onClickItem() {
+        viewBinding.layoutToolBar.apply {
+            titleToolBar.text = "Danh sách vật liệu"
+            imgBackParent.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            imgHome.setOnClickListener {
+                findNavController().popBackStack(R.id.mainFragment,false)
+            }
+        }
         viewBinding.floatingAction.setOnClickListener {
             if (dataListJob.isNotEmpty()) {
                 showDialogAddVatLieu()

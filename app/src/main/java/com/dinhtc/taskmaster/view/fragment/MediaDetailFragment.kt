@@ -101,7 +101,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
 
     private fun onClickItem() {
         viewBinding.layoutToolBar.apply {
-            titleToolBar.text = "Danh sách công việc"
+            titleToolBar.text = "Danh sách hình ảnh/video"
             imgBackParent.setOnClickListener {
                 findNavController().popBackStack()
             }

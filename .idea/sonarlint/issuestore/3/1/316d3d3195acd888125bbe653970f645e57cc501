@@ -1,5 +1,4 @@
 
->kotlin:S1128"Remove this unused import.( í»Òùÿÿÿÿ8¨şÊ©1
-=kotlin:S125A"Remove this commented out code.(û•—†8ùãóµª1
-Xkotlin:S1144c"9Remove this unused private "createVideoThumbnail" method.(ºšƒœ8¬şÊ©1
-akotlin:S6517"BMake this interface functional or replace it with a function type.(…ª›€8­şÊ©1
+=kotlin:S125D"Remove this commented out code.(û•—†8ùãóµª1
+Xkotlin:S1144q"9Remove this unused private "createVideoThumbnail" method.(ºšƒœ8¬şÊ©1
+akotlin:S6517"BMake this interface functional or replace it with a function type.(…ª›€8­şÊ©1

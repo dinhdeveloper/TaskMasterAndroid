@@ -3,11 +3,12 @@ package com.dinhtc.taskmaster.service
 import com.dinhtc.taskmaster.model.request.AddMaterialRequest
 import com.dinhtc.taskmaster.model.request.AddTaskRequest
 import com.dinhtc.taskmaster.model.request.CollectPointRequest
+import com.dinhtc.taskmaster.model.request.CompactedAndDoneRequest
 import com.dinhtc.taskmaster.model.request.DataUpdateJobRequest
 import com.dinhtc.taskmaster.model.request.DeleteMaterialRequest
 import com.dinhtc.taskmaster.model.request.DeleteMediaRequest
 import com.dinhtc.taskmaster.model.request.SearchRequest
-import com.dinhtc.taskmaster.model.request.UpdateStateRequest
+import com.dinhtc.taskmaster.model.request.UpdateStateWeightedRequest
 import com.dinhtc.taskmaster.model.response.*
 import com.dinhtc.taskmaster.utils.ApiResponse
 import okhttp3.MultipartBody
@@ -39,7 +40,7 @@ interface ApiHelper {
     suspend fun getListMaterial(): ApiResponse<ListMaterialResponse>
     suspend fun addMaterial(material: AddMaterialRequest): ApiResponse<Any>
     suspend fun getJobDetails(jobId: Int, empId : Int): ApiResponse<JobDetailsResponse>
-    suspend fun updateStateJob(dataUpdate: UpdateStateRequest): ApiResponse<UpdateJobsResponse>
+    suspend fun updateStateWeightedJob(dataUpdate: UpdateStateWeightedRequest): ApiResponse<UpdateJobsResponse>
     suspend fun deleteMedia(deleteMediaRequest: DeleteMediaRequest): ApiResponse<Any>
     suspend fun deleteMaterial(deleteMaterialRequest: DeleteMaterialRequest): ApiResponse<Any>
     suspend fun getUserProfile(username: String): ApiResponse<Any>
@@ -48,4 +49,5 @@ interface ApiHelper {
     suspend fun updateJobDetails(dataUpdate: DataUpdateJobRequest): ApiResponse<Any>
     suspend fun search(searchRequest: SearchRequest): ApiResponse<ListJobSearchResponse>
     suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng>
+    suspend fun updateStateJobCompactedAndDone(dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<UpdateJobsResponse>
 }

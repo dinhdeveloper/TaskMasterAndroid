@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.databinding.CustomItemImageViewBinding
 import com.dinhtc.taskmaster.model.response.JobMediaDetailResponse
-import java.io.File
+
 
 class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<ImageViewAdapter.ViewHolder>() {
 
@@ -71,15 +74,26 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
 
         val item = differ.currentList[position]
 
+        val options: RequestOptions = RequestOptions()
+            .centerCrop()
+            .placeholder(R.drawable.multi_color_progress)
+            .error(R.drawable.hinh_tron_1)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .priority(Priority.HIGH)
+            .dontAnimate()
+            .dontTransform()
+
         if (item.urlHard.endsWith(".jpg", true) || item.urlHard.endsWith(".png", true) || item.urlHard.endsWith(".jpeg", true)) {
             Glide.with(mContext)
                 .load(item.urlHard)
+                .apply(options)
                 .into(holder.binding.imvView)
             holder.binding.imgPlay.visibility = View.GONE
         }else{
             Glide.with(mContext)
                 .load(item.urlHard)
                 .diskCacheStrategy(DiskCacheStrategy.ALL) // Lưu vào cache
+                .apply(options)
                 .into(holder.binding.imvView)
             holder.binding.imgPlay.visibility = View.VISIBLE
         }
