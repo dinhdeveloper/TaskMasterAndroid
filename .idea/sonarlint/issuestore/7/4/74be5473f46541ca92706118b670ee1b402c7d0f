@@ -1,17 +1,0 @@
-
-^kotlin:S1172Å">Use "_" instead of this unused lambda parameter "inputStream".(º­æ8¿©ßó©1
-8kotlin:S1128"Remove this unused import.(¸¿Ôh8º‡œó©1
->kotlin:S1128	"Remove this unused import.(ÊÒÅ­ùÿÿÿÿ8²Ïÿ®¦1
->kotlin:S1128"Remove this unused import.(Á¹ïÒúÿÿÿÿ8²Ïÿ®¦1
->kotlin:S1128"Remove this unused import.(ƒ”²úşÿÿÿÿ8²Ïÿ®¦1
->kotlin:S1128 "Remove this unused import.(åÉˆúÿÿÿÿÿ8Şìæò¡1
->kotlin:S1128!"Remove this unused import.(‘”ˆ’üÿÿÿÿ8»‡œó©1
-9kotlin:S1128#"Remove this unused import.(Ñç€8Şìæò¡1
-9kotlin:S1128$"Remove this unused import.(»‘Ùù8Şìæò¡1
->kotlin:S1128%"Remove this unused import.(Úœåùÿÿÿÿ8Şìæò¡1
->kotlin:S1128&"Remove this unused import.(¶µÀ»úÿÿÿÿ8Ô©ßó©1
-=kotlin:S125b"Remove this commented out code.(¯×Ì8Ù©ßó©1
-Bkotlin:S1874ş"#Deprecated code should not be used.(¿ÂÙ68ã©ßó©1
-Hkotlin:S1874Ç"#Deprecated code should not be used.(Œ˜÷‡úÿÿÿÿ8ã©ßó©1
-_kotlin:S1144`";Remove this unused private "showVideoImageHaveData" method.(ïì—Åıÿÿÿÿ8ñ©ßó©1
-\kotlin:S1144Ò"<Remove this unused private "getRealPathFromURIVideo" method.(”«ò«8ù©ßó©1

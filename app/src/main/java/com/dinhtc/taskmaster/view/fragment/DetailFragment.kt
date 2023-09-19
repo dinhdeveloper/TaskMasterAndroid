@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -60,7 +61,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var amountPaidEmp: Long? = 0
     private var totalMoney: Long? = 0
     private var showDialogMaterial = true
-    private var showDialogMedia= true
+    private var showDialogMedia = true
 
     private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
@@ -292,6 +293,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_materialDetailFragment)
                         showDialogMaterial = false
+                        showDialogMedia = false
                     } else {
                         if (dataListJob.isNotEmpty()) {
                             showDialogAddVatLieu()
@@ -310,6 +312,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_mediaDetailFragment)
                         showDialogMedia = false
+                        showDialogMaterial = false
                     } else {
                         showDialogAddImage()
                     }
@@ -396,20 +399,38 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
                     amountPaidEmp = viewBinding.edtNVUng.money.toString().trim().toLong()
                 }
-                val dataUpdate = DataUpdateJobRequest(
-                    jodId = jobsId,
-                    totalMoney = AndroidUtils.decodeMoneyStr(totalMoney.toString()),
-                    paymentMethod = paymentMethod,
-                    paymentStateId = paymentStateId,
-                    amountPaidEmp = amountPaidEmp,
-                    priority = uuTienIdSelected,
-                    empOldId = nv1Old,
-                    empNewId = nvSelectedNew,
-                    empAssignId = empUpdate,
-                    note = viewBinding.edtGhiChu.text.toString(),
-                )
-                jobsViewModel.updateJobDetails(dataUpdate)
+                if (viewBinding.edtNVUng.text.toString().isNotEmpty()){
 
+                    val dataUpdate = DataUpdateJobRequest(
+                        jodId = jobsId,
+                        totalMoney = AndroidUtils.decodeMoneyStr(totalMoney.toString()),
+                        paymentMethod = 1,
+                        paymentStateId = 1,
+                        amountPaidEmp = amountPaidEmp,
+                        priority = uuTienIdSelected,
+                        empOldId = nv1Old,
+                        empNewId = nvSelectedNew,
+                        empAssignId = empUpdate,
+                        note = viewBinding.edtGhiChu.text.toString(),
+                    )
+                    jobsViewModel.updateJobDetails(dataUpdate)
+
+                }else{
+                    val dataUpdate = DataUpdateJobRequest(
+                        jodId = jobsId,
+                        totalMoney = AndroidUtils.decodeMoneyStr(totalMoney.toString()),
+                        paymentMethod = paymentMethod,
+                        paymentStateId = paymentStateId,
+                        amountPaidEmp = amountPaidEmp,
+                        priority = uuTienIdSelected,
+                        empOldId = nv1Old,
+                        empNewId = nvSelectedNew,
+                        empAssignId = empUpdate,
+                        note = viewBinding.edtGhiChu.text.toString(),
+                    )
+                    jobsViewModel.updateJobDetails(dataUpdate)
+
+                }
             }
         }
     }
@@ -672,6 +693,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
+
                 dataResponse = uiState.data.data
                 dataResponse.let {
                     updateUI(dataResponse!!)
@@ -679,8 +701,25 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     uuTienIdSelected = dataResponse?.priority!!
 
                     if (dataResponse!!.jobStateId >=30){
+
                         viewBinding.btnSubmit.isEnabled = false
                         viewBinding.btnSubmit.alpha = 0.7f
+
+                        viewBinding.btnAnh.isEnabled = false
+                        viewBinding.btnAnh.alpha = 0.7f
+
+                        viewBinding.btnVatLieu.isEnabled = false
+                        viewBinding.btnVatLieu.alpha = 0.7f
+
+                        viewBinding.btnDaCan.isEnabled = false
+                        viewBinding.btnDaCan.alpha = 0.7f
+
+                        viewBinding.btnDaLamGon.isEnabled = false
+                        viewBinding.btnDaLamGon.alpha = 0.7f
+
+                        viewBinding.btnDaXong.isEnabled = false
+                        viewBinding.btnDaXong.alpha = 0.7f
+
                         viewBinding.edtSelectUuTien.visibility = View.GONE
                         viewBinding.tvUuTien.visibility = View.VISIBLE
                         viewBinding.tvUuTien.text = "Ưu tiên ${dataResponse!!.priority}"
@@ -717,12 +756,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             tvNameAddress.text = dataResponse.numAddress
 
             if (dataResponse.amountPaidEmp != 0L) {
-                edtNVUng.visibility = View.GONE
-                tvNVUng.visibility = View.VISIBLE
-                tvNVUng.text = AndroidUtils.formatMoneyCard(dataResponse.amountPaidEmp.toString())
-            } else {
-                edtNVUng.visibility = View.VISIBLE
-                tvNVUng.visibility = View.GONE
+                edtNVUng.setText(AndroidUtils.formatMoneyCard(dataResponse.amountPaidEmp.toString()))
             }
 
             if (dataResponse.paymentMethod == 2 && dataResponse.paymentStateId == 1){
@@ -732,12 +766,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 viewBinding.radioChuaThanhToan.isSelected = false
                 viewBinding.radioChuaThanhToan.isChecked = false
             }
-            if (dataResponse.paymentMethod == -1 && dataResponse.paymentStateId == 0){
+            else if (dataResponse.paymentMethod == -1 && dataResponse.paymentStateId == 0){
                 // chua thanh toan
                 viewBinding.radioChuyenKhoan.isSelected = false
                 viewBinding.radioChuyenKhoan.isChecked = false
                 viewBinding.radioChuaThanhToan.isSelected = true
                 viewBinding.radioChuaThanhToan.isChecked = true
+            }
+            else if (dataResponse.paymentMethod == 1 && dataResponse.paymentStateId == 1){
+                viewBinding.radioChuyenKhoan.isSelected = false
+                viewBinding.radioChuyenKhoan.isChecked = false
+                viewBinding.radioChuaThanhToan.isSelected = false
+                viewBinding.radioChuaThanhToan.isChecked = false
             }
 
             if (dataResponse.priority != 0 && dataResponse.jobStateId >= 30) {
@@ -893,12 +933,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     tvUuTien.visibility = View.VISIBLE
                     tvUuTien.text = "Ưu tiên ${dataResponse.priority}"
 
-//                    edtNVUng.visibility = View.GONE
-//                    tvNVUng.visibility = View.VISIBLE
-//                    if (dataResponse.amountPaidEmp != 0L) {
-//                        tvNVUng.text = AndroidUtils.formatMoneyCard("${dataResponse.amountPaidEmp} VNĐ")
-//                    }
-
                     layoutChuyenViecToi.visibility = View.GONE
 
                     tvGhiChu.visibility = View.VISIBLE
@@ -1017,6 +1051,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             UiState.Loading -> {}
             else -> {}
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModelStore.clear() // Xóa ViewModel khi Fragment bị hủy
+    }
+
+    override fun onPause() {
+        super.onPause()
+        showDialogMaterial = true
+        showDialogMedia = true
     }
 
     companion object {

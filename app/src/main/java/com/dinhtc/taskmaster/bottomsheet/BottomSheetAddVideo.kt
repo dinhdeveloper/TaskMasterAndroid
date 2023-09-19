@@ -1,11 +1,18 @@
 package com.dinhtc.taskmaster.bottomsheet
 
-import android.content.ContentUris
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.hardware.Camera
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Html
+import android.util.Config
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,29 +20,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
-import com.dinhtc.taskmaster.BuildConfig.AUTHOR_FILE_PROVIDER
+import com.dinhtc.taskmaster.BuildConfig
 import com.dinhtc.taskmaster.R
 import com.dinhtc.taskmaster.common.view.UploadDocumentImage
 import com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
 import com.dinhtc.taskmaster.common.widgets.image_picker.BSImagePicker
 import com.dinhtc.taskmaster.common.widgets.image_picker.BSVideoPicker
-import com.dinhtc.taskmaster.model.response.JobMediaDetailResponse
+import com.dinhtc.taskmaster.utils.DialogFactory
+import com.dinhtc.taskmaster.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.textview.MaterialTextView
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.UUID
 
 class BottomSheetAddVideo(
     private var textButton: String,
@@ -53,6 +58,18 @@ class BottomSheetAddVideo(
     BSVideoPicker.VideoLoaderDelegate,
     BSVideoPicker.OnSingleVideoSelectedListener,
     BSImagePicker.OnSelectImageCancelledListener {
+
+    private var currentPhotoUri: Uri? = null
+    private var currentVideoUri: Uri? = null
+
+    private val PERMISSION_WRITE_STORAGE = 2003
+    private val PERMISSION_CAMERA = 2002
+    private val REQUEST_TAKE_PHOTO = 3001
+    private val REQUEST_TAKE_VIDEO = 3004
+
+    private val MAX_PHOTOS = 5
+    private var photosTakenCount = 0
+    private val photoURIs: ArrayList<Uri> = ArrayList()
 
     var bottomSheetBehavior: BottomSheetBehavior<*>? = null
 
@@ -88,24 +105,6 @@ class BottomSheetAddVideo(
         bottomSheetBehavior?.isDraggable = false
         findViewByID(modalSheetView)
         actionView()
-
-       // showVideoImageHaveData()
-    }
-
-    val uriListHaveData: MutableList<Uri> = mutableListOf()
-    private fun showVideoImageHaveData() {
-
-//        if (listMedia != null) {
-//            for (data in listMedia!!) {
-//                if (data.mediaType == 1) {
-//                    uriListHaveData.add(Uri.parse(data.url))
-//                    showImageMultiImage2(uriListHaveData)
-//                } else if (data.mediaType == 2) {
-//                    showVideoChoose(true)
-//                    Glide.with(this).load(Uri.parse(data.url)).into(imgViewVideo)
-//                }
-//            }
-//        }
     }
 
     private fun actionView() {
@@ -118,16 +117,187 @@ class BottomSheetAddVideo(
         }
 
         imgFront.setOnClickListener {
-            openBsImagePickerMultiSelect()
+            openCamera()
         }
 
         imgVideo.setOnClickListener {
-            openBsVideoPicker()
+            openVideo()
         }
 
         btnSubmit.setOnClickListener {
             onClickSave.invoke()
         }
+    }
+
+    private fun openVideo() {
+        if (Utils.isCameraGranted(context)) {
+            launchCameraForVideo()
+        } else {
+            Utils.checkPermission(this@BottomSheetAddVideo, Manifest.permission.CAMERA, PERMISSION_CAMERA)
+        }
+    }
+
+    private fun openCamera() {
+        if (Utils.isCameraGranted(context)) {
+            launchCamera()
+        } else {
+            Utils.checkPermission(this@BottomSheetAddVideo, Manifest.permission.CAMERA, PERMISSION_CAMERA)
+        }
+    }
+
+    private fun launchCamera() {
+        if (context == null) return
+        val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePhotoIntent.resolveActivity(requireContext().packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createImageFile()
+            } catch (e: IOException) {
+                if (Config.DEBUG) e.printStackTrace()
+            }
+            if (photoFile != null) {
+                val photoURI = FileProvider.getUriForFile(
+                    requireContext(),
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    photoFile
+                )
+                takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                if (true) {
+                    //Below does not always work, just a hack.
+                    //Reference: https://stackoverflow.com/a/40175503/7870874
+                    takePhotoIntent.putExtra(
+                        "android.intent.extras.CAMERA_FACING",
+                        Camera.CameraInfo.CAMERA_FACING_FRONT
+                    )
+                    takePhotoIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1)
+                    takePhotoIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true)
+                }
+                val resolvedIntentActivities = requireContext().packageManager.queryIntentActivities(
+                    takePhotoIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
+                for (resolvedIntentInfo in resolvedIntentActivities) {
+                    val packageName = resolvedIntentInfo.activityInfo.packageName
+                    requireContext().grantUriPermission(
+                        packageName,
+                        photoURI,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                }
+                startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO)
+            }
+        }
+    }
+
+    private fun launchCamera2() {
+        if (context == null) return
+        val takePhotoIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePhotoIntent.resolveActivity(requireContext().packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createImageFile()
+            } catch (e: IOException) {
+                if (Config.DEBUG) e.printStackTrace()
+            }
+            if (photoFile != null) {
+                val photoURI = FileProvider.getUriForFile(
+                    requireContext(),
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    photoFile
+                )
+                takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+                val resolvedIntentActivities = requireContext().packageManager.queryIntentActivities(
+                    takePhotoIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
+                for (resolvedIntentInfo in resolvedIntentActivities) {
+                    val packageName = resolvedIntentInfo.activityInfo.packageName
+                    requireContext().grantUriPermission(
+                        packageName,
+                        photoURI,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                }
+                startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO)
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File? {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().time)
+        val imageFileName = "JPEG_" + timeStamp + "_"
+        val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_DCIM)
+        //        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        val image = File.createTempFile(
+            imageFileName,  /* prefix */
+            ".jpg",  /* suffix */
+            storageDir /* directory */
+        )
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoUri = Uri.fromFile(image)
+        return image
+    }
+
+    private fun launchCameraForVideo() {
+        if (context == null) return
+        val takeVideoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        if (takeVideoIntent.resolveActivity(requireContext().packageManager) != null) {
+            var videoFile: File? = null
+            try {
+                videoFile = createVideoFile()
+            } catch (e: IOException) {
+                if (Config.DEBUG) e.printStackTrace()
+            }
+            if (videoFile != null) {
+                val videoURI = FileProvider.getUriForFile(
+                    requireContext(),
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    videoFile
+                )
+                takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
+                val resolvedIntentActivities = requireContext().packageManager.queryIntentActivities(
+                    takeVideoIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
+                for (resolvedIntentInfo in resolvedIntentActivities) {
+                    val packageName = resolvedIntentInfo.activityInfo.packageName
+                    requireContext().grantUriPermission(
+                        packageName,
+                        videoURI,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                }
+                startActivityForResult(takeVideoIntent, REQUEST_TAKE_VIDEO)
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createVideoFile(): File? {
+        // Thư mục lưu trữ video (đường dẫn tùy chỉnh)
+        val storageDir = File(
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_MOVIES
+            ), "YourVideoFolder"
+        )
+
+        // Tạo thư mục nếu nó chưa tồn tại
+        if (!storageDir.exists()) {
+            storageDir.mkdirs()
+        }
+
+        // Tạo tên tệp video duy nhất, có thể sử dụng timestamp để tạo tên duy nhất
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val videoFileName = "VIDEO_$timeStamp.mp4"
+
+        // Tạo tệp video mới
+        val videoFile = File(storageDir, videoFileName)
+        currentVideoUri = Uri.fromFile(videoFile)
+        // Trả về tệp để camera có thể lưu video vào đó
+        return videoFile
     }
 
     private fun findViewByID(modalSheetView: View) {
@@ -151,22 +321,6 @@ class BottomSheetAddVideo(
 
     companion object {
         const val TAG = "BottomSheetAddImage"
-    }
-
-    private fun openBsVideoPicker() {
-        val pickerDialog: BSVideoPicker = BSVideoPicker.Builder(AUTHOR_FILE_PROVIDER)
-            .build()
-        pickerDialog.show(childFragmentManager, "picker")
-    }
-
-    private fun openBsImagePickerMultiSelect() {
-        val pickerDialog: BSImagePicker = BSImagePicker.Builder(AUTHOR_FILE_PROVIDER)
-            .setMaximumDisplayingImages(Int.MAX_VALUE)
-            .isMultiSelect
-            .setMinimumMultiSelectCount(1)
-            .setMaximumMultiSelectCount(5)
-            .build()
-        pickerDialog.show(childFragmentManager, "picker")
     }
 
     override fun onSingleImageSelected(uri: Uri?, tag: String?) {
@@ -345,5 +499,71 @@ class BottomSheetAddVideo(
             return path
         }
         return uri.path ?: ""
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_TAKE_PHOTO -> if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+                // Increment the number of photos taken and add the photo URI to the list
+                photosTakenCount++
+                currentPhotoUri?.let { photoURIs.add(it) }
+
+                // Check if the desired number of photos has been reached
+                if (photosTakenCount >= MAX_PHOTOS) {
+                    // Display the photos in a fragment or any other desired action
+                    displayPhotosInFragment(photoURIs)
+
+                    // Reset the counters and the photo URI list for future captures
+                    photosTakenCount = 0
+                    photoURIs.clear()
+                } else {
+                    // Continue taking photos until the desired number is reached
+                    launchCamera2()
+                }
+            } else {
+                displayPhotosInFragment(photoURIs)
+                photosTakenCount = 0
+                photoURIs.clear()
+            }
+
+            REQUEST_TAKE_VIDEO -> if (requestCode == REQUEST_TAKE_VIDEO && resultCode == Activity.RESULT_OK){
+
+                // Khi quay video thành công và trả về kết quả
+                notifyGalleryVideo()
+                if (currentVideoUri?.let { isVideoLengthValid(it) } == true){
+                    onSingleVideoSelected(currentVideoUri)
+                }else{
+                    DialogFactory.showDialogSubTitleDefaultNotCancel(
+                        context,
+                        "Quá số lượng quy định",
+                        "Vui lòng kiểm tra lại số ảnh và video hiện có. Bạn chỉ phép upload tối đa 1 video dưới 10s.")
+                }
+            }
+
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun notifyGalleryVideo() {
+        if (context == null) return
+        val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+        mediaScanIntent.data = currentVideoUri
+        requireContext().sendBroadcast(mediaScanIntent)
+    }
+
+    private fun displayPhotosInFragment(photoURIs: MutableList<Uri>) {
+        showImageMultiImage(photoURIs)
+    }
+
+    @Throws(IOException::class)
+    private fun isVideoLengthValid(videoUri: Uri): Boolean {
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(context, videoUri)
+        val durationString = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        retriever.release()
+        val duration = (durationString ?: "0").toLong()
+        val maxDuration: Long = 10000 // 10 giây trong milliseconds
+        return duration <= maxDuration
     }
 }
