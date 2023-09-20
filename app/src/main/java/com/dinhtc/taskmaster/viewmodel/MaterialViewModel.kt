@@ -12,6 +12,7 @@ import com.dinhtc.taskmaster.model.response.ListMaterialResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +20,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MaterialViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl) : ViewModel() {
 
-    private val _dataListMaterial = MutableLiveData<UiState<ListMaterialResponse>>()
+    private var _dataListMaterial = MutableLiveData<UiState<ListMaterialResponse>>()
     val dataListMaterial : LiveData<UiState<ListMaterialResponse>>
         get() = _dataListMaterial
+
+    private var materialJob: Job? = null
 
     fun getListMaterial(){
         viewModelScope.launch {
@@ -39,12 +42,12 @@ class MaterialViewModel @Inject constructor(private val apiHelperImpl: ApiHelper
         }
     }
 
-    private val _datAddMaterial = MutableLiveData<UiState<Any>>()
-    val datAddMaterial : LiveData<UiState<Any>>
+    private val _datAddMaterial = MutableLiveData<UiState<Any>?>()
+    val datAddMaterial : LiveData<UiState<Any>?>
         get() = _datAddMaterial
 
     fun addMaterial(dataMaterial: AddMaterialRequest){
-        viewModelScope.launch {
+       materialJob = viewModelScope.launch {
             _datAddMaterial.value = UiState.Loading
             try {
                 val response = apiHelperImpl.addMaterial(dataMaterial)
@@ -84,5 +87,10 @@ class MaterialViewModel @Inject constructor(private val apiHelperImpl: ApiHelper
                 _dataDeleteMaterial.value = UiState.Error("Error message: ${e.message}")
             }
         }
+    }
+
+    fun cleanup() {
+        materialJob?.cancel()
+        _datAddMaterial.value = null
     }
 }

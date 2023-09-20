@@ -21,6 +21,7 @@ import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.utils.observes
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
 import com.dinhtc.taskmaster.viewmodel.MaterialViewModel
@@ -83,7 +84,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
         materialViewModel.getListMaterial()
 
         observe(materialViewModel.dataListMaterial, ::onGetListMaterialLive)
-        observe(materialViewModel.datAddMaterial, ::addMaterialLive)
+        observes(materialViewModel.datAddMaterial, ::addMaterialLive)
         observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
         observe(materialViewModel.dataDeleteMaterial, ::dataDeleteMaterialLive)
 
@@ -159,7 +160,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
         }
     }
 
-    private fun addMaterialLive(uiState: UiState<Any>) {
+    private fun addMaterialLive(uiState: UiState<Any>?) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
@@ -176,6 +177,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
             }
 
             UiState.Loading -> {}
+            else -> {}
         }
     }
 

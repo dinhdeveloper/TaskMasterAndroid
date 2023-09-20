@@ -35,6 +35,7 @@ import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.SharedPreferencesManager
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.utils.observes
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.view.activity.MainActivity.Companion.TAG_LOG
 import com.dinhtc.taskmaster.view.fragment.HomeFragment.Companion.BUNDLE_KEY
@@ -60,8 +61,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var uuTienIdSelected: Int = -1
     private var amountPaidEmp: Long? = 0
     private var totalMoney: Long? = 0
-    private var showDialogMaterial = true
-    private var showDialogMedia = true
 
     private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
@@ -103,15 +102,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
 
         observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
-        observe(uploadMediaViewModel.dataUpLoadImage, ::addUploadMultiImage)
         observe(materialViewModel.dataListMaterial, ::onGetListMaterialLive)
-        observe(materialViewModel.datAddMaterial, ::addMaterialLive)
         observe(addTaskViewModel.dataEmployee, ::onGetListEmployee)
         observe(addTaskViewModel.dataEmployeeByJobId, ::dataEmployeeByJobId)
 
         observe(jobsViewModel.updateJobDetails, ::updateJobDetailsLive)
         observe(jobsViewModel.updateStateJobCompactedAndDone, ::updateStateJobCompactedAndDone)
         observe(jobsViewModel.updateStateJobWeighted, ::updateStateJobWeightedLive)
+
+        observes(uploadMediaViewModel.dataUpLoadImage, ::addUploadMultiImage)
+        observes(materialViewModel.datAddMaterial, ::addMaterialLive)
 
         onClickItem()
         viewBinding.selectNV.setOnItemSelectedListener(mOnSelectedNV1Listener)
@@ -150,10 +150,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
 
-            when (SharedPreferencesManager.instance.getString(
-                SharedPreferencesManager.ROLE_CODE,
-                ""
-            )) {
+            when (SharedPreferencesManager.instance.getString(SharedPreferencesManager.ROLE_CODE, "")) {
                 RoleCode.MASTER.name -> {
                     btnDaLamGon.isEnabled = true
                     btnDaLamGon.alpha = 1f
@@ -245,8 +242,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
         }
 
-        var dateCreate = "dateCreate"
-
         viewBinding.apply {
 
             edtNVUng.addTextChangedListener(object : TextWatcher {
@@ -292,8 +287,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_materialDetailFragment)
-                        showDialogMaterial = false
-                        showDialogMedia = false
                     } else {
                         if (dataListJob.isNotEmpty()) {
                             showDialogAddVatLieu()
@@ -311,8 +304,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             )
                         }
                         findNavController().navigate(R.id.action_detailFragment_to_mediaDetailFragment)
-                        showDialogMedia = false
-                        showDialogMaterial = false
                     } else {
                         showDialogAddImage()
                     }
@@ -603,15 +594,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
-    private fun addUploadMultiImage(uiState: UiState<Any>) {
+    private fun addUploadMultiImage(uiState: UiState<Any>?) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                if (showDialogMedia){
-                    DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}") {
-                        jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
-                        bottomSheetAddImage?.dismiss()
-                    }
+                bottomSheetAddImage?.dismiss()
+                DialogFactory.showDialogDefaultNotCancelAndClick(context, "${uiState.data.data}") {
+                    jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                 }
             }
 
@@ -629,6 +618,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     false
                 )
             }
+
+            else -> {}
         }
     }
 
@@ -667,13 +658,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
-    private fun addMaterialLive(uiState: UiState<Any>) {
+    private fun addMaterialLive(uiState: UiState<Any>?) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                if (showDialogMaterial){
-                    DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
-                }
+                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
                 jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
                 bottomSheetAddVatLieu?.deleteDataInsert()
             }
@@ -686,6 +675,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             }
 
             UiState.Loading -> {}
+            else -> {}
         }
     }
 
@@ -702,23 +692,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
                     if (dataResponse!!.jobStateId >=30){
 
-                        viewBinding.btnSubmit.isEnabled = false
-                        viewBinding.btnSubmit.alpha = 0.7f
-
-                        viewBinding.btnAnh.isEnabled = false
-                        viewBinding.btnAnh.alpha = 0.7f
-
-                        viewBinding.btnVatLieu.isEnabled = false
-                        viewBinding.btnVatLieu.alpha = 0.7f
-
-                        viewBinding.btnDaCan.isEnabled = false
-                        viewBinding.btnDaCan.alpha = 0.7f
-
-                        viewBinding.btnDaLamGon.isEnabled = false
-                        viewBinding.btnDaLamGon.alpha = 0.7f
-
-                        viewBinding.btnDaXong.isEnabled = false
-                        viewBinding.btnDaXong.alpha = 0.7f
+                        updateStatusButton(false, 0.7f)
 
                         viewBinding.edtSelectUuTien.visibility = View.GONE
                         viewBinding.tvUuTien.visibility = View.VISIBLE
@@ -941,23 +915,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
 
                 else -> {
-                    btnDaLamGon.isEnabled = true
-                    btnDaLamGon.alpha = 1f
-
-                    btnAnh.isEnabled = true
-                    btnAnh.alpha = 1f
-
-                    btnVatLieu.isEnabled = true
-                    btnVatLieu.alpha = 1f
-
-                    btnDaCan.isEnabled = true
-                    btnDaCan.alpha = 1f
-
-                    btnDaXong.isEnabled = true
-                    btnDaXong.alpha = 1f
-
-                    btnSubmit.isEnabled = true
-                    btnSubmit.alpha = 1f
+                    updateStatusButton(true, 1f)
 
                     btnDaLamGon.visibility = View.VISIBLE
                     btnAnh.visibility = View.VISIBLE
@@ -967,6 +925,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     btnSubmit.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    private fun updateStatusButton(statusButton : Boolean, alpha : Float) {
+        viewBinding.apply {
+            btnDaLamGon.isEnabled = statusButton
+            btnDaLamGon.alpha = alpha
+
+            btnAnh.isEnabled = statusButton
+            btnAnh.alpha = alpha
+
+            btnVatLieu.isEnabled = statusButton
+            btnVatLieu.alpha = alpha
+
+            btnDaCan.isEnabled = statusButton
+            btnDaCan.alpha = alpha
+
+            btnDaXong.isEnabled = statusButton
+            btnDaXong.alpha = alpha
+
+            btnSubmit.isEnabled = statusButton
+            btnSubmit.alpha = alpha
         }
     }
 
@@ -1055,13 +1035,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModelStore.clear() // Xóa ViewModel khi Fragment bị hủy
-    }
-
-    override fun onPause() {
-        super.onPause()
-        showDialogMaterial = true
-        showDialogMedia = true
+        uploadMediaViewModel.cleanup()
+        materialViewModel.cleanup()
     }
 
     companion object {

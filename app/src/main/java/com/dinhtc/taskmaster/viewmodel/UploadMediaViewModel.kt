@@ -9,6 +9,9 @@ import com.dinhtc.taskmaster.model.response.JobMediaDetailResponse
 import com.dinhtc.taskmaster.service.ApiHelperImpl
 import com.dinhtc.taskmaster.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -17,10 +20,11 @@ import javax.inject.Inject
 class UploadMediaViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl) :
     ViewModel() {
 
-    private val _dataUpLoadImage = MutableLiveData<UiState<Any>>()
-    val dataUpLoadImage: LiveData<UiState<Any>>
+    private var _dataUpLoadImage = MutableLiveData<UiState<Any>?>()
+    val dataUpLoadImage: LiveData<UiState<Any>?>
         get() = _dataUpLoadImage
 
+    private var uploadJob: Job? = null
     fun uploadMultiImageVideo(
         jobId: Int,
         imageParts: MutableList<MultipartBody.Part>?,
@@ -42,12 +46,35 @@ class UploadMediaViewModel @Inject constructor(private val apiHelperImpl: ApiHel
             }
         }
     }
+
+    private val _dataUpLoadImageFlow = MutableStateFlow<UiState<Any>>(UiState.Loading)
+    val dataUpLoadImageFlow: StateFlow<UiState<Any>> = _dataUpLoadImageFlow
+
+    fun uploadMultiImageFlow(
+        jobId: Int,
+        imageParts: MutableList<MultipartBody.Part>?,
+        mediaType: Int
+    ) = viewModelScope.launch {
+        _dataUpLoadImageFlow.value = UiState.Loading
+        try {
+            val response =
+                apiHelperImpl.uploadMultiImage(jobId, imageParts, mediaType)
+            if (response.result_code == 0) {
+                _dataUpLoadImageFlow.value = UiState.Success(response)
+            } else {
+                _dataUpLoadImageFlow.value = UiState.Error(response.data.toString())
+            }
+        } catch (e: Exception) {
+            _dataUpLoadImageFlow.value = UiState.Error("Error message: ${e.message}")
+        }
+    }
+
     fun uploadMultiImage(
         jobId: Int,
         imageParts: MutableList<MultipartBody.Part>?,
         mediaType: Int
     ) {
-        viewModelScope.launch {
+        uploadJob = viewModelScope.launch {
             _dataUpLoadImage.value = UiState.Loading
             try {
                 val response =
@@ -97,7 +124,7 @@ class UploadMediaViewModel @Inject constructor(private val apiHelperImpl: ApiHel
 
     fun deleteMedia(media: JobMediaDetailResponse) {
         viewModelScope.launch {
-            _dataUpLoadImage.value = UiState.Loading
+            _dataDeleteMedia.value = UiState.Loading
             try {
                 val deleteMediaRequest = DeleteMediaRequest(
                     media.jobId,
@@ -109,14 +136,19 @@ class UploadMediaViewModel @Inject constructor(private val apiHelperImpl: ApiHel
                         deleteMediaRequest
                     )
                 if (response.result_code == 0) {
-                    _dataUpLoadImage.value = UiState.Success(response)
+                    _dataDeleteMedia.value = UiState.Success(response)
                 } else {
-                    _dataUpLoadImage.value = UiState.Error(response.data.toString())
+                    _dataDeleteMedia.value = UiState.Error(response.data.toString())
                 }
             } catch (e: Exception) {
-                _dataUpLoadImage.value = UiState.Error("Error message: ${e.message}")
+                _dataDeleteMedia.value = UiState.Error("Error message: ${e.message}")
             }
         }
+    }
+
+    fun cleanup() {
+        uploadJob?.cancel()
+        _dataUpLoadImage.value = null
     }
 
 }

@@ -54,7 +54,7 @@
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_detailFragment_to_mediaDetailFragment"
-            app:destination="@id/mediaDetailFragment" />
+            app:destination="@id/mediaDetailFragment"/>
         <action
             android:id="@+id/action_detailFragment_to_materialDetailFragment"
             app:destination="@id/materialDetailFragment" />

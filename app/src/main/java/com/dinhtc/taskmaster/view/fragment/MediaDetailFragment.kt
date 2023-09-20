@@ -19,6 +19,7 @@ import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
 import com.dinhtc.taskmaster.utils.UiState
 import com.dinhtc.taskmaster.utils.observe
+import com.dinhtc.taskmaster.utils.observes
 import com.dinhtc.taskmaster.view.activity.MainActivity
 import com.dinhtc.taskmaster.viewmodel.JobsViewModel
 import com.dinhtc.taskmaster.viewmodel.UploadMediaViewModel
@@ -94,7 +95,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
         }
 
         onClickItem()
-        observe(uploadMediaViewModel.dataUpLoadImage, ::responseUploadMultiImage)
+        observes(uploadMediaViewModel.dataUpLoadImage, ::responseUploadMultiImage)
         observe(uploadMediaViewModel.dataDeleteMedia, ::dataDeleteMediaLive)
         observe(jobsViewModel.dataJobDetail, ::dataJobDetailLive)
     }
@@ -180,7 +181,7 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
         }
     }
 
-    private fun responseUploadMultiImage(uiState: UiState<Any>) {
+    private fun responseUploadMultiImage(uiState: UiState<Any>?) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
@@ -204,6 +205,8 @@ class MediaDetailFragment : BaseFragment<FragmentMediaDetailBinding>(){
                     false
                 )
             }
+
+            else -> {}
         }
     }
 

@@ -1,0 +1,140 @@
+
+Q
+java:S3740W"/Provide the parametrized type for this generic.(Ü¿ÜØûÿÿÿÿ8óãò©1
+M
+java:S1066ÿ"/Merge this if statement with the enclosing one.(ß¸é8ã¥ûò©1
+F
+java:S1604ç"(Make this anonymous inner class a lambda(ÀËÜ•8óãò©1
+E
+java:S1604È"(Make this anonymous inner class a lambda(äâ¬R8óãò©1
+F
+java:S1604Ö"(Make this anonymous inner class a lambda( ¿¯8óãò©1
+K
+java:S1604í"(Make this anonymous inner class a lambda(ƒ¿œ»ıÿÿÿÿ8âç¼ò©1
+F
+java:S1604•"(Make this anonymous inner class a lambda(¬­ÖÑ8å¥ûò©1
+n
+java:S1301ó"KReplace this "switch" statement by "if" statements to increase readability.(³ÒÂŒÿÿÿÿÿ8óãò©1
+c
+java:S2637ñ"EThis method's return value is marked "@NonNull" but null is returned.(¥¹ï8óåò©1
+U
+java:S2589Ö"7Remove this expression which always evaluates to "true"(¾Ô§õ8ƒæò©1
+n
+java:S1659U"QDeclare "tvMultiSelectMessage" and all following declarations on a separate line.(ş“‚Œ8“æò©1
+~
+java:S1450€"`Remove the "providerAuthority" field and declare it as a local variable in the relevant methods.(õ¸¢ø8“æò©1
+’
+java:S6201’"tReplace this instanceof check and cast with 'instanceof OnSingleImageSelectedListener onsingleimageselectedlistener'(¸õ¸¥8¢æò©1
+
+java:S6201•"rReplace this instanceof check and cast with 'instanceof OnMultiImageSelectedListener onmultiimageselectedlistener'(“øë†8¢æò©1
+ƒ
+java:S6201˜"`Replace this instanceof check and cast with 'instanceof ImageLoaderDelegate imageloaderdelegate'(ûÉ·šûÿÿÿÿ8¢æò©1
+“
+java:S6201›"vReplace this instanceof check and cast with 'instanceof OnSelectImageCancelledListener onselectimagecancelledlistener'(Ã£ó8¢æò©1
+Œ
+java:S6201"nReplace this instanceof check and cast with 'instanceof OnCameraMultiImageListener oncameramultiimagelistener'(¥ë‘8¢æò©1
+X
+java:S1874²"5Remove this use of "getParcelable"; it is deprecated.(Öæºõıÿÿÿÿ8²æò©1
+’
+java:S6201½"tReplace this instanceof check and cast with 'instanceof OnSingleImageSelectedListener onsingleimageselectedlistener'(§Æ†«8²æò©1
+g
+java:S4201½"IRemove this unnecessary null check; "instanceof" returns false for nulls.(§Æ†«8²æò©1
+
+java:S6201À"rReplace this instanceof check and cast with 'instanceof OnMultiImageSelectedListener onmultiimageselectedlistener'(Ù¿ã½8²æò©1
+g
+java:S4201À"IRemove this unnecessary null check; "instanceof" returns false for nulls.(Ù¿ã½8²æò©1
+ƒ
+java:S6201Ã"`Replace this instanceof check and cast with 'instanceof ImageLoaderDelegate imageloaderdelegate'(Àüáúÿÿÿÿ8²æò©1
+l
+java:S4201Ã"IRemove this unnecessary null check; "instanceof" returns false for nulls.(Àüáúÿÿÿÿ8²æò©1
+”
+java:S6201Æ"vReplace this instanceof check and cast with 'instanceof OnSelectImageCancelledListener onselectimagecancelledlistener'(¢ğÒó8²æò©1
+g
+java:S4201Æ"IRemove this unnecessary null check; "instanceof" returns false for nulls.(¢ğÒó8²æò©1
+Œ
+java:S6201É"nReplace this instanceof check and cast with 'instanceof OnCameraMultiImageListener oncameramultiimagelistener'(Ôˆ§ª8²æò©1
+g
+java:S4201É"IRemove this unnecessary null check; "instanceof" returns false for nulls.(Ôˆ§ª8²æò©1
+a
+java:S1874ğ">Remove this use of "setBottomSheetCallback"; it is deprecated.(ã„°ÿÿÿÿÿ8Âæò©1
+D	java:S131ó""Add a default case to this switch.(³ÒÂŒÿÿÿÿÿ8Âæò©1
+h
+java:S1874”"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(†¼â8ËÇòÄŸ1
+W
+java:S1874•"9Remove this use of "onActivityCreated"; it is deprecated.(€…É’8Âæò©1
+a
+java:S1874š">Remove this use of "getParcelableArrayList"; it is deprecated.(é·††ÿÿÿÿÿ8Âæò©1
+m
+java:S1874±"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(Ó»×¶şÿÿÿÿ8ÍÇòÄŸ1
+u
+java:S3776±"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(Ó»×¶şÿÿÿÿ8Âæò©1
+`
+java:S1874²"BRemove this use of "onRequestPermissionsResult"; it is deprecated.(Öƒà8Âæò©1
+i	java:S128Ä"LEnd this switch case with an unconditional break, return or throw statement.(¢Ä¦ß8Âæò©1
+n	java:S128»"LEnd this switch case with an unconditional break, return or throw statement.(Íğ¦øÿÿÿÿ8Âæò©1
+V
+java:S1874¶"8Remove this use of "getLoaderManager"; it is deprecated.(³«ÔŠ8Âæò©1
+Y	java:S125Á"<This block of commented-out lines of code should be removed.(×Û†¶8Âæò©1
+`
+java:S1874Í"BRemove this use of "onRequestPermissionsResult"; it is deprecated.(Öƒà8Âæò©1
+m
+java:S1874Ò"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÉÎÍïıÿÿÿÿ8Âæò©1
+u
+java:S3776Ò"RRefactor this method to reduce its Cognitive Complexity from 52 to the 15 allowed.(ÉÎÍïıÿÿÿÿ8ö§ûò©1
+Y	java:S125í"<This block of commented-out lines of code should be removed.(ŞŸÃş8Ñæò©1
+Y	java:S125 "<This block of commented-out lines of code should be removed.(ŞŸÃş8Ñæò©1
+[
+java:S1874¨"8Remove this use of "onActivityResult"; it is deprecated.(ß¬©úÿÿÿÿ8Ñæò©1
+\
+java:S1874·">Remove this use of "startActivityForResult"; it is deprecated.(êŒê‹8 ê¼ò©1
+\
+java:S1874»">Remove this use of "startActivityForResult"; it is deprecated.(êŒê‹8³ê¼ò©1
+c
+java:S3252í"@Use static access with "android.provider.BaseColumns" for "_ID".(Ô—Âàøÿÿÿÿ8ôÇòÄŸ1
+v
+java:S3252î"SUse static access with "android.provider.MediaStore$MediaColumns" for "DATE_ADDED".(úÛÃÃûÿÿÿÿ8áæò©1
+c
+java:S3252û"@Use static access with "android.provider.BaseColumns" for "_ID".(ˆñ´ÿÿÿÿÿ8áæò©1
+\
+java:S1155„">Use isEmpty() to check whether the collection is empty or not.(³¿Ï÷8áæò©1
+P
+java:S1874±"-Remove this use of "DEBUG"; it is deprecated.(Ñ¶„±ûÿÿÿÿ8áæò©1
+u
+java:S3776º"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(·À²şÿÿÿÿ8áæò©1
+\
+java:S1874Û">Remove this use of "startActivityForResult"; it is deprecated.(ÙñÈõ8š¨ûò©1
+\
+java:S1874ã">Remove this use of "startActivityForResult"; it is deprecated.(ÙñÈõ8›¨ûò©1
+\
+java:S1874ç">Remove this use of "startActivityForResult"; it is deprecated.(ÙñÈõ8›¨ûò©1
+c
+java:S6201ğ"@Replace this instanceof check and cast with 'instanceof Uri uri'(§®Û·úÿÿÿÿ8ğæò©1
+l
+java:S4201ğ"IRemove this unnecessary null check; "instanceof" returns false for nulls.(§®Û·úÿÿÿÿ8ğæò©1
+P
+java:S1874ª"-Remove this use of "DEBUG"; it is deprecated.(Ñ¶„±ûÿÿÿÿ8€çò©1
+L
+java:S1874²".Remove this use of "Camera"; it is deprecated.(±é¤Ã8€çò©1
+P
+java:S1874²"2Remove this use of "CameraInfo"; it is deprecated.(±é¤Ã8€çò©1
+Y
+java:S1874²";Remove this use of "CAMERA_FACING_FRONT"; it is deprecated.(±é¤Ã8€çò©1
+`
+java:S1874¶"=Remove this use of "queryIntentActivities"; it is deprecated.(…ÅÖíşÿÿÿÿ8€çò©1
+a
+java:S1874»">Remove this use of "startActivityForResult"; it is deprecated.(ÁëûÛùÿÿÿÿ8¤¨ûò©1
+^	java:S125Ä"<This block of commented-out lines of code should be removed.(¡’ûÿÿÿÿ8€çò©1
+i
+java:S1874Ò"FRemove this use of "ACTION_MEDIA_SCANNER_SCAN_FILE"; it is deprecated.(ëÒ¿šıÿÿÿÿ8€çò©1
+P
+java:S1874£"-Remove this use of "DEBUG"; it is deprecated.(Ñ¶„±ûÿÿÿÿ8çò©1
+`
+java:S1874­"=Remove this use of "queryIntentActivities"; it is deprecated.(…ÅÖíşÿÿÿÿ8çò©1
+a
+java:S1874²">Remove this use of "startActivityForResult"; it is deprecated.(ÁëûÛùÿÿÿÿ8¶¨ûò©1
+S
+java:S1068€"5Remove this unused "providerAuthority" private field.(õ¸¢ø8çò©1
+]
+java:S1144¬"?Remove this unused private "showMaxImageSelectionError" method.(´õ×Æ8¸¨ûò©1
+O
+java:S1144Ğ"2Remove this unused private "notifyGallery" method.(ÏÂ´o8çò©1

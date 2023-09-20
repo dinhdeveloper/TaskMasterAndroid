@@ -553,7 +553,14 @@ class BottomSheetAddVideo(
     }
 
     private fun displayPhotosInFragment(photoURIs: MutableList<Uri>) {
-        showImageMultiImage(photoURIs)
+        if (photoURIs.size <= 5){
+            showImageMultiImage(photoURIs)
+        }else{
+            DialogFactory.showDialogSubTitleDefaultNotCancel(
+                context,
+                "Quá số lượng quy định",
+                "Vui lòng kiểm tra lại số ảnh và video hiện có. Bạn chỉ phép upload tối đa 5 hình.")
+        }
     }
 
     @Throws(IOException::class)
