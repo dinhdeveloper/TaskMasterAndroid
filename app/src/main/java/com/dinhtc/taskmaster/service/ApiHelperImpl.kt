@@ -91,7 +91,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
 
     override suspend fun updateStateWeightedJob(
         dataUpdate : UpdateStateWeightedRequest
-    ): ApiResponse<UpdateJobsResponse> {
+    ): ApiResponse<Any> {
         return apiService.updateStateWeightedJob(dataUpdate)
     }
 
@@ -148,7 +148,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
        return apiService.getCollectPointLatLng()
     }
 
-    override suspend fun updateStateJobCompactedAndDone(dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<UpdateJobsResponse> {
+    override suspend fun updateStateJobCompactedAndDone(dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<Any> {
         return apiService.updateStateJobCompactedAndDone(dataLamGonAndDaXong)
     }
 

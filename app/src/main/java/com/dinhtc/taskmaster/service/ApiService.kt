@@ -94,7 +94,7 @@ interface ApiService {
     ): ApiResponse<JobDetailsResponse>
 
     @PUT("mobile/update/update_state_job_weighted")
-    suspend fun updateStateWeightedJob(@Body dataUpdate: UpdateStateWeightedRequest): ApiResponse<UpdateJobsResponse>
+    suspend fun updateStateWeightedJob(@Body dataUpdate: UpdateStateWeightedRequest): ApiResponse<Any>
 
     @POST("mobile/delete_media")
     suspend fun deleteMedia(@Body collectPoint: DeleteMediaRequest): ApiResponse<Any>
@@ -124,5 +124,5 @@ interface ApiService {
     @GET("mobile/collect_point/latlng")
     suspend fun getCollectPointLatLng(): ApiResponse<ListCollectPointLatLng>
     @PUT("mobile/update/update_state_job_compacted_done")
-    suspend fun updateStateJobCompactedAndDone(@Body dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<UpdateJobsResponse>
+    suspend fun updateStateJobCompactedAndDone(@Body dataLamGonAndDaXong: CompactedAndDoneRequest): ApiResponse<Any>
 }

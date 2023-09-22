@@ -41,8 +41,8 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
     }
 
 
-    private val _updateStateJobWeighted = MutableLiveData<UiState<UpdateJobsResponse>>()
-    val updateStateJobWeighted : LiveData<UiState<UpdateJobsResponse>>
+    private val _updateStateJobWeighted = MutableLiveData<UiState<Any>>()
+    val updateStateJobWeighted : LiveData<UiState<Any>>
         get() = _updateStateJobWeighted
 
     fun updateStateWeightedJob(dataUpdate: UpdateStateWeightedRequest) {
@@ -119,8 +119,8 @@ class JobsViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImpl
     }
 
 
-    private val _updateStateJobCompactedAndDone = MutableLiveData<UiState<UpdateJobsResponse>>()
-    val updateStateJobCompactedAndDone : LiveData<UiState<UpdateJobsResponse>>
+    private val _updateStateJobCompactedAndDone = MutableLiveData<UiState<Any>>()
+    val updateStateJobCompactedAndDone : LiveData<UiState<Any>>
         get() = _updateStateJobCompactedAndDone
 
     fun updateStateJobCompactedAndDone(dataLamGonAndDaXong: CompactedAndDoneRequest) {

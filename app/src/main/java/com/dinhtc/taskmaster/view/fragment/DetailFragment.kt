@@ -28,7 +28,6 @@ import com.dinhtc.taskmaster.model.request.UpdateStateWeightedRequest
 import com.dinhtc.taskmaster.model.response.JobDetailsResponse
 import com.dinhtc.taskmaster.model.response.ListEmployeeResponse
 import com.dinhtc.taskmaster.model.response.ListMaterialResponse
-import com.dinhtc.taskmaster.model.response.UpdateJobsResponse
 import com.dinhtc.taskmaster.utils.AndroidUtils
 import com.dinhtc.taskmaster.utils.DialogFactory
 import com.dinhtc.taskmaster.utils.LoadingScreen
@@ -69,7 +68,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var dataResponse: JobDetailsResponse? = null
     private var jobsId: Int = 1
     private var empId: Int = -1
-    val empUpdate = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID, -1)
+    var empUpdate: Int = -1
     private var checkCloseVideos: Boolean = false
     private var checkCloseImage: Boolean = false
     private var imagePartLocal: MutableList<MultipartBody.Part>? = null
@@ -87,6 +86,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         get() = R.layout.fragment_detail
 
     override fun onViewCreated() {
+        empUpdate = SharedPreferencesManager.instance.getInt(SharedPreferencesManager.USER_ID, -1)
         var jobIdNotify = arguments?.getString(MainActivity.ID_JOB_NOTIFY)
         jobsId = if (jobIdNotify?.isNotEmpty() == true) {
             jobIdNotify.toInt()
@@ -534,6 +534,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 val listEmpLiveData = uiState.data.data.listItem
+                dataListEmployee.clear()
                 for (data in listEmpLiveData) {
                     if (nv1Old != -1 && nv1Old != data.empId ||
                         nv2Old != -1 && nv2Old != data.empId ||
@@ -950,13 +951,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
-    private fun updateStateJobWeightedLive(uiState: UiState<UpdateJobsResponse>) {
+    private fun updateStateJobWeightedLive(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 DialogFactory.showDialogDefaultNotCancelAndClick(
                     context,
-                    "${uiState.data.data.description}"
+                    "${uiState.data.data}"
                 ) {
                     jobsViewModel.getJobDetails(jobsId, empId = empId)
                     ElasticAnimation(viewBinding.tvStateDecs).setScaleX(0.75f).setScaleY(0.75f)
@@ -1013,11 +1014,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             else -> {}
         }
     }
-    private fun updateStateJobCompactedAndDone(uiState: UiState<UpdateJobsResponse>) {
+    private fun updateStateJobCompactedAndDone(uiState: UiState<Any>) {
         when (uiState) {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
-                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data.description}")
+                DialogFactory.showDialogDefaultNotCancel(context, "${uiState.data.data}")
                 jobsViewModel.getJobDetails(idJob = jobsId, empId = empId)
             }
 
