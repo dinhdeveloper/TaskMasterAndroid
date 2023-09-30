@@ -76,7 +76,7 @@
                     android:background="@drawable/bg_button_strock"
                     android:layout_height="50dp"/>
                 
-                <com.dinhtc.taskmaster.common.widgets.tagview.TagEditText
+                <com.elogictics.taskmaster.common.widgets.tagview.TagEditText
                     android:id="@+id/tagsEditText"
                     android:visibility="gone"
                     android:textColor="@color/black"

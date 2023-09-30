@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.HomeFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.LoginFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.SplashFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.DetailFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail">
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.AddTaskFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.AddTaskFragment"
         android:label="AddTaskFragment"
         tools:layout="@layout/fragment_add_task">
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/notifyListFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.NotifyListFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.NotifyListFragment"
         android:label="NotifyListFragment"
         tools:layout="@layout/fragment_noti_list">
         <action
@@ -79,23 +79,23 @@
     </fragment>
     <fragment
         android:id="@+id/notifyDetailFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.NotifyDetailFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.NotifyDetailFragment"
         android:label="NotifyDetailFragment"
         tools:layout="@layout/fragment_noti_detail"/>
     <fragment
         android:id="@+id/materialDetailFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.MaterialDetailFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.MaterialDetailFragment"
         android:label="MaterialDetailFragment"
         tools:layout="@layout/fragment_material_detail"/>
 
         <fragment
         android:id="@+id/mediaDetailFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.MediaDetailFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.MediaDetailFragment"
         android:label="MediaDetailFragment"
         tools:layout="@layout/fragment_media_detail"/>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.MainFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
@@ -127,7 +127,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.SettingFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.SettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/fragment_setting">
         <action
@@ -138,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchActionFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.SearchActionFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.SearchActionFragment"
         android:label="SearchActionFragment"
         tools:layout="@layout/fragment_search_action">
         <action
@@ -147,7 +147,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.dinhtc.taskmaster.view.fragment.MapFragment"
+        android:name="com.elogictics.taskmaster.view.fragment.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_maps"/>
 

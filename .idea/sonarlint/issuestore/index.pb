@@ -189,8 +189,6 @@ Napp/src/main/java/com/dinhtc/taskmaster/common/widgets/spinner/ProvinceData.kt
 Sapp/src/main/java/com/dinhtc/taskmaster/model/response/JobMaterialDetailResponse.kt,1\9\19a894c0eedc3dc63655f615e55252172fbce833
 
 Qapp/src/main/java/com/dinhtc/taskmaster/bottomsheet/BottomSheetAddCollectPoint.kt,9\a\9a593205a41aa9943872eebe4015e10fb41816fb
-|
-Lapp/src/main/java/com/dinhtc/taskmaster/bottomsheet/BottomSheetAddFreight.kt,d\c\dcce83fc1204a6b0c61944392470a2dfd60403d8
 v
 Fapp/src/main/java/com/dinhtc/taskmaster/model/request/SearchRequest.kt,3\d\3dbab09a8f78eb005cc9aaf4dcc482055d805799
 t
@@ -209,10 +207,6 @@ Kapp/src/main/java/com/dinhtc/taskmaster/service/GeneralHeaderInterceptor.kt,5\
 Kapp/src/main/java/com/dinhtc/taskmaster/service/CustomLoggingInterceptor.kt,a\5\a5e17ed50d98585f447647124af4eecf351915b6
 t
 Dapp/src/main/java/com/dinhtc/taskmaster/view/fragment/MapFragment.kt,4\b\4ba2d3f73a35ed066bca310382f53c220f2477ef
-m
-=app/src/main/java/com/dinhtc/taskmaster/utils/AndroidUtils.kt,8\2\8216f8235ab841eaf941178ed27c914b968fa59c
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 ‰
 Yapp/src/main/java/com/dinhtc/taskmaster/common/widgets/dialog/FullScreenDialogFragment.kt,0\a\0a4a05efe130fc60a578e024c4e8a67ed0840c2d
 €
@@ -227,22 +221,10 @@ h
 Yapp/src/main/java/com/dinhtc/taskmaster/common/widgets/image_picker/VideoTileAdapter.java,2\8\289693ee3dda16e3929b7660710443eb7f55d3eb
 
 ]app/src/main/java/com/dinhtc/taskmaster/common/widgets/recyclerview/AnimatedRecyclerView.java,4\2\42ca45fa805bd99ab5302c5d8227160ff7c0c2d1
-H
-app/google-services.json,f\d\fd8d34b142d02ec743a8efefefd2c097961666e9
 p
 @app/src/main/java/com/dinhtc/taskmaster/TaskMasterApplication.kt,a\f\af201fb87d2dee4c69d4cc987c7bdcd07cf03b2f
 w
 Gapp/src/main/java/com/dinhtc/taskmaster/common/di/RuntimePermissions.kt,2\a\2a964ad710db15051d9a379815c11d125145f547
-u
-Eapp/src/main/java/com/dinhtc/taskmaster/view/fragment/MainFragment.kt,e\9\e94c28a692a7501071811fde48c8ef938fb6bd92
-u
-Eapp/src/main/java/com/dinhtc/taskmaster/view/fragment/HomeFragment.kt,a\5\a55b40304852fd8e6cbdb8634bffd44e257abf3b
-y
-Iapp/src/main/java/com/dinhtc/taskmaster/utils/SharedPreferencesManager.kt,4\1\415f50b00aad2fbdde76a7daac522fab8dd36d28
-|
-Lapp/src/main/java/com/dinhtc/taskmaster/notify/MyFirebaseMessagingService.kt,c\a\caad164d027110d1b025ac2b091338ea08f6aa9e
-v
-Fapp/src/main/java/com/dinhtc/taskmaster/view/fragment/LoginFragment.kt,7\a\7a002c1795bf7956b32932dafdecb2fb809835f6
 |
 Lapp/src/main/java/com/dinhtc/taskmaster/model/request/CollectPointRequest.kt,b\e\be5b3c2ad9cc5670d5535aa78449580c15ec5a9d
 }
@@ -253,8 +235,6 @@ Sapp/src/main/java/com/dinhtc/taskmaster/model/request/UpdateStateWeightedReques
 Yapp/src/main/java/com/dinhtc/taskmaster/common/widgets/image_picker/ImageTileAdapter.java,7\c\7c0ed21c2118cc7145e5a4a69c6e7880d3bbc9b6
 †
 Vapp/src/main/java/com/dinhtc/taskmaster/common/widgets/image_picker/BSImagePicker.java,a\7\a7bcc424d21a8af2f95820c77e4a561159502671
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 h
 8app/src/main/java/com/dinhtc/taskmaster/utils/UiState.kt,c\1\c1e9eae36e8b33f12ce93cfbc112b45000f44375
 z
@@ -265,8 +245,6 @@ n
 >app/src/main/java/com/dinhtc/taskmaster/utils/DialogFactory.kt,2\d\2d0c774fb6ec3d2bd006a457f4f1ab5152006086
 s
 Capp/src/main/java/com/dinhtc/taskmaster/common/view/BaseFragment.kt,3\5\35e1db7839a5c5d8239dc177e509457902cc26ae
-u
-Eapp/src/main/java/com/dinhtc/taskmaster/view/activity/MainActivity.kt,2\5\25466b14db00e26f30f195e24e1c0f908b4a3938
 u
 Eapp/src/main/java/com/dinhtc/taskmaster/viewmodel/AddTaskViewModel.kt,7\4\740873f3deaea678437fc7662ab3035cefbabffe
 x
@@ -301,3 +279,9 @@ Iapp/src/main/java/com/dinhtc/taskmaster/viewmodel/UploadMediaViewModel.kt,b\4\
 Papp/src/main/java/com/dinhtc/taskmaster/model/request/CompactedAndDoneRequest.kt,2\6\2686552b549fa2c44fccf26ea608e33794c10d5b
 l
 <app/src/main/java/com/dinhtc/taskmaster/service/ApiHelper.kt,1\a\1add84505af0983b69e570279a96d77832948f22
+r
+Bapp/src/main/java/com/dinhtc/taskmaster/viewmodel/JobsViewModel.kt,8\8\881ca48feca0599f70c75f94cbfbe059322de5f1
+p
+@app/src/main/java/com/dinhtc/taskmaster/service/ApiHelperImpl.kt,f\7\f784c23f47ff92ad967455454aec2ef0f8032b12
+m
+=app/src/main/java/com/dinhtc/taskmaster/service/ApiService.kt,3\9\3915d7a1c28ccb9325babdb1d1bc21e26b72501e

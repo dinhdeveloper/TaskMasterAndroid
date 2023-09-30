@@ -87,7 +87,7 @@
                     android:textColor="@color/color_title"
                     android:textSize="@dimen/font17_sp" />
 
-                <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                     android:id="@+id/itemSelectTask"
                     style="@style/TextViewAddressValue"
                     android:layout_width="0dp"
@@ -215,7 +215,7 @@
 
             </LinearLayout>
 
-            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+            <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -235,7 +235,7 @@
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-            </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+            </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

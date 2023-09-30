@@ -210,7 +210,7 @@
 
             </LinearLayout>
 
-            <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+            <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -229,7 +229,7 @@
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-            </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+            </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
         </LinearLayout>
 

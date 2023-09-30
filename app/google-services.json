@@ -21,9 +21,6 @@
       "api_key": [
         {
           "current_key": "AIzaSyDbVl7jomJ8I_rD3qbovLr5Yz6JRjs4Ivo"
-        },
-        {
-          "current_key": "AIzaSyBla-if8kYqPhzqDGavatQm_li1NjcWoqc"
         }
       ],
       "services": {
@@ -39,9 +36,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:484897995990:android:abebac9ca4a65695e55d77",
+        "mobilesdk_app_id": "1:484897995990:android:ea14068f4ce32f41e55d77",
         "android_client_info": {
-          "package_name": "com.dinhtc.taskmaster.dev"
+          "package_name": "com.elogictics.taskmaster.dev"
         }
       },
       "oauth_client": [
@@ -53,9 +50,6 @@
       "api_key": [
         {
           "current_key": "AIzaSyDbVl7jomJ8I_rD3qbovLr5Yz6JRjs4Ivo"
-        },
-        {
-          "current_key": "AIzaSyBla-if8kYqPhzqDGavatQm_li1NjcWoqc"
         }
       ],
       "services": {

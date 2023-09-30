@@ -63,7 +63,7 @@
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17_sp" />
 
-                        <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                        <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                             android:id="@+id/edtSelectTask"
                             style="@style/TextViewAddressValue"
                             android:layout_width="0dp"
@@ -97,7 +97,7 @@
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17_sp" />
 
-                        <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                        <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                             android:id="@+id/edtSelectNV1"
                             style="@style/TextViewAddressValue"
                             android:layout_width="0dp"
@@ -130,7 +130,7 @@
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17_sp" />
 
-                        <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                        <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                             android:id="@+id/edtSelectNV2"
                             style="@style/TextViewAddressValue"
                             android:layout_width="0dp"
@@ -163,7 +163,7 @@
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17_sp" />
 
-                        <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                        <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                             android:id="@+id/edtSelectUuTien"
                             style="@style/TextViewAddressValue"
                             android:layout_width="0dp"
@@ -211,7 +211,7 @@
                             android:textColor="@color/color_title"
                             android:textSize="@dimen/font17_sp" />
 
-                        <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticImageView
+                        <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticImageView
                             android:id="@+id/btnAddDiaDiem"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                             app:imageView_scale="0.7" />
                     </LinearLayout>
 
-                    <com.dinhtc.taskmaster.common.widgets.tagview.TagEditText
+                    <com.elogictics.taskmaster.common.widgets.tagview.TagEditText
                         android:id="@+id/edtDiaDiem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -250,7 +250,7 @@
                         android:textColor="@color/color_title"
                         android:textSize="@dimen/font17_sp" />
 
-                    <com.dinhtc.taskmaster.common.widgets.tagview.TagEditText
+                    <com.elogictics.taskmaster.common.widgets.tagview.TagEditText
                         android:id="@+id/edtGhiChu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
                         android:scrollbars="vertical" />
                 </LinearLayout>
 
-                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -289,7 +289,7 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font17_sp" />
-                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+                </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

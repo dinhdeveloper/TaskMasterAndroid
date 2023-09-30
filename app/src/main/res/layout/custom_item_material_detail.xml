@@ -5,7 +5,7 @@
 
     <data>
         
-        <import type="com.dinhtc.taskmaster.model.response.JobMaterialDetailResponse"/>
+        <import type="com.elogictics.taskmaster.model.response.JobMaterialDetailResponse"/>
         <variable
             name="dataMaterial"
             type="JobMaterialDetailResponse" />

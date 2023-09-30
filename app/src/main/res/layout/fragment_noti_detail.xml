@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <com.dinhtc.taskmaster.common.widgets.forme.CustomView
+        <com.elogictics.taskmaster.common.widgets.forme.CustomView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -32,6 +32,6 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:text="Cập nhật" />
-        </com.dinhtc.taskmaster.common.widgets.forme.CustomView>
+        </com.elogictics.taskmaster.common.widgets.forme.CustomView>
     </LinearLayout>
 </layout>

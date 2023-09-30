@@ -26,7 +26,7 @@
 
 
     <application
-        android:name="com.dinhtc.taskmaster.TaskMasterApplication"
+        android:name="com.elogictics.taskmaster.TaskMasterApplication"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -38,7 +38,7 @@
         android:theme="@style/Theme.TaskMaster"
         android:requestLegacyExternalStorage="true">
         <activity
-            android:name="com.dinhtc.taskmaster.view.activity.MainActivity"
+            android:name="com.elogictics.taskmaster.view.activity.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">

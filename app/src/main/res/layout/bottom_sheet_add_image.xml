@@ -78,7 +78,7 @@
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="120dp">
-            <com.dinhtc.taskmaster.common.view.UploadDocumentImage
+            <com.elogictics.taskmaster.common.view.UploadDocumentImage
                 android:id="@+id/imgFront"
                 android:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
@@ -152,7 +152,7 @@
             android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="120dp">
-            <com.dinhtc.taskmaster.common.view.UploadDocumentImage
+            <com.elogictics.taskmaster.common.view.UploadDocumentImage
                 android:id="@+id/imgVideo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -202,7 +202,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+        <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -223,7 +223,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+        </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
     </LinearLayout>
 

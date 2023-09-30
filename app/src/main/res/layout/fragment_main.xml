@@ -125,7 +125,7 @@
                 android:orientation="vertical"
                 android:weightSum="2">
 
-                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                     android:id="@+id/btnSearch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -162,9 +162,9 @@
                             android:fontFamily="@font/roboto_medium" />
                     </LinearLayout>
 
-                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+                </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
-                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                     android:id="@+id/btnNotify"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -200,7 +200,7 @@
                             android:textSize="@dimen/font18_sp"
                             android:fontFamily="@font/roboto_medium"/>
                     </LinearLayout>
-                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+                </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
             </LinearLayout>
 
@@ -212,7 +212,7 @@
                 android:orientation="vertical"
                 android:weightSum="2">
 
-                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                     android:id="@+id/btnAddTask"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -248,9 +248,9 @@
                             android:textSize="@dimen/font18_sp"
                             android:fontFamily="@font/roboto_medium"/>
                     </LinearLayout>
-                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+                </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
 
-                <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout
+                <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
                     android:id="@+id/btnSetting"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -286,7 +286,7 @@
                             android:textSize="@dimen/font18_sp"
                             android:fontFamily="@font/roboto_medium" />
                     </LinearLayout>
-                </com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticLayout>
+                </com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout>
             </LinearLayout>
 
 

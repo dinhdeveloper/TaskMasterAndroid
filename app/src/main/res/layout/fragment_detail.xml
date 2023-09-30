@@ -336,7 +336,7 @@
                             android:layout_weight="3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
-                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                            <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                                 android:id="@+id/edtSelectUuTien"
                                 style="@style/TextViewAddressValue"
                                 android:layout_width="match_parent"
@@ -395,7 +395,7 @@
                             android:layout_weight="3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
-                            <com.dinhtc.taskmaster.common.widgets.edittext.MoneyEditText
+                            <com.elogictics.taskmaster.common.widgets.edittext.MoneyEditText
                                 android:id="@+id/edtNVUng"
                                 style="@style/EditextCustom"
                                 android:layout_width="match_parent"
@@ -457,7 +457,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="3"
                             android:layout_height="wrap_content">
-                            <com.dinhtc.taskmaster.common.widgets.spinner.ProvinceSpinner
+                            <com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
                                 android:id="@+id/selectNV"
                                 style="@style/TextViewAddressValue"
                                 android:layout_width="match_parent"

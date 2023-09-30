@@ -49,7 +49,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <com.dinhtc.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView
+                    <com.elogictics.taskmaster.common.widgets.recyclerview.AnimatedRecyclerView
                         android:id="@+id/recyclerViewMovieList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -73,7 +73,7 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.dinhtc.taskmaster.common.widgets.elasticviews.ElasticFloatingActionButton
+        <com.elogictics.taskmaster.common.widgets.elasticviews.ElasticFloatingActionButton
             android:id="@+id/floatingAction"
             android:visibility="gone"
             android:layout_width="wrap_content"
