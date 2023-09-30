@@ -1,42 +1,0 @@
-
-’kotlin:S6611†"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(£¿é‹8¹»ó·¤1
-—kotlin:S6611‡"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¥æŠ³ùÿÿÿÿ8¹»ó·¤1
-‘kotlin:S6611Š"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¦âã8¹»ó·¤1
-—kotlin:S6611"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(İÆàòùÿÿÿÿ8¹»ó·¤1
-’kotlin:S6611¤"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(£¿é‹8¹»ó·¤1
-—kotlin:S6611¥"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¥æŠ³ùÿÿÿÿ8¹»ó·¤1
-‘kotlin:S6611¨"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¦âã8¹»ó·¤1
-—kotlin:S6611«"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(İÆàòùÿÿÿÿ8¹»ó·¤1
-—kotlin:S6611®"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(Ëª•øÿÿÿÿ8¹»ó·¤1
-’kotlin:S6611¯"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(ÔÄ‚À8¹»ó·¤1
-—kotlin:S6611²"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¢Ì„´ùÿÿÿÿ8¹»ó·¤1
-’kotlin:S6611µ"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(›”Œ³8¹»ó·¤1
-’kotlin:S6611ÿ"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(£¿é‹8¹»ó·¤1
-—kotlin:S6611€"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¥æŠ³ùÿÿÿÿ8¹»ó·¤1
-‘kotlin:S6611ƒ"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¦âã8¹»ó·¤1
-—kotlin:S6611†"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(İÆàòùÿÿÿÿ8¹»ó·¤1
-—kotlin:S6611"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(Ëª•øÿÿÿÿ8¹»ó·¤1
-’kotlin:S6611"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(ÔÄ‚À8¹»ó·¤1
-—kotlin:S6611‘"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(¢Ì„´ùÿÿÿÿ8¹»ó·¤1
-’kotlin:S6611”"rMap values should be accessed safely. Using the non-null assertion operator here can throw a NullPointerException.(›”Œ³8¹»ó·¤1
-Ckotlin:S125Ê"Remove this commented out code.(ó°§Ôıÿÿÿÿ8À»ó·¤1
-Ckotlin:S125Ñ"Remove this commented out code.(¹¶Åıÿÿÿÿ8Á»ó·¤1
->kotlin:S125ö"Remove this commented out code.(Ïñîœ8Á»ó·¤1
-jkotlin:S1192é"KDefine a constant instead of duplicating this literal "dd/mm/yyyy" 4 times.(…€“V8Â»ó·¤1
-rkotlin:S1871¶"MThis branch's code block is the same as the block for the branch on line 417.(±ß–ûÿÿÿÿ8Ë»ó·¤1
-skotlin:S1871„"NThis branch's code block is the same as the block for the branch on line 1008.(±ß–ûÿÿÿÿ8Ì»ó·¤1
-rkotlin:S1871Ã"MThis branch's code block is the same as the block for the branch on line 687.(±ß–ûÿÿÿÿ8Ì»ó·¤1
-rkotlin:S1871Ï"MThis branch's code block is the same as the block for the branch on line 827.(±ß–ûÿÿÿÿ8Ì»ó·¤1
-rkotlin:S1871‚"MThis branch's code block is the same as the block for the branch on line 750.(±ß–ûÿÿÿÿ8Í»ó·¤1
-xkotlin:S3776š"SRefactor this method to reduce its Cognitive Complexity from 111 to the 15 allowed.(×ä³õıÿÿÿÿ8Ø»ó·¤1
-wkotlin:S3776å"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(Ú©” úÿÿÿÿ8Ø»ó·¤1
-`kotlin:S1144á";Remove this unused private "clearFirstSelectedDate" method.(éÍÛˆøÿÿÿÿ8ğ»ó·¤1
-akotlin:S6517&"BMake this interface functional or replace it with a function type.(Š¡—â8Š¼ó·¤1
-Nkotlin:S1066".Merge this "if" statement with the nested one.(‚¹‡«8‹¼ó·¤1
-Skotlin:S1066©".Merge this "if" statement with the nested one.(ÖÌ£³şÿÿÿÿ8‹¼ó·¤1
-Nkotlin:S1066Ñ".Merge this "if" statement with the nested one.(€ºòÜ8‹¼ó·¤1
-fkotlin:S6510‹	"AMove "return" statements from all branches before "if" statement.(İÜ®âúÿÿÿÿ8¼ó·¤1
-Dkotlin:S2116ø"$Use "contentDeepToString()" instead.(Å©ï8’¼ó·¤1
-Dkotlin:S2116™	"$Use "contentDeepToString()" instead.(Å©ï8’¼ó·¤1
-Pkotlin:S65184",Replace function call with indexed accessor.(£Ñı¾şÿÿÿÿ8›¼ó·¤1
-Qkotlin:S6518¢",Replace function call with indexed accessor.(î§Èïıÿÿÿÿ8›¼ó·¤1

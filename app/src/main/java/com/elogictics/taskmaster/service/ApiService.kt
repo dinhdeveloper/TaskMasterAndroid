@@ -32,7 +32,6 @@ interface ApiService {
     ): ApiResponse<Any>
     @POST("firebase/save")
     suspend fun saveFirebaseToken(
-        @Header("Authorization") token: String,
         @Query("firebaseToken") firebaseToken: String,
         @Query("deviceId") deviceId: String?,
         @Query("deviceName") deviceName: String?

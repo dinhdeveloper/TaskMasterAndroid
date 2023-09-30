@@ -27,8 +27,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
         deviceId: String?,
         deviceName: String?
     ): ApiResponse<Any> {
-        val token = "Bearer " + SharedPreferencesManager.instance.getString(SharedPreferencesManager.TOKEN_LOGIN, "")
-        return apiService.saveFirebaseToken(token, firebaseToken, deviceId, deviceName)
+        return apiService.saveFirebaseToken(firebaseToken, deviceId, deviceName)
     }
 
     override suspend fun getListJobType(): ApiResponse<ListJobTypeResponse> {

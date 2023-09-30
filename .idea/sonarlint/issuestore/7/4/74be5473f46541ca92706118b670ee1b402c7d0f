@@ -1,28 +1,0 @@
-
-^kotlin:S1172ß">Use "_" instead of this unused lambda parameter "inputStream".(º­æ8€öäª1
->kotlin:S1128"Remove this unused import.(ÊÒÅ­ùÿÿÿÿ8ØÎ†åª1
-ikotlin:S1192¡"JDefine a constant instead of duplicating this literal ".provider" 3 times.(£˜ú 8‘öäª1
-Ckotlin:S1874œ"#Deprecated code should not be used.(±Ñ§ˆ8–öäª1
-Bkotlin:S1874ª"#Deprecated code should not be used.(’ãáP8–öäª1
-Hkotlin:S1874¯"#Deprecated code should not be used.(ú¹ôÙøÿÿÿÿ8–öäª1
-Ckotlin:S1874»"#Deprecated code should not be used.(Ø¨¨í8–öäª1
-Ckotlin:S1874È"#Deprecated code should not be used.(±Ñ§ˆ8–öäª1
-Hkotlin:S1874Ò"#Deprecated code should not be used.(ú¹ôÙøÿÿÿÿ8–öäª1
-Ckotlin:S1874Ş"#Deprecated code should not be used.(Ø¨¨í8–öäª1
-Ckotlin:S1874ü"#Deprecated code should not be used.(±Ñ§ˆ8–öäª1
-Hkotlin:S1874…"#Deprecated code should not be used.(ú¹ôÙøÿÿÿÿ8–öäª1
-Hkotlin:S1874‘"#Deprecated code should not be used.(´Ô¤µÿÿÿÿÿ8–öäª1
-Bkotlin:S1874˜"#Deprecated code should not be used.(¿ÂÙ68–öäª1
-Hkotlin:S1874á"#Deprecated code should not be used.(Œ˜÷‡úÿÿÿÿ8–öäª1
-Hkotlin:S1874 "#Deprecated code should not be used.(œ—“ßıÿÿÿÿ8ğ¸ùäª1
-Bkotlin:S1874¦"#Deprecated code should not be used.(†îÍ\8ğ¸ùäª1
-Gkotlin:S1874"#Deprecated code should not be used.(Åˆ­¨ùÿÿÿÿ8—öäª1
-Gkotlin:S1874"#Deprecated code should not be used.(¸ÒŸ¾øÿÿÿÿ8—öäª1
-Ckotlin:S1874œ"#Deprecated code should not be used.(±Ñ§ˆ8—öäª1
-Bkotlin:S1874ª"#Deprecated code should not be used.(’ãáP8—öäª1
-Bkotlin:S1874ª"#Deprecated code should not be used.(’ãáP8—öäª1
-Ckotlin:S1874È"#Deprecated code should not be used.(±Ñ§ˆ8—öäª1
-Ckotlin:S1874ü"#Deprecated code should not be used.(±Ñ§ˆ8—öäª1
-wkotlin:S3776ù"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ËÖéäøÿÿÿÿ8–Šœåª1
-\kotlin:S1144ì"<Remove this unused private "getRealPathFromURIVideo" method.(”«ò«8¤öäª1
-Ckotlin:S1145¥"#Remove this useless "if" statement.(Ç¿½ú8¦öäª1
