@@ -17,8 +17,8 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : ApiHelper {
-    override suspend fun loginUser(userName: String, passWord: String): ApiResponse<Any> {
-        val loginRequest = LoginRequest(userName, passWord)
+    override suspend fun loginUser(userName: String, passWord: String, deviceId : String, deviceName : String): ApiResponse<Any> {
+        val loginRequest = LoginRequest(userName, passWord,deviceId,deviceName)
         return apiService.loginUser(loginRequest)
     }
 

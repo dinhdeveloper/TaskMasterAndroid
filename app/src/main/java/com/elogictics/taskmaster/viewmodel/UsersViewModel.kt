@@ -18,10 +18,10 @@ class UsersViewModel @Inject constructor(private val apiHelperImpl: ApiHelperImp
     val dataLogin : LiveData<UiState<Any>>
     get() = _dataLogin
 
-    fun loginUser(userName: String, passWord: String) {
+    fun loginUser(userName: String, passWord: String, deviceId : String, deviceName : String) {
         viewModelScope.launch {
             _dataLogin.value = UiState.Loading
-            val response = apiHelperImpl.loginUser(userName,passWord)
+            val response = apiHelperImpl.loginUser(userName,passWord,deviceId,deviceName)
             if (response.result_code == 0) {
                 _dataLogin.value = UiState.Success(response)
             } else {

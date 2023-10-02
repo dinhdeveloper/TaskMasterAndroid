@@ -63,7 +63,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             if (checkValidate()) {
                 viewModel.loginUser(
                     viewBinding.edtUsername.text.toString().trim(),
-                    viewBinding.edtPassword.text.toString().trim()
+                    viewBinding.edtPassword.text.toString().trim(),
+                    AndroidUtils.getAndroidDeviceId(requireContext()),
+                    AndroidUtils.getDeviceName()
                 )
 
                 viewModel.dataLogin.observe(viewLifecycleOwner) { uiState ->

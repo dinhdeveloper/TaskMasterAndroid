@@ -14,7 +14,7 @@ import com.elogictics.taskmaster.utils.ApiResponse
 import okhttp3.MultipartBody
 
 interface ApiHelper {
-    suspend fun loginUser(userName: String, passWord: String): ApiResponse<Any>
+    suspend fun loginUser(userName: String, passWord: String, deviceId : String, deviceName : String): ApiResponse<Any>
     suspend fun saveFirebaseToken(firebaseToken: String, deviceId: String?, deviceName: String?): ApiResponse<Any>
     suspend fun getListJobType(): ApiResponse<ListJobTypeResponse>
     suspend fun getListEmployeeNotById(id: Int): ApiResponse<ListEmployeeResponse>
