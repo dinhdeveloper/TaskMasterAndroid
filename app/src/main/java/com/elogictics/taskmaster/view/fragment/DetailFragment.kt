@@ -57,8 +57,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private var nv2Old: Int = -1
     private var nv3Old: Int = -1
     private var uuTienIdSelected: Int = -1
-    private var amountPaidEmp: Long? = 0
-    private var totalMoney: Long? = 0
+    private var amountPaidEmp: Double? = 0.0
+    private var totalMoney: Double? = 0.0
 
     private var nvSelectedNew: Int = -1
     private var bottomSheetAddImage: BottomSheetAddVideo? = null
@@ -132,7 +132,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                             viewBinding.layoutChuyenKhoan.background =
                                 context?.let { ContextCompat.getDrawable(it, R.drawable.bg_while) }
 
-                            amountPaidEmp = 0
+                            amountPaidEmp = 0.0
                             edtNVUng.isEnabled = false
                         }
 
@@ -387,7 +387,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                     totalMoney = AndroidUtils.getMoneyRealValue(viewBinding.tvPrice.text.toString().trim())
                 }
                 if (viewBinding.edtNVUng.money.toString().trim().isNotEmpty()) {
-                    amountPaidEmp = viewBinding.edtNVUng.money.toString().trim().toLong()
+                    amountPaidEmp = viewBinding.edtNVUng.money.toString().trim().toDouble()
                 }
                 if (viewBinding.edtNVUng.text.toString().isNotEmpty()){
 
@@ -439,7 +439,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 totalMoney = AndroidUtils.getMoneyRealValue(tvPrice.text.toString().trim())
             }
             if (edtNVUng.money.toString().trim().isNotEmpty()) {
-                amountPaidEmp = edtNVUng.money.toString().trim().toLong()
+                amountPaidEmp = edtNVUng.money.toString().trim().toDouble()
             }
 
             if (radioChuyenKhoan.isChecked) {
@@ -628,6 +628,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             is UiState.Success -> {
                 LoadingScreen.hideLoading()
                 val listMaterialLiveData = uiState.data.data.listItem
+                dataListJob.clear()
                 for (data in listMaterialLiveData) {
                     dataListJob.add(
                         ItemViewLocation(
@@ -701,7 +702,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                         viewBinding.tvGhiChu.visibility = View.VISIBLE
                         viewBinding.edtGhiChu.visibility = View.GONE
                         viewBinding.tvGhiChu.text = dataResponse!!.noteJob
-                        if (dataResponse!!.amountPaidEmp != 0L) {
+                        if (dataResponse!!.amountPaidEmp != 0.0) {
                             viewBinding.edtNVUng.visibility = View.GONE
                             viewBinding.tvNVUng.visibility = View.VISIBLE
                             viewBinding.tvNVUng.text = AndroidUtils.formatMoneyCard("${dataResponse!!.amountPaidEmp}","VNĐ")
@@ -729,7 +730,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             tvNamePoint.text = dataResponse.namePoint
             tvNameAddress.text = dataResponse.numAddress
 
-            if (dataResponse.amountPaidEmp != 0L) {
+            if (dataResponse.amountPaidEmp != 0.0) {
                 edtNVUng.setText(AndroidUtils.formatMoneyCard(dataResponse.amountPaidEmp.toString()))
             }
 
@@ -812,7 +813,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 }
             }
 
-            var moneyTemp: Long = 0
+            var moneyTemp: Double = 0.0
             if (dataResponse.jobMaterial.isNotEmpty()) {
                 for (data in dataResponse.jobMaterial) {
                     moneyTemp += (data.price * data.weight)

@@ -5,7 +5,7 @@ data class DataUpdateJobRequest(
     private var totalMoney: String?,
     private var paymentMethod: Int,
     private var paymentStateId: Int,
-    private var amountPaidEmp: Long?,
+    private var amountPaidEmp: Double?,
     private var priority: Int,
     private var empOldId: Int,
     private var empNewId: Int,

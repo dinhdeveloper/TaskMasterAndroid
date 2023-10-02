@@ -128,12 +128,12 @@ object AndroidUtils {
     }
 
     @JvmStatic
-    fun getMoneyRealValue(str: String?): Long {
-        if (str == null || str == "") return 0L
+    fun getMoneyRealValue(str: String?): Double {
+        if (str == null || str == "") return 0.0
         return try {
-            decodeMoneyStr(str).toLong()
+            decodeMoneyStr(str).toDouble()
         } catch (ignore: java.lang.Exception) {
-            0L
+            0.0
         }
     }
 

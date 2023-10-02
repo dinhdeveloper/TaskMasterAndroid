@@ -90,14 +90,14 @@ class MainFragment  : BaseFragment<FragmentMainBinding>() {
                 val errorMessage = uiState.message
                 Log.e(MainActivity.TAG_ERROR, "updateTokenFirebaseLiveData: $errorMessage")
                 LoadingScreen.hideLoading()
-                if (errorMessage == "401"){
-                    DialogFactory.showDialogDefaultNotCancelAndClick(context,"Phiên đăng nhập đã hết hạn"){
-                        AndroidUtils.logout()
-                        findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
-                    }
-                }else{
-                    DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
-                }
+//                if (errorMessage == "401"){
+//                    DialogFactory.showDialogDefaultNotCancelAndClick(context,"Phiên đăng nhập đã hết hạn"){
+//                        AndroidUtils.logout()
+//                        findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+//                    }
+//                }else{
+//                    DialogFactory.showDialogDefaultNotCancel(context, "$errorMessage")
+//                }
             }
 
             UiState.Loading -> {}

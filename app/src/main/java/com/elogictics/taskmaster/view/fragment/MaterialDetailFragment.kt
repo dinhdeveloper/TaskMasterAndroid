@@ -135,7 +135,7 @@ class MaterialDetailFragment : BaseFragment<FragmentMaterialDetailBinding>(){
                         ItemViewLocation(
                             ProvinceData(
                                 data.mate_id,
-                                "${data.mate_id}",
+                                "${data.unitPrice}",
                                 "${data.name}"
                             )
                         )

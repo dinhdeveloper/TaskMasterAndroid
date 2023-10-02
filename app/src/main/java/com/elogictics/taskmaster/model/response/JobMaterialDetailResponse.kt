@@ -5,8 +5,8 @@ import java.io.Serializable
 data class JobMaterialDetailResponse(
     val jobId: Int,
     val mateId: Int,
-    val price: Long,
-    val weight: Int,
-    val weightToCus: Int,
+    val price: Double,
+    val weight: Double,
+    val weightToCus: Double,
     val name: String
 ):Serializable

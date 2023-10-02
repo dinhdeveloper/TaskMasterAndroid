@@ -11,7 +11,7 @@ data class JobDetailsResponse(
     val priority: Int,
     val noteJob: String,
     val jobStateCode: String,
-    val amountPaidEmp: Long,
+    val amountPaidEmp: Double,
     val paymentMethod: Int,
     val paymentStateId: Int,
     val jobMedia : List<JobMediaDetailResponse>,

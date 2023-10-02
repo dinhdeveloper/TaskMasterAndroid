@@ -7,7 +7,7 @@ data class UpdateStateWeightedRequest (
     var totalMoney: String?,
     var paymentMethod: Int,
     var paymentStateId: Int,
-    var amountPaidEmp: Long?,
+    var amountPaidEmp: Double?,
     var priority: Int,
     var empOldId: Int,
     var empNewId: Int,
