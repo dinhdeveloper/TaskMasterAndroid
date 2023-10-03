@@ -39,7 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
         val jobIdNotify = intent.getStringExtra("OPEN_FRAGMENT")
         val jobTypeNotify = intent.getStringExtra("INFO_FRAGMENT")
         //val rememberLogin = SharedPreferencesManager.instance.getBoolean(SharedPreferencesManager.IS_LOGGED_IN,false)
-        if (jobIdNotify != null && jobTypeNotify != "INFO") {
+        if (jobIdNotify != null) {
             if (rememberLoginLocal){
                 navController.navigate(R.id.mainFragment)
             } else{

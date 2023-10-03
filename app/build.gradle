@@ -28,7 +28,7 @@ android {
             dimension "environment"
             applicationId "com.elogictics.taskmaster.dev"
             versionCode 1
-            buildConfigField "String", "API_URL", "\"http://61.28.238.242:8081/api/\""
+            buildConfigField "String", "API_URL", "\"http://61.28.238.242:8080/api/\""
             buildConfigField "String", "AUTHOR_FILE_PROVIDER", "\"com.elogictics.taskmaster.dev.FileProvider\""
         }
         prod {
