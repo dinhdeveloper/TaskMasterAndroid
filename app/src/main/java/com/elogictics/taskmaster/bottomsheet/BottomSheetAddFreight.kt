@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.elogictics.taskmaster.R
+import com.elogictics.taskmaster.common.widgets.edittext.MoneyEditText
 import com.elogictics.taskmaster.common.widgets.elasticviews.ElasticLayout
 import com.elogictics.taskmaster.common.widgets.spinner.ItemViewLocation
 import com.elogictics.taskmaster.common.widgets.spinner.LocationSpinner
@@ -36,7 +37,7 @@ class BottomSheetAddFreight(
     private lateinit var itemSelectTask: ProvinceSpinner
     private lateinit var edtKhoiLuong: TextInputEditText
     private lateinit var edtKhoiLuongKH: TextInputEditText
-    private lateinit var edtDonGia: TextView
+    private lateinit var edtDonGia: MoneyEditText
     private lateinit var btnSubmit: ElasticLayout
     private lateinit var tvLabelVL: MaterialTextView
 
@@ -75,7 +76,7 @@ class BottomSheetAddFreight(
                 item: ItemViewLocation<ProvinceData>?
             ) {
                 jobTypeIdSelected = item?.data?.id!!
-                edtDonGia.text = formatMoneyCard("${item.data?.code}")
+                edtDonGia.setText(formatMoneyCard("${item.data?.code}"))
             }
         }
 

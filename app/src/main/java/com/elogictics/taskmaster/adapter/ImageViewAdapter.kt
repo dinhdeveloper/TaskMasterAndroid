@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +18,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.elogictics.taskmaster.R
 import com.elogictics.taskmaster.databinding.CustomItemImageViewBinding
 import com.elogictics.taskmaster.model.response.JobMediaDetailResponse
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+
 
 
 class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<ImageViewAdapter.ViewHolder>() {
 
     private var listUrl: MutableList<JobMediaDetailResponse>? = null
     private var clickListener: OnClickListener? = null
-
+    private lateinit var player: ExoPlayer
     interface OnClickListener {
         fun onItemClick(position: Int, media: JobMediaDetailResponse)
     }
@@ -62,46 +66,42 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
         )
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "Range")
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-
-//        val screenWidth = mContext.resources.displayMetrics.widthPixels
-//        val imageWidth = screenWidth / 2 // Chia cho 2 để có chiều rộng của ImageView
-//        val layoutParams = holder.binding.imvView.layoutParams
-//        layoutParams.width = imageWidth
-//        layoutParams.height = imageWidth // Đảm bảo ImageView là hình vuông
-//        holder.binding.imvView.layoutParams = layoutParams
-
         val item = differ.currentList[position]
 
         val options: RequestOptions = RequestOptions()
             .centerCrop()
             .placeholder(R.drawable.multi_color_progress)
-            .error(R.drawable.hinh_tron_1)
+            .error(R.drawable.close_red)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .priority(Priority.HIGH)
             .dontAnimate()
             .dontTransform()
 
         if (item.urlHard.endsWith(".jpg", true) || item.urlHard.endsWith(".png", true) || item.urlHard.endsWith(".jpeg", true)) {
+
+            holder.binding.playerView.visibility = View.GONE
+            holder.binding.imvView.visibility = View.VISIBLE
+
             Glide.with(mContext)
                 .load(item.urlHard)
                 .apply(options)
                 .into(holder.binding.imvView)
-            holder.binding.imgPlay.visibility = View.GONE
-        }else{
-            Glide.with(mContext)
-                .load(item.urlHard)
-                .diskCacheStrategy(DiskCacheStrategy.ALL) // Lưu vào cache
-                .apply(options)
-                .into(holder.binding.imvView)
-            holder.binding.imgPlay.visibility = View.VISIBLE
         }
-        //        else if (mediaPath.endsWith(".mp4", true)) {
-//            // Hiển thị video bằng VideoView
-//            holder.binding.imvView.setVideoPath(file.absolutePath)
-//            holder.binding.videoView.start()
-//        }
+        else if (item.urlHard.endsWith(".mp4", true)) {
+            // Hiển thị video bằng VideoView
+            holder.binding.playerView.visibility = View.VISIBLE
+            holder.binding.imvView.visibility = View.GONE
+
+            player = ExoPlayer.Builder(mContext).build()
+            holder.binding.playerView.player = player
+
+            val mediaItem = MediaItem.fromUri(Uri.parse(item.urlHard))
+            player.setMediaItem(mediaItem)
+            player.prepare()
+            player.play()
+        }
 
 
         holder.binding.closeItem.setOnClickListener {
@@ -109,13 +109,6 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
         }
 
     }
-
-    private fun createVideoThumbnail(videoUrl: String): Bitmap? {
-        val retriever = MediaMetadataRetriever()
-        retriever.setDataSource(videoUrl)
-        return retriever.getFrameAtTime()
-    }
-
     override fun getItemCount(): Int {
         return listUrl?.size!!
     }
@@ -125,6 +118,17 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
             listUrl?.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, itemCount - position)
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        releasePlayer()
+    }
+
+    private fun releasePlayer() {
+        if (player != null){
+            player.release()
         }
     }
 }

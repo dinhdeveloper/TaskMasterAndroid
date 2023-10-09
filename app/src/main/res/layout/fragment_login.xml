@@ -64,6 +64,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtUsername"
+                    android:text="master"
                     android:layout_width="match_parent"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/font18_sp"
@@ -98,6 +99,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtPassword"
+                    android:text="123"
                     android:layout_width="match_parent"
                     android:drawableEnd="@drawable/eye_off"
                     android:textSize="@dimen/font18_sp"
