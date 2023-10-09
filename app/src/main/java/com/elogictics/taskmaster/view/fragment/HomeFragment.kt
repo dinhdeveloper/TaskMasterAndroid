@@ -25,7 +25,7 @@ import com.elogictics.taskmaster.utils.UiState
 import com.elogictics.taskmaster.utils.eventbus.AppEventBus
 import com.elogictics.taskmaster.utils.observe
 import com.elogictics.taskmaster.view.activity.MainActivity
-import com.elogictics.taskmaster.viewmodel.AddTaskViewModel
+import com.elogictics.taskmaster.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private var itemSearch: SearchRequest? = null
     private var dialogFragment: FullScreenDialogFragment? = null
     private var dataSearch: List<SearchResponse>? = null
-    private val addTaskViewModel: AddTaskViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
     private val dataListCollectPoint = ArrayList<ItemViewLocation<ProvinceData>>()
 
     override val layoutResourceId: Int
@@ -51,15 +51,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             val data = result.getString(BUNDLE_KEY) as String
             if (data.isNotEmpty()){
                 itemSearch?.let {
-                        it1 -> addTaskViewModel.search(it1)
+                        it1 -> searchViewModel.search(it1)
                 }
             }
         }
     }
     override fun onViewCreated() {
-        addTaskViewModel.getListCollectPoint()
-        observe(addTaskViewModel.dataListCollectPoint, ::onGetListCollectPoint)
-        observe(addTaskViewModel.dataSearch, ::dataSearchLive)
+        searchViewModel.getListCollectPoint()
+        observe(searchViewModel.dataListCollectPoint, ::onGetListCollectPoint)
+        observe(searchViewModel.dataSearch, ::dataSearchLive)
         viewBinding.layoutToolBar.imgHome.setImageResource(R.drawable.icon_search_while)
         actionView()
     }
@@ -106,7 +106,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun showDialogSearch(listCollectPoint: ArrayList<ItemViewLocation<ProvinceData>>) {
         dialogFragment = FullScreenDialogFragment(){
             itemSearch = it
-            addTaskViewModel.search(it)
+            searchViewModel.search(it)
         }
         dialogFragment?.setData(listCollectPoint)
         activity?.supportFragmentManager?.let { dialogFragment?.show(it, "FullScreenDialog") }

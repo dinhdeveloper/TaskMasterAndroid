@@ -18,6 +18,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -106,70 +107,6 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
     val combinedData: LiveData<MutableList<SuggestionNoteModel>>
         get() = _combinedData
 
-    init {
-        viewModelScope.launch {
-            combineAndCreateList().collect { combinedList ->
-                _combinedData.value = combinedList
-            }
-        }
-
-        viewModelScope.launch {
-            getListCollectPoint().collect { combinedList ->
-                _dataListCollectPoint.value = combinedList
-            }
-        }
-
-        viewModelScope.launch {
-            getListEmployee().collect { combinedList ->
-                _dataEmployee.value = combinedList
-            }
-        }
-
-    }
-    private fun combineAndCreateList(): Flow<MutableList<SuggestionNoteModel>> = combine(
-        getListEmployee(),
-        getListCollectPoint()
-    ) { employeeResult, collectPointResult ->
-        // Xử lý kết quả từ cả hai Flow ở đây và tạo MutableList<SuggestionModel>
-        val combinedList = mutableListOf<SuggestionNoteModel>()
-
-        if (employeeResult is UiState.Success) {
-            if (employeeResult.data.data != null){
-                val employeeData = employeeResult.data
-                for (data in employeeData.data.listItem){
-                    val model = SuggestionNoteModel(
-                        suggestionIdCounter++,
-                        data.empId,
-                        data.name,
-                        data.numAddress.lowercase()
-                    )
-                    combinedList.add(model)
-                }
-            }
-        }
-
-        if (collectPointResult is UiState.Success) {
-            if (collectPointResult.data.data != null){
-                val collectPointData = collectPointResult.data
-                for (data in collectPointData.data.listItem){
-                    val model = SuggestionNoteModel(
-                        suggestionIdCounter++,
-                        data.empId,
-                        data.name,
-                        data.numAddress.lowercase()
-                    )
-                    combinedList.add(model)
-                }
-            }
-        }
-
-        val sortedList = combinedList.sortedBy { it.name }
-
-        return@combine sortedList.toMutableList()
-    }
-
-
-
     private val _dataAddCollectPoint = MutableLiveData<UiState<Any>>()
     val dataAddCollectPoint: LiveData<UiState<Any>>
         get() = _dataAddCollectPoint
@@ -235,22 +172,81 @@ class AddTaskViewModel @Inject constructor(private val apiHelperImpl: ApiHelperI
         }
     }
 
-    private val _dataSearch = MutableLiveData<UiState<ListJobSearchResponse>>()
-    val dataSearch : LiveData<UiState<ListJobSearchResponse>>
-        get() = _dataSearch
-    fun search(searchRequest: SearchRequest) {
+
+    private var employeeDataResult: UiState<ListEmployeeResponse>? = null
+    private var collectPointDataResult: UiState<ListCollectPointResponse>? = null
+
+    init {
         viewModelScope.launch {
-            _dataSearch.value = UiState.Loading
-            try {
-                val response = apiHelperImpl.search(searchRequest)
-                if (response.result_code == 0) {
-                    _dataSearch.value = UiState.Success(response)
-                } else {
-                    _dataSearch.value = UiState.Error(response.data.toString())
+            // Kiểm tra nếu collectPointDataResult đã được gọi trước đó, không cần gọi lại getListCollectPoint
+            if (collectPointDataResult == null) {
+                getListCollectPoint().collect { combinedList ->
+                    _dataListCollectPoint.value = combinedList
+                    if (combinedList is UiState.Success) {
+                        collectPointDataResult = combinedList
+                    }
                 }
-            } catch (e: Exception) {
-                _dataSearch.value = UiState.Error("Error message: ${e.message}")
             }
         }
+
+        viewModelScope.launch {
+            // Kiểm tra nếu employeeDataResult đã được gọi trước đó, không cần gọi lại getListEmployee
+            if (employeeDataResult == null) {
+                getListEmployee().collect { combinedList ->
+                    _dataEmployee.value = combinedList
+                    if (combinedList is UiState.Success) {
+                        employeeDataResult = combinedList
+                    }
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            combineAndCreateList().collect { combinedList ->
+                _combinedData.value = combinedList
+            }
+        }
+    }
+
+    private fun combineAndCreateList(): Flow<MutableList<SuggestionNoteModel>> = combine(
+        flowOf(employeeDataResult),
+        flowOf(collectPointDataResult)
+    ) { employeeResult, collectPointResult ->
+        // Xử lý kết quả từ cả hai Flow ở đây và tạo MutableList<SuggestionModel>
+        val combinedList = mutableListOf<SuggestionNoteModel>()
+
+        if (employeeResult is UiState.Success) {
+            if (employeeResult.data.data != null){
+                val employeeData = employeeResult.data
+                for (data in employeeData.data.listItem){
+                    val model = SuggestionNoteModel(
+                        suggestionIdCounter++,
+                        data.empId,
+                        data.name,
+                        data.numAddress.lowercase()
+                    )
+                    combinedList.add(model)
+                }
+            }
+        }
+
+        if (collectPointResult is UiState.Success) {
+            if (collectPointResult.data.data != null){
+                val collectPointData = collectPointResult.data
+                for (data in collectPointData.data.listItem){
+                    val model = SuggestionNoteModel(
+                        suggestionIdCounter++,
+                        data.empId,
+                        data.name,
+                        data.numAddress.lowercase()
+                    )
+                    combinedList.add(model)
+                }
+            }
+        }
+
+        val sortedList = combinedList.sortedBy { it.name }
+
+        return@combine sortedList.toMutableList()
     }
 }

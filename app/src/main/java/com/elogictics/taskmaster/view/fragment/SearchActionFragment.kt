@@ -31,7 +31,7 @@ import com.elogictics.taskmaster.utils.observe
 import com.elogictics.taskmaster.view.activity.MainActivity
 import com.elogictics.taskmaster.view.fragment.HomeFragment.Companion.BUNDLE_KEY
 import com.elogictics.taskmaster.view.fragment.HomeFragment.Companion.REQUEST_KEY
-import com.elogictics.taskmaster.viewmodel.AddTaskViewModel
+import com.elogictics.taskmaster.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -46,7 +46,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
     private var empStatus: Int = 1
     private var statusStatus: Int = 1
 
-    private val addTaskViewModel: AddTaskViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
     private val dataListCollectPoint = ArrayList<ItemViewLocation<ProvinceData>>()
 
     private var secondDateFormat: String? = null
@@ -76,9 +76,9 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
 
         viewBinding.btnSelectCollectPoint.setOnItemSelectedListener(mOnSelectedCollectPointListener)
 
-        addTaskViewModel.getListCollectPoint()
-        observe(addTaskViewModel.dataListCollectPoint, ::onGetListCollectPoint)
-        observe(addTaskViewModel.dataSearch, ::dataSearchLive)
+        searchViewModel.getListCollectPoint()
+        observe(searchViewModel.dataListCollectPoint, ::onGetListCollectPoint)
+        observe(searchViewModel.dataSearch, ::dataSearchLive)
     }
 
     private val mOnSelectedCollectPointListener =
@@ -203,7 +203,7 @@ class SearchActionFragment : BaseFragment<FragmentSearchActionBinding>() {
                     collectPoint = collectPoint
                 )
 
-                addTaskViewModel.search(searchRequest)
+                searchViewModel.search(searchRequest)
             }
         }
     }
