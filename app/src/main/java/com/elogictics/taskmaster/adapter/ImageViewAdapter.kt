@@ -120,15 +120,4 @@ class ImageViewAdapter(private val mContext: Context) : RecyclerView.Adapter<Ima
             notifyItemRangeChanged(position, itemCount - position)
         }
     }
-
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        releasePlayer()
-    }
-
-    private fun releasePlayer() {
-        if (player != null){
-            player.release()
-        }
-    }
 }
