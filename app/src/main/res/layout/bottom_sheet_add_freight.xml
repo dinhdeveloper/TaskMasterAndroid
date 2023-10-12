@@ -14,7 +14,7 @@
         android:paddingLeft="@dimen/horizontal_margin"
         android:paddingTop="@dimen/vertical_margin"
         android:paddingRight="@dimen/horizontal_margin"
-        android:paddingBottom="@dimen/vertical_margin">
+        android:paddingBottom="20dp">
 
 
         <ImageView
@@ -147,6 +147,7 @@
                 android:background="@color/color_line" />
 
             <LinearLayout
+                android:id="@+id/layoutKLBK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -179,6 +180,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/lineKLBK"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:layout_marginHorizontal="10dp"
@@ -220,7 +222,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="13dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="25dp"
                 android:background="@color/md_blue_200"
                 app:layout_cornerRadius="5dp"
                 app:layout_duration="500"

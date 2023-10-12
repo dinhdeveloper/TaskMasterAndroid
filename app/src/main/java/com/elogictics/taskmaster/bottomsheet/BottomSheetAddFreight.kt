@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.elogictics.taskmaster.R
@@ -19,6 +20,7 @@ import com.elogictics.taskmaster.common.widgets.spinner.ProvinceSpinner
 import com.elogictics.taskmaster.model.request.AddMaterialRequest
 import com.elogictics.taskmaster.utils.AndroidUtils.formatMoneyCard
 import com.elogictics.taskmaster.utils.AndroidUtils.getMoneyRealValue
+import com.elogictics.taskmaster.utils.SharedPreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
@@ -40,6 +42,8 @@ class BottomSheetAddFreight(
     private lateinit var edtDonGia: MoneyEditText
     private lateinit var btnSubmit: ElasticLayout
     private lateinit var tvLabelVL: MaterialTextView
+    private lateinit var layoutKLBK: LinearLayout
+    private lateinit var lineKLBK: View
 
     private var jobTypeIdSelected = -1
 
@@ -63,9 +67,21 @@ class BottomSheetAddFreight(
         bottomSheetBehavior?.isDraggable = false
 
         findViewByID(modalSheetView)
+        checkPermissionRole()
         actionView()
         itemSelectTask.setData(dataListJob)
         itemSelectTask.setOnItemSelectedListener(mOnSelectedTaskListener)
+    }
+
+    private fun checkPermissionRole() {
+        val ROLE_ACCESS = SharedPreferencesManager.instance.getString(SharedPreferencesManager.ROLE_CODE, null)
+        if (ROLE_ACCESS == "MASTER" || ROLE_ACCESS == "ADMIN" || ROLE_ACCESS == "LEADER"){
+            layoutKLBK.visibility = View.VISIBLE
+            lineKLBK.visibility = View.VISIBLE
+        }else{
+            layoutKLBK.visibility = View.GONE
+            lineKLBK.visibility = View.GONE
+        }
     }
 
     private val mOnSelectedTaskListener =
@@ -115,6 +131,8 @@ class BottomSheetAddFreight(
         edtDonGia = modalSheetView.findViewById(R.id.edtDonGia)
         btnSubmit = modalSheetView.findViewById(R.id.btnSubmit)
         tvLabelVL = modalSheetView.findViewById(R.id.tvLabelVL)
+        layoutKLBK = modalSheetView.findViewById(R.id.layoutKLBK)
+        lineKLBK = modalSheetView.findViewById(R.id.lineKLBK)
     }
 
     fun deleteDataInsert() {
