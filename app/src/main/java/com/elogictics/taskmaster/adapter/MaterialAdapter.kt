@@ -3,6 +3,7 @@ package com.elogictics.taskmaster.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elogictics.taskmaster.databinding.CustomItemMaterialDetailBinding
 import com.elogictics.taskmaster.model.response.JobMaterialDetailResponse
 import com.elogictics.taskmaster.utils.AndroidUtils
+import com.elogictics.taskmaster.utils.SharedPreferencesManager
 
 class MaterialAdapter(private val mContext: Context) : RecyclerView.Adapter<MaterialAdapter.ViewHolder>() {
 
@@ -63,6 +65,15 @@ class MaterialAdapter(private val mContext: Context) : RecyclerView.Adapter<Mate
             tvKL.text = "${item.weight}"
             tvKLBK.text = "${item.weightToCus}"
             tvPrice.text =  AndroidUtils.formatMoneyCard("${item.price}")
+        }
+
+        val ROLE_ACCESS = SharedPreferencesManager.instance.getString(SharedPreferencesManager.ROLE_CODE, null)
+        if (ROLE_ACCESS == "MASTER" || ROLE_ACCESS == "ADMIN" || ROLE_ACCESS == "LEADER"){
+            holder.binding.layoutKLBK.visibility = View.VISIBLE
+            holder.binding.lineKLBK.visibility = View.VISIBLE
+        }else{
+            holder.binding.layoutKLBK.visibility = View.GONE
+            holder.binding.lineKLBK.visibility = View.GONE
         }
 
         holder.binding.closeItem.setOnClickListener {

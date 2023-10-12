@@ -1,0 +1,7 @@
+
+Mkotlin:S1172œ"4Use "_" instead of this unused lambda parameter "v".(­ëÆã
+okotlin:S37765"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(µƒû‰ûÿÿÿÿ
+kkotlin:S117"SRename this local variable to match the regular expression ^`?[_a-z][a-zA-Z0-9]*`?$(óÈëª
+Qkotlin:S1144ò"3Remove this unused private "checkAutoLogin" method.(˜÷ºøÿÿÿÿ
+Gkotlin:S1066".Merge this "if" statement with the nested one.(Õ÷Ø
+Zkotlin:S6510Á"AMove "return" statements from all branches before "if" statement.(‘óÎ
